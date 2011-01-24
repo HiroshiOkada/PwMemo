@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+  xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="fill_parent"
+	android:layout_height="fill_parent"
+	android:padding="10dp"
+	>
+<ImageView
+	android:clickable="true"
+	android:id="@+id/LockImageView"
+	android:layout_width="40dp"
+	android:layout_height="40dp"
+	android:background="@drawable/keylock"
+	android:layout_alignParentTop="true"
+	android:layout_marginBottom="10dp"
+	/>	
+<EditText
+	android:hint="Please put the title."
+	android:id="@+id/TitleEditText"
+	android:layout_below="@id/LockImageView"
+	android:layout_alignLeft="@id/LockImageView"
+	android:layout_width="fill_parent"
+	android:layout_height="wrap_content"
+	android:layout_marginBottom="5dp"
+	/>
+<EditText
+	android:hint="Please put the id"
+	android:id="@+id/IdEditText"
+	android:layout_below="@id/TitleEditText"
+	android:layout_alignLeft="@id/TitleEditText"
+	android:layout_width="fill_parent"
+	android:layout_height="wrap_content"
+	android:layout_marginBottom="5dp"
+	/>
+<com.toycode.idpw.CopyablePasswordEditText
+	android:hint="Please put the password."
+	android:id="@+id/PasswordEditText"
+	android:layout_below="@id/IdEditText"
+	android:layout_alignLeft="@id/IdEditText"
+	android:layout_width="fill_parent"
+	android:layout_height="wrap_content"
+	android:layout_marginBottom="5dp"
+	/>
+<EditText
+	android:hint="Please put the memo."
+	android:id="@+id/MemoEditText"
+	android:layout_below="@id/PasswordEditText"
+	android:layout_alignLeft="@id/PasswordEditText"
+	android:layout_alignParentBottom="true"
+	android:layout_width="fill_parent"
+	android:layout_height="wrap_content"
+	/>
+</RelativeLayout>
