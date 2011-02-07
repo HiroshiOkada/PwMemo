@@ -24,8 +24,8 @@
 	android:layout_marginBottom="5dp"
 	/>
 <EditText
-	android:hint="Please put the id"
-	android:id="@+id/IdEditText"
+	android:hint="Please put the User ID"
+	android:id="@+id/UserEditText"
 	android:layout_below="@id/TitleEditText"
 	android:layout_alignLeft="@id/TitleEditText"
 	android:layout_width="fill_parent"
@@ -35,19 +35,28 @@
 <com.toycode.idpw.CopyablePasswordEditText
 	android:hint="Please put the password."
 	android:id="@+id/PasswordEditText"
-	android:layout_below="@id/IdEditText"
-	android:layout_alignLeft="@id/IdEditText"
+	android:layout_below="@id/UserEditText"
+	android:layout_alignLeft="@id/UserEditText"
 	android:layout_width="fill_parent"
 	android:layout_height="wrap_content"
 	android:layout_marginBottom="5dp"
 	/>
+<Button
+	android:id="@+id/SaveButton"
+	android:text="Save"
+	android:layout_width="wrap_content"
+	android:layout_height="wrap_content"
+	android:layout_alignParentBottom="true"
+	android:layout_alignRight="@id/PasswordEditText"
+	/>
 <EditText
 	android:hint="Please put the memo."
 	android:id="@+id/MemoEditText"
+	android:layout_above="@id/SaveButton"
 	android:layout_below="@id/PasswordEditText"
-	android:layout_alignLeft="@id/PasswordEditText"
-	android:layout_alignParentBottom="true"
 	android:layout_width="fill_parent"
+	android:layout_alignLeft="@id/PasswordEditText"
+	android:gravity="top|left"
 	android:layout_height="wrap_content"
 	/>
 </RelativeLayout>

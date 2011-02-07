@@ -5,7 +5,6 @@ import android.graphics.Typeface;
 import android.text.ClipboardManager;
 import android.text.method.PasswordTransformationMethod;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.ContextMenu;
 import android.view.MenuItem;
 import android.widget.EditText;

@@ -1,95 +1,83 @@
 package com.toycode.idpw;
 
-import java.util.ArrayList;
+import java.util.Date;
 
 import android.app.ListActivity;
-import android.content.Context;
+import android.content.ContentValues;
 import android.content.Intent;
-import android.graphics.Color;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.View.OnClickListener;
-import android.widget.AbsListView;
-import android.widget.BaseAdapter;
+import android.widget.AdapterView;
 import android.widget.Button;
-import android.widget.Toast;
-import android.widget.AbsListView.LayoutParams;
+import android.widget.ListView;
+import android.widget.SimpleCursorAdapter;
+import android.widget.AdapterView.OnItemClickListener;
 
-public class IdPwList extends ListActivity implements OnClickListener {
-	
-	IdPwAdapter mAdapter;
-	
+public class IdPwList extends ListActivity implements OnClickListener,
+		OnItemClickListener {
+
+	SimpleCursorAdapter mAdapter;
+	SQLiteDatabase mDb;
+	private static final int REQUEST_EDIT = 1;
+	// private static final int REQUEST_NEW = 2;
+
 	@Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.list);
-        getListView().setEmptyView(findViewById(R.id.EmptyTextView));
-        mAdapter = new IdPwAdapter(this);
-        setListAdapter(mAdapter);
-        ((Button)findViewById(R.id.AddButton)).setOnClickListener(this);
-    }
-	
-	public class IdPwAdapter extends BaseAdapter {
+	public void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.list);
+		ListView listView = getListView();
+		listView.setEmptyView(findViewById(R.id.EmptyTextView));
+		listView.setOnItemClickListener(this);
 
-		private ArrayList<String> mTitles = new ArrayList<String>();
-		private Context mContext;
-		
-		public IdPwAdapter(Context context) {
-			mContext = context;
-		}
+		mDb = (new IdPwDbOpenHelper(this)).getReadableDatabase();
+		updateAdapter();
+		((Button) findViewById(R.id.AddButton)).setOnClickListener(this);
 
-		@Override
-		public int getCount() {
-			return mTitles.size();
-		}
+	}
 
-		@Override
-		public Object getItem(int position) {
-			return position;
-		}
-
-		@Override
-		public long getItemId(int position) {
-			return position;
-		}
-
-		@Override
-		public View getView(int position, View convertView, ViewGroup parent) {
-			Button button = new Button(mContext);
-			button.setText(mTitles.get(position));
-			button.setLayoutParams(new AbsListView.LayoutParams(
-					LayoutParams.FILL_PARENT,                                                      
-					LayoutParams.WRAP_CONTENT));  
-			button.setBackgroundColor(Color.TRANSPARENT);
-			button.setTextColor(Color.WHITE);
-			button.setOnClickListener(IdPwList.this);
-			return button;
-		}
-		
-		public void addItem(){
-			String title = "Untitled " + mTitles.size();
-			mTitles.add(title);
-			notifyDataSetChanged();
-		}
+	private void updateAdapter() {
+		final String[] COLUMNS = { Const.COLUMN.ID, Const.COLUMN.TITLE };
+		final String[] FROM = { Const.COLUMN.TITLE };
+		final int[] TO = { R.id.RowTitleTextView };
+		Cursor cursor = mDb.query(Const.TABLE.IDPW, COLUMNS, null, null, null,
+				null, Const.COLUMN.TITLE + " ASC");
+		mAdapter = new SimpleCursorAdapter(this, R.layout.list_row, cursor,
+				FROM, TO);
+		setListAdapter(mAdapter);
 	}
 
 	@Override
 	public void onClick(View v) {
-		if( v.getId() == R.id.AddButton){
-			mAdapter.addItem();
-		}else if( v.getClass() == Button.class){
-            Toast.makeText(this, ((Button)v).getText().toString(),  Toast.LENGTH_SHORT)
-            	 .show();
-            Intent i = new Intent(this,IdPwEdit.class);
-            i.putExtra("Title", ((Button)v).getText());
-            startActivityForResult(i, 0);
-        }
+		if (v.getId() == R.id.AddButton) {
+			ContentValues values = new ContentValues();
+			values.put(Const.COLUMN.TITLE, "Untitled "
+					+ (new Date()).toString());
+			mDb.insert(Const.TABLE.IDPW, null, values);
+			updateAdapter();
+		}
 	}
 
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		super.onActivityResult(requestCode, resultCode, data);
+		switch (requestCode) {
+		case REQUEST_EDIT:
+			if (resultCode == RESULT_OK) {
+				updateAdapter();
+			}
+			break;
+		}
+	}
+
+	@Override
+	public void onItemClick(AdapterView<?> parent, View view, int position,
+			long id) {
+		Intent i = new Intent(this, IdPwEdit.class);
+		i.putExtra(Const.COLUMN.ID, mAdapter.getItemId(position));
+		startActivityForResult(i, REQUEST_EDIT);
 	}
 
 }
