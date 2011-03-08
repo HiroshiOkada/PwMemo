@@ -3,4 +3,6 @@
     <string name="empty">No Data</string>
     <string name="app_name">IdPw</string>
 <string name="add">Add</string>
+<string name="input_masterpassword">Input master password</string>
+<string name="exit">Exit</string>
 </resources>

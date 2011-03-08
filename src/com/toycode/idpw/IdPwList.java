@@ -23,7 +23,8 @@ public class IdPwList extends ListActivity implements OnClickListener,
 	SQLiteDatabase mDb;
 	private static final int REQUEST_EDIT = 1;
 	// private static final int REQUEST_NEW = 2;
-
+	
+	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -35,6 +36,7 @@ public class IdPwList extends ListActivity implements OnClickListener,
 		mDb = (new IdPwDbOpenHelper(this)).getReadableDatabase();
 		updateAdapter();
 		((Button) findViewById(R.id.AddButton)).setOnClickListener(this);
+		((Button) findViewById(R.id.ExitButton)).setOnClickListener(this);
 
 	}
 
@@ -51,12 +53,18 @@ public class IdPwList extends ListActivity implements OnClickListener,
 
 	@Override
 	public void onClick(View v) {
-		if (v.getId() == R.id.AddButton) {
+		switch( v.getId()){
+		case R.id.AddButton:
 			ContentValues values = new ContentValues();
 			values.put(Const.COLUMN.TITLE, "Untitled "
 					+ (new Date()).toString());
 			mDb.insert(Const.TABLE.IDPW, null, values);
 			updateAdapter();
+			break;
+		case R.id.ExitButton:
+			PasswordManager.getInstance(this).unDecrypt();
+			finish();
+			break;
 		}
 	}
 

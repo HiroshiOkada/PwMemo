@@ -35,9 +35,10 @@ public class CopyablePasswordEditText extends EditText {
 	protected void onCreateContextMenu(ContextMenu menu) {
 		super.onCreateContextMenu(menu);
 		if( menu.size() == 0){
-			menu.setHeaderTitle("Copy Password");
+			menu.setHeaderTitle(android.R.string.copy);
 		}
-		menu.add(0, android.R.id.copy, 0, "Copy Password")
+		
+		menu.add(0, android.R.id.copy, 0, getContext().getString(android.R.string.copy))
 				.setOnMenuItemClickListener(
 						new MenuItem.OnMenuItemClickListener() {
 							public boolean onMenuItemClick(MenuItem item) {

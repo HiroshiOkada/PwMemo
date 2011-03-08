@@ -15,9 +15,7 @@ public class IdPwDbOpenHelper extends SQLiteOpenHelper {
 		db.execSQL( "create table " + Const.TABLE.IDPW + 
 				    " ( " + Const.COLUMN.ID + " integer primary key autoincrement, " +
 				            Const.COLUMN.TITLE + " text not null, " +
-				            Const.COLUMN.USER + " text, " +
-				            Const.COLUMN.PASSWORD + " text, " +
-				            Const.COLUMN.MEMO + " text);");
+				            Const.COLUMN.CRIPTDATA + " text);");
 	}
 
 	@Override
