@@ -120,7 +120,7 @@ public class OpenSSLAES128CBCCrypt {
 	}
 
 	/**
-	 * OpenSSl の EVP_BytesToKey(3) で count が 1 年場合の key と iv を求める
+	 * OpenSSl の EVP_BytesToKey(3) で count が 1 の場合の key と iv を求める
 	 * 
 	 * @param salt
 	 * @param data
