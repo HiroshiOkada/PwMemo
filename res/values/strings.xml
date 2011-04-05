@@ -5,4 +5,8 @@
 <string name="add">Add</string>
 <string name="input_masterpassword">Input master password</string>
 <string name="exit">Exit</string>
+<string name="define_master_password">Define a master password to protect your IdPw data. This password is used to encrypt and decrypt your data.</string>
+<string name="master_password">Master password</string>
+<string name="confirmation">Confirmation</string>
+<string name="ok">OK</string>
 </resources>

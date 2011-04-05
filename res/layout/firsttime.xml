@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  android:layout_width="fill_parent"
+  android:layout_height="fill_parent"
+  android:orientation="vertical"
+  android:id="@+id/MasterPasswordTextView">
+  <RelativeLayout
+      android:id="@+id/relativeLayout1"
+      android:layout_width="fill_parent"
+      android:layout_height="fill_parent"
+      android:layout_margin="10dp">
+      <TextView
+          android:id="@+id/DefinePasswordTextView"
+          android:layout_height="wrap_content"
+          android:text="@string/define_master_password"
+          android:layout_width="fill_parent"
+          android:layout_alignParentLeft="true"></TextView>
+      <TextView
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_below="@+id/DefinePasswordTextView"
+          android:layout_alignParentLeft="true"
+          android:text="@string/master_password"
+          android:layout_marginTop="10dp"
+          android:id="@+id/MasterPasswordTextView"></TextView>
+      <EditText
+          android:text=""
+          android:id="@+id/MasterPasswordEditText"
+          android:layout_height="wrap_content"
+          android:layout_below="@+id/MasterPasswordTextView"
+          android:layout_alignParentLeft="true"
+          android:layout_width="fill_parent"></EditText>
+      <TextView
+          android:layout_width="wrap_content"
+          android:id="@+id/ConfirmationTextView"
+          android:layout_height="wrap_content"
+          android:layout_below="@+id/MasterPasswordEditText"
+          android:layout_alignParentLeft="true"
+          android:text="@string/confirmation"
+          android:layout_marginTop="10dp"></TextView>
+      <EditText
+          android:text=""
+          android:id="@+id/ConfirmationEditText"
+          android:layout_height="wrap_content"
+          android:layout_below="@+id/ConfirmationTextView"
+          android:layout_alignParentLeft="true"
+          android:layout_width="fill_parent"></EditText>
+	  <Button android:layout_width="wrap_content"
+		  android:layout_alignParentBottom="true"
+          android:layout_alignParentRight="true"
+		  android:layout_height="wrap_content"
+		  android:text="@string/ok"
+		  android:id="@+id/OkButton"></Button>
+    </RelativeLayout>
+</LinearLayout>
