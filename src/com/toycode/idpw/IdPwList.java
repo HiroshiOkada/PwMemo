@@ -22,7 +22,7 @@ public class IdPwList extends ListActivity implements OnClickListener,
 	SimpleCursorAdapter mAdapter;
 	SQLiteDatabase mDb;
 	private static final int REQUEST_EDIT = 1;
-	// private static final int REQUEST_NEW = 2;
+	private static final int REQUEST_NEW = 2;
 	
 	
 	@Override
@@ -56,10 +56,12 @@ public class IdPwList extends ListActivity implements OnClickListener,
 		switch( v.getId()){
 		case R.id.AddButton:
 			ContentValues values = new ContentValues();
-			values.put(Const.COLUMN.TITLE, "Untitled "
-					+ (new Date()).toString());
-			mDb.insert(Const.TABLE.IDPW, null, values);
-			updateAdapter();
+			values.put(Const.COLUMN.TITLE, android.R.string.untitled);
+			long id = mDb.insert(Const.TABLE.IDPW, null, values);
+			Intent intent = new Intent(this, IdPwEdit.class);
+			intent.putExtra(Const.COLUMN.ID, id);
+			startActivityForResult(intent, REQUEST_NEW);
+			//updateAdapter();
 			break;
 		case R.id.ExitButton:
 			PasswordManager.getInstance(this).unDecrypt();
@@ -72,10 +74,13 @@ public class IdPwList extends ListActivity implements OnClickListener,
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		super.onActivityResult(requestCode, resultCode, data);
 		switch (requestCode) {
-		case REQUEST_EDIT:
+		case REQUEST_NEW:
 			if (resultCode == RESULT_OK) {
 				updateAdapter();
 			}
+			break;
+		case REQUEST_EDIT:
+			updateAdapter();
 			break;
 		}
 	}
