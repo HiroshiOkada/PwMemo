@@ -1,10 +1,8 @@
 package com.toycode.idpw;
 
 import java.security.SecureRandom;
-
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.util.Log;
 
 /**
  * マスター/メインパスワードマネージャー マスターパスワードとは、ユーザーが入力したパスワード
@@ -117,4 +115,5 @@ public class PasswordManager {
 			}
 		}
 	};
+
 }
