@@ -7,7 +7,9 @@ import android.content.SharedPreferences;
 import android.util.Log;
 
 /**
- * マスター/メインパスワードマネージャー
+ * マスター/メインパスワードマネージャー マスターパスワードとは、ユーザーが入力したパスワード
+ * メインパスワードは、起動時に作成され、データを暗号化するのに使用されるパスワード
+ * メインパスワードはマスターパスワードで暗号化されてプリファレンスに格納されている
  */
 public class PasswordManager {
 
@@ -27,65 +29,60 @@ public class PasswordManager {
 		}
 		return sInstance;
 	}
-	
+
 	/**
 	 * メインパスワードが存在するか調べる
+	 * 
 	 * @return
 	 */
 	public boolean isMainPasswordExist() {
-		Log.d("PasswordManager.isMainPasswordExist()", "<=" + Boolean.toString(mMainPasswordCrypted != null));
 		return mMainPasswordCrypted != null;
 	}
-	
+
 	/**
 	 * メインパスワードが解読済みか調べる
 	 */
 	public boolean isMainPasswordDecrypted() {
-		Log.d("PasswordManager.isMainPasswordDecrypted()", "<=" + Boolean.toString(mMainPasswordDecrypted != null));
 		return mMainPasswordDecrypted != null;
 	}
-	
+
 	/**
 	 * メインパスワードを解読する
+	 * 
 	 * @param masterPassword
 	 */
-	public byte [] decryptMainPassword(String masterPassword){
-		Log.d("PasswordManager.decryptMainPassword(" + masterPassword +")", "begin");
-
-		byte[] decrypted = OpenSSLAES128CBCCrypt.INSTANCE.decrypt(masterPassword
-				.getBytes(), mMainPasswordCrypted);
+	public byte[] decryptMainPassword(String masterPassword) {
+		byte[] decrypted = OpenSSLAES128CBCCrypt.INSTANCE.decrypt(
+				masterPassword.getBytes(), mMainPasswordCrypted);
 		if (decrypted == null) {
-			Log.d("PasswordManager.decryptMainPassword(" + masterPassword +")", "end <= null");
 			return null;
 		}
 		mMainPasswordDecrypted = decrypted;
-		Log.d("PasswordManager.decryptMainPassword(" + masterPassword +")", "end <="
-				+ BytesUtil.toHex(decrypted));
 		return decrypted;
 	}
-	
+
 	/**
 	 * メインパスワードが解読済みの時、それを得る
+	 * 
 	 * @param masterPassword
 	 */
-	public byte [] getDecryptedMainPassword(){
-		Log.d("PasswordManager.getDecryptedMainPassword()", "<=" + BytesUtil.toHex(mMainPasswordDecrypted));
+	public byte[] getDecryptedMainPassword() {
 		return mMainPasswordDecrypted;
 	}
-	
+
 	/**
 	 * メインパスワードの解読を無効にする
 	 */
-	public void unDecrypt(){
+	public void unDecrypt() {
 		mMainPasswordDecrypted = null;
 	}
-	
+
 	/**
 	 * メインパスワードを作成する
+	 * 
 	 * @param masterPassword
 	 */
 	public void createMainPassword(String masterPassword) {
-		Log.d("PasswordManager.createMainPassword(" + masterPassword +")", "begin");
 		mMainPasswordDecrypted = new byte[LENGTH];
 		SecureRandom rand = new SecureRandom();
 		rand.nextBytes(mMainPasswordDecrypted);
@@ -95,26 +92,29 @@ public class PasswordManager {
 		SharedPreferences.Editor editor = mPreferences.edit();
 		editor.putString(PREF_KEY, BytesUtil.toHex(mMainPasswordCrypted));
 		editor.commit();
-		Log.d("PasswordManager.createMainPassword(" + masterPassword +")", "mMainPasswordCrypted=" + BytesUtil.toHex(mMainPasswordCrypted));
-		Log.d("PasswordManager.createMainPassword(" + masterPassword +")", "end");
 	}
 
+	/**
+	 * 引数無しのコンストラクタを呼べないように private として宣言しておく
+	 */
 	private PasswordManager() {
 	};
 
+	/**
+	 * 実際に使われるコンストラクタ、プリファレンスからメインパスワード(暗号化済み)を取得する
+	 * 
+	 * @param context
+	 */
 	private PasswordManager(Context context) {
-		Log.d("PasswordManager(Context context)", "begin");
 		mPreferences = context.getSharedPreferences(PREF_NAME,
 				Context.MODE_PRIVATE);
 		if (mPreferences.contains(PREF_KEY)) {
 			try {
-				mMainPasswordCrypted = BytesUtil.fromHex(mPreferences.getString(PREF_KEY, ""));
-			}catch (NumberFormatException e){
+				mMainPasswordCrypted = BytesUtil.fromHex(mPreferences
+						.getString(PREF_KEY, ""));
+			} catch (NumberFormatException e) {
 				mMainPasswordCrypted = null;
 			}
 		}
-		Log.d("PasswordManager(Context context)", "mMainPasswordCrypted=" + BytesUtil.toHex(mMainPasswordCrypted));
-		Log.d("PasswordManager(Context context)", "end");
 	};
-
 }
