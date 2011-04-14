@@ -1,6 +1,7 @@
 package com.toycode.idpw;
 
 import java.security.SecureRandom;
+
 import android.content.Context;
 import android.content.SharedPreferences;
 
@@ -21,6 +22,11 @@ public class PasswordManager {
 	private byte[] mMainPasswordCrypted = null;
 	private byte[] mMainPasswordDecrypted = null;
 
+	/**
+	 * インスタンスを得る
+	 * @param context
+	 * @return PasswordManagerのインスタンス(singleton)
+	 */
 	public static PasswordManager getInstance(Context context) {
 		if (sInstance == null) {
 			sInstance = new PasswordManager(context);
@@ -80,7 +86,7 @@ public class PasswordManager {
 	 * 
 	 * @param masterPassword
 	 */
-	public void createMainPassword(String masterPassword) {
+	public byte[] createMainPassword(String masterPassword) {
 		mMainPasswordDecrypted = new byte[LENGTH];
 		SecureRandom rand = new SecureRandom();
 		rand.nextBytes(mMainPasswordDecrypted);
@@ -90,8 +96,17 @@ public class PasswordManager {
 		SharedPreferences.Editor editor = mPreferences.edit();
 		editor.putString(PREF_KEY, BytesUtil.toHex(mMainPasswordCrypted));
 		editor.commit();
+		return mMainPasswordDecrypted;
 	}
 
+	/**
+	 * パスワードマネージャーを廃棄する
+	 * (テスト等に使用一般には使わない)
+	 */
+	public static void deleteInstance() {
+		sInstance = null;
+	}
+	
 	/**
 	 * 引数無しのコンストラクタを呼べないように private として宣言しておく
 	 */
