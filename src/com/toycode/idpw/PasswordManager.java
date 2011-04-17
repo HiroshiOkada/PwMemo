@@ -106,6 +106,23 @@ public class PasswordManager {
 	public static void deleteInstance() {
 		sInstance = null;
 	}
+
+	/**
+	 * マスターパスワードを変更する
+	 *
+	 * @return 変更に成功すれば true
+	 */
+	public boolean changeMasterPassword(  String before, String after)
+	{
+		// 古いマスターパスワードで解読、解読できなければ失敗
+		if( decryptMainPassword( before) == null){
+			return false;
+		}
+		// 新しいマスターパスワードで暗号化
+		mMainPasswordCrypted = OpenSSLAES128CBCCrypt.INSTANCE.encrypt(
+				after.getBytes(), mMainPasswordDecrypted);
+		return true;
+	}
 	
 	/**
 	 * 引数無しのコンストラクタを呼べないように private として宣言しておく

@@ -84,6 +84,23 @@ public class PasswordManagerTest extends AndroidTestCase {
 		resultPassword = mPasswordManager.getDecryptedMainPassword();
 		assertTrue( java.util.Arrays.equals(mainPassword, resultPassword));
 	}
+
+	/**
+	 * マスターパスワードを変更するテスト
+	 */
+	public void testChangeMasterPassword()
+	{
+		// メインパスワードを作成する
+		byte [] mainPassword = mPasswordManager.createMainPassword("master1");
+		// 間違ったメインパスワードでは変更できない
+		assertFalse( mPasswordManager.changeMasterPassword("usopasswd", "newMaster"));
+		assertNull( mPasswordManager.decryptMainPassword( "newMaster"));
+		// マスターパスワードを変更する
+		assertTrue( mPasswordManager.changeMasterPassword("master1", "newMaster"));
+		// 新しいマスターパスワード取得できることを確認
+		byte [] resultPassword = mPasswordManager.decryptMainPassword("newMaster");
+		assertTrue( java.util.Arrays.equals(mainPassword, resultPassword));
+	}
 	
 	/**
 	 * テストの度にコンテクストを取得し
