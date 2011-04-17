@@ -59,6 +59,31 @@ public class PasswordManagerTest extends AndroidTestCase {
 		resultPassword = mPasswordManager.decryptMainPassword("hoge");
 		assertTrue( java.util.Arrays.equals(mainPassword, resultPassword));
 	}
+
+	/**
+	 * メインパスワードを取得するテスト(unDecrypt すると取得できないテスト)
+	 */
+	public void testGetDecryptedMainPassword() {
+		// メインパスワードを作成する
+		byte [] mainPassword = mPasswordManager.createMainPassword("master1");
+		// 作成直後はパスワードを取得できる
+		byte [] resultPassword = mPasswordManager.getDecryptedMainPassword();
+		assertTrue( java.util.Arrays.equals(mainPassword, resultPassword));
+		// unDecrypt() を呼ぶと取得できなくなる
+		mPasswordManager.unDecrypt();
+		resultPassword = mPasswordManager.getDecryptedMainPassword();
+		assertNull( resultPassword);
+		// 間違ったパスワードでは取得できない
+		resultPassword = mPasswordManager.decryptMainPassword("huga");
+		assertNull( resultPassword);
+		resultPassword = mPasswordManager.getDecryptedMainPassword();
+		assertNull( resultPassword);
+		// 正しいパスワードで取得できる
+		resultPassword = mPasswordManager.decryptMainPassword("master1");
+		assertTrue( java.util.Arrays.equals(mainPassword, resultPassword));
+		resultPassword = mPasswordManager.getDecryptedMainPassword();
+		assertTrue( java.util.Arrays.equals(mainPassword, resultPassword));
+	}
 	
 	/**
 	 * テストの度にコンテクストを取得し
