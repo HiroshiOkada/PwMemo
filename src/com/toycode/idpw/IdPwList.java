@@ -23,7 +23,7 @@ public class IdPwList extends ListActivity implements OnClickListener,
 	SQLiteDatabase mDb;
 	private static final int REQUEST_EDIT = 1;
 	private static final int REQUEST_NEW = 2;
-	
+	PasswordManager mPasswordManager;
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -37,7 +37,11 @@ public class IdPwList extends ListActivity implements OnClickListener,
 		updateAdapter();
 		((Button) findViewById(R.id.AddButton)).setOnClickListener(this);
 		((Button) findViewById(R.id.ExitButton)).setOnClickListener(this);
-
+		mPasswordManager = PasswordManager.getInstance(this);
+		if (! mPasswordManager.isMainPasswordExist()) {
+			Intent i = new Intent(this, DeclarMasterPasswordActivity.class);
+			startActivityForResult(i, REQUEST_NEW);
+		}
 	}
 
 	private void updateAdapter() {

@@ -14,4 +14,5 @@ public final class Const {
 		static final String TITLE = "title";
 		static final String CRIPTDATA = "cryptdata";
 	}
+	public static final int MIN_PASSWORD_LEN = 3;
 }
