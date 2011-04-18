@@ -28,8 +28,8 @@ public class PasswordManager {
 	 * @return PasswordManagerのインスタンス(singleton)
 	 */
 	public static PasswordManager getInstance(Context context) {
-		if (sInstance == null) {
-			sInstance = new PasswordManager(context);
+		if( (sInstance == null) && (context != null)){
+				sInstance = new PasswordManager(context);
 		}
 		return sInstance;
 	}
