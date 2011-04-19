@@ -16,7 +16,7 @@ import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
 import android.widget.AdapterView.OnItemClickListener;
 
-public class IdPwList extends ListActivity implements OnClickListener,
+public class IdPwListActivity extends ListActivity implements OnClickListener,
 		OnItemClickListener {
 
 	SimpleCursorAdapter mAdapter;
@@ -62,7 +62,7 @@ public class IdPwList extends ListActivity implements OnClickListener,
 			ContentValues values = new ContentValues();
 			values.put(Const.COLUMN.TITLE, android.R.string.untitled);
 			long id = mDb.insert(Const.TABLE.IDPW, null, values);
-			Intent intent = new Intent(this, IdPwEdit.class);
+			Intent intent = new Intent(this, IdPwEditActivity.class);
 			intent.putExtra(Const.COLUMN.ID, id);
 			startActivityForResult(intent, REQUEST_NEW);
 			//updateAdapter();
@@ -92,7 +92,7 @@ public class IdPwList extends ListActivity implements OnClickListener,
 	@Override
 	public void onItemClick(AdapterView<?> parent, View view, int position,
 			long id) {
-		Intent i = new Intent(this, IdPwEdit.class);
+		Intent i = new Intent(this, IdPwEditActivity.class);
 		i.putExtra(Const.COLUMN.ID, mAdapter.getItemId(position));
 		startActivityForResult(i, REQUEST_EDIT);
 	}

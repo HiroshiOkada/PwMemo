@@ -17,7 +17,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-public class IdPwEdit extends Activity implements OnClickListener {
+public class IdPwEditActivity extends Activity implements OnClickListener {
 	ImageView mLockImageView;
 	EditText mTitleEdit;
 	EditText mUserEdit;
