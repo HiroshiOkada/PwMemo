@@ -1,22 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout 
+<RelativeLayout 
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent">
+	<com.toycode.idpw.LockImageView
+		android:clickable="true"
+		android:id="@+id/LockImageView"
+		android:layout_width="40dp"
+		android:layout_height="40dp"
+		android:layout_marginBottom="10dp"
+		android:background="@drawable/keylock"
+		android:layout_alignParentTop="true" />	
+   <Button
+        android:text="@string/exit" 
+        android:id="@+id/ExitButton" 
+        android:layout_width="wrap_content" 
+        android:layout_height="wrap_content" 
+ 		android:layout_alignParentRight="true"
+ 	    android:layout_centerVertical="@id/LockImageView" 	    
+  	    />
     <Button
         android:text="@string/add" 
         android:id="@+id/AddButton" 
-        android:layout_width="fill_parent" 
-        android:layout_height="wrap_content" />
-    <Button
-        android:text="@string/exit" 
-        android:id="@+id/ExitButton" 
-        android:layout_width="fill_parent" 
-        android:layout_height="wrap_content" />
-    <FrameLayout
+        android:layout_width="wrap_content" 
+        android:layout_height="wrap_content"
+ 	    android:layout_toRightOf="@id/LockImageView"
+ 	    android:layout_toLeftOf="@id/ExitButton"
+ 	    android:layout_centerVertical="@id/LockImageView"
+         />
+     <FrameLayout
         android:id="@+id/FrameLayout"
         android:layout_width="fill_parent"
+        android:layout_below="@id/LockImageView"
         android:layout_height="wrap_content">
         <ListView
             android:id="@android:id/list"
@@ -30,4 +46,4 @@
             android:text="@string/empty" />
     </FrameLayout>
     
-</LinearLayout>
+</RelativeLayout>
