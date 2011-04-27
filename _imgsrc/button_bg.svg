@@ -14,7 +14,7 @@
    id="svg2"
    version="1.1"
    inkscape:version="0.47 r22583"
-   sodipodi:docname="lock_open.svg">
+   sodipodi:docname="button_bg.svg">
   <defs
      id="defs4">
     <inkscape:perspective
@@ -101,7 +101,7 @@
       </feSpecularLighting>
       <feComposite
          id="feComposite2837"
-         in2="result91"
+         in2="result1"
          k3="1"
          k2="1"
          operator="arithmetic"
@@ -124,7 +124,7 @@
      inkscape:pageshadow="2"
      inkscape:zoom="0.49497475"
      inkscape:cx="406.66426"
-     inkscape:cy="723.78864"
+     inkscape:cy="676.36283"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="false"
@@ -141,7 +141,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title />
+        <dc:title></dc:title>
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -156,27 +156,9 @@
        height="700"
        x="-41.999992"
        y="-32.155853"
-       inkscape:export-xdpi="90"
-       inkscape:export-ydpi="90"
-       ry="100" />
-    <g
-       id="g2819"
-       transform="translate(-112,0)">
-      <path
-         id="path2906-6"
-         d="m 631.125,29.40625 c -99.41125,-7.3e-4 -179.99927,80.58875 -180,180 l 0,200 80,0 0,-200 c 0,-55.22848 44.77152,-100 100,-100 54.92701,0 99.51491,44.28129 100,99.09375 0.003,0.30084 0,0.60478 0,0.90625 l 0,52.40625 80,0 0,-54.03125 c -5.7e-4,-0.0625 6.3e-4,-0.12497 0,-0.1875 -0.99324,-98.68475 -81.28694,-178.18677 -180,-178.1875 z"
-         style="fill:#0000ff;fill-rule:evenodd;stroke:#000000;stroke-width:5px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
-      <rect
-         y="300"
-         x="144"
-         height="300"
-         width="410"
-         id="rect2934"
-         style="fill:#0000ff;fill-rule:evenodd;stroke:#000000;stroke-width:5px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
-      <path
-         id="path3734"
-         d="m 342.91363,344.96514 c -20.08411,0 -36.375,17.17511 -36.375,38.375 0,17.53796 11.15488,32.31976 26.375,36.90625 l 0,133.09375 20,0 0,-20 25,0 0,-60 -25,0 0,-53.09375 c 15.22012,-4.58649 26.375,-19.36829 26.375,-36.90625 0,-21.19989 -16.29089,-38.375 -36.375,-38.375 z"
-         style="fill:#ffffff;fill-rule:evenodd;stroke:#000000;stroke-width:5px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
-    </g>
+       inkscape:export-xdpi="10.699001"
+       inkscape:export-ydpi="10.699001"
+       ry="100"
+       inkscape:export-filename="/home/hiroshi/workspace/IdPw/_imgsrc/g2819.png" />
   </g>
 </svg>

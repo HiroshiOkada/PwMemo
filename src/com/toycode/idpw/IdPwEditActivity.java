@@ -47,7 +47,7 @@ public class IdPwEditActivity extends Activity implements OnClickListener {
 		
 		mLockState = true;
 		mIsDecypted = false;
-		mLockImageView.setImageResource(R.drawable.keylock);
+		//mLockImageView.setImageResource(R.drawable.keylock);
 		showHideCryptField( false);
 		
 		mLockImageView.setOnClickListener(this);
@@ -76,12 +76,12 @@ public class IdPwEditActivity extends Activity implements OnClickListener {
 				} else {
 					decrypt();
 					mLockState = false;
-					mLockImageView.setImageResource(R.drawable.keyunlock);
+					//mLockImageView.setImageResource(R.drawable.keyunlock);
 					showHideCryptField( true);					
 				}
 			} else {
 				mLockState = true;
-				mLockImageView.setImageResource(R.drawable.keylock);
+				//mLockImageView.setImageResource(R.drawable.keylock);
 				showHideCryptField( false);
 			}
 			break;
@@ -159,16 +159,16 @@ public class IdPwEditActivity extends Activity implements OnClickListener {
 			}
 			decrypt();
 			mLockState = false;
-			mLockImageView.setImageResource(R.drawable.keyunlock);
+			//mLockImageView.setImageResource(R.drawable.keyunlock);
 			showHideCryptField( true);
 
 		}else{
 			mPasswordManager.createMainPassword(password);
-			mLockImageView.setImageResource(R.drawable.keyunlock);
+			//mLockImageView.setImageResource(R.drawable.keyunlock);
 			Toast.makeText(this, "Set master password", Toast.LENGTH_LONG).show();
 			
 			mLockState = false;
-			mLockImageView.setImageResource(R.drawable.keyunlock);
+			//mLockImageView.setImageResource(R.drawable.keyunlock);
 			showHideCryptField( true);
 		}
 	}

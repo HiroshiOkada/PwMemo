@@ -7,27 +7,29 @@
 	<com.toycode.idpw.LockImageView
 		android:clickable="true"
 		android:id="@+id/LockImageView"
-		android:layout_width="40dp"
-		android:layout_height="40dp"
+		android:layout_width="96dp"
+		android:layout_height="84dp"
 		android:layout_marginBottom="10dp"
-		android:background="@drawable/keylock"
+		android:background="@drawable/lock_close"
 		android:layout_alignParentTop="true" />	
    <Button
         android:text="@string/exit" 
         android:id="@+id/ExitButton" 
         android:layout_width="wrap_content" 
-        android:layout_height="wrap_content" 
+        android:layout_height="84dp" 
+        android:background="@drawable/button_bg"
  		android:layout_alignParentRight="true"
- 	    android:layout_centerVertical="@id/LockImageView" 	    
+ 		android:layout_alignBottom="@id/LockImageView"
   	    />
     <Button
         android:text="@string/add" 
         android:id="@+id/AddButton" 
         android:layout_width="wrap_content" 
-        android:layout_height="wrap_content"
+        android:layout_height="84dp"
+        android:background="@drawable/button_bg"
  	    android:layout_toRightOf="@id/LockImageView"
  	    android:layout_toLeftOf="@id/ExitButton"
- 	    android:layout_centerVertical="@id/LockImageView"
+ 		android:layout_alignBottom="@id/LockImageView"
          />
      <FrameLayout
         android:id="@+id/FrameLayout"
