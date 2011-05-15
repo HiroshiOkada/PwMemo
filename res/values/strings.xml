@@ -4,6 +4,7 @@
 	<string name="add_update">Add/Update</string>
 	<string name="cancel">Cancel</string>
 	<string name="confirmation">Confirmation</string>
+	<string name="copy">Copy</string>
 	<string name="define_master_password">Define a master password to protect your IdPw data. This password is used to encrypt and decrypt your data.</string>
 	<string name="exit">Exit</string>
 	<string name="input_masterpassword">Input master password</string>
