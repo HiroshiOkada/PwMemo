@@ -11,6 +11,18 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 
+//1. システムサービスを取得する
+// LayoutInflater LayoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+//2. アクティビティから取得する
+// LayoutInflater LayoutInflater = this.getLayoutInflater();
+//3. LayoutInflaterの静的メソッドを使う
+// LayoutInflater inflator = LayoutInflater.from(this); // 1.と同じ
+//参考コード contentview の切り替え
+//LayoutInflater layoutInflater = (LayoutInflater)getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+//View testView = layoutInflater.inflate(R.layout.test, null, false);
+//setContentView(testView);
+//Button sub_button = (Button)testView.findViewById(R.id.button2);
+
 public class IdPwEditActivity extends Activity implements OnClickListener {
 	EditText mTitleEdit;
 	EditText mUserEdit;
