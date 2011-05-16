@@ -19,10 +19,9 @@ import android.widget.AdapterView.OnItemClickListener;
 public class IdPwListActivity extends ListActivity implements OnClickListener,
 		OnItemClickListener {
 
+	LockImageButton mLockImageView;
 	SimpleCursorAdapter mAdapter;
 	SQLiteDatabase mDb;
-	private static final int REQUEST_EDIT = 1;
-	private static final int REQUEST_NEW = 2;
 	PasswordManager mPasswordManager;
 	
 	@Override
@@ -40,7 +39,24 @@ public class IdPwListActivity extends ListActivity implements OnClickListener,
 		mPasswordManager = PasswordManager.getInstance(this);
 		if (! mPasswordManager.isMainPasswordExist()) {
 			Intent i = new Intent(this, DeclarMasterPasswordActivity.class);
-			startActivityForResult(i, REQUEST_NEW);
+			startActivityForResult(i, Const.REQUEST_TYPE.NEW);
+		}
+	}
+	
+	@Override
+	protected void onResume() {
+		super.onResume();
+		if( mPasswordManager.isMainPasswordDecrypted()){
+			
+		}
+	}
+	
+	private void setLockState( boolean lock)
+	{
+		if( lock){
+			
+		} else {
+			
 		}
 	}
 
@@ -64,7 +80,7 @@ public class IdPwListActivity extends ListActivity implements OnClickListener,
 			long id = mDb.insert(Const.TABLE.IDPW, null, values);
 			Intent intent = new Intent(this, IdPwEditActivity.class);
 			intent.putExtra(Const.COLUMN.ID, id);
-			startActivityForResult(intent, REQUEST_NEW);
+			startActivityForResult(intent, Const.REQUEST_TYPE.NEW);
 			//updateAdapter();
 			break;
 		case R.id.ExitButton:
@@ -78,12 +94,12 @@ public class IdPwListActivity extends ListActivity implements OnClickListener,
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		super.onActivityResult(requestCode, resultCode, data);
 		switch (requestCode) {
-		case REQUEST_NEW:
+		case Const.REQUEST_TYPE.NEW:
 			if (resultCode == RESULT_OK) {
 				updateAdapter();
 			}
 			break;
-		case REQUEST_EDIT:
+		case Const.REQUEST_TYPE.EDIT:
 			updateAdapter();
 			break;
 		}
@@ -94,7 +110,10 @@ public class IdPwListActivity extends ListActivity implements OnClickListener,
 			long id) {
 		Intent i = new Intent(this, IdPwEditActivity.class);
 		i.putExtra(Const.COLUMN.ID, mAdapter.getItemId(position));
-		startActivityForResult(i, REQUEST_EDIT);
+		startActivityForResult(i, Const.REQUEST_TYPE.VIEW);
 	}
+
+
+
 
 }

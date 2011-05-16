@@ -51,6 +51,7 @@ public class IdPwEditActivity extends Activity implements OnClickListener {
 
 		mDb = (new IdPwDbOpenHelper(this)).getReadableDatabase();
 		Bundle extras = getIntent().getExtras();
+		
 		if (extras != null) {
 			mId = extras.getLong(Const.COLUMN.ID);
 			if (mId != null) {

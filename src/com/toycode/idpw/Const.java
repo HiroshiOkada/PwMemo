@@ -14,5 +14,10 @@ public final class Const {
 		static final String TITLE = "title";
 		static final String CRIPTDATA = "cryptdata";
 	}
+	static final class REQUEST_TYPE {
+		static final int EDIT = 1;
+		static final int NEW = 2;
+		static final int VIEW = 2;
+	}
 	public static final int MIN_PASSWORD_LEN = 4;
 }

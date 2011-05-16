@@ -4,7 +4,7 @@
     android:orientation="vertical"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent">
-	<com.toycode.idpw.LockImageView
+	<com.toycode.idpw.LockImageButton
 		android:clickable="true"
 		android:id="@+id/LockImageView"
 		android:layout_width="96dp"
