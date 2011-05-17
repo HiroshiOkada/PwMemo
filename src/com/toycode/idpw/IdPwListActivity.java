@@ -12,6 +12,7 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
+import android.widget.Toast;
 import android.widget.AdapterView.OnItemClickListener;
 
 public class IdPwListActivity extends ListActivity implements OnClickListener,
@@ -80,6 +81,7 @@ public class IdPwListActivity extends ListActivity implements OnClickListener,
 			long id = mDb.insert(Const.TABLE.IDPW, null, values);
 			Intent intent = new Intent(this, IdPwEditActivity.class);
 			intent.putExtra(Const.COLUMN.ID, id);
+			intent.putExtra(Const.REQUEST_TYPE.NAME, Const.REQUEST_TYPE.NEW);
 			startActivityForResult(intent, Const.REQUEST_TYPE.NEW);
 			//updateAdapter();
 			break;
@@ -99,19 +101,41 @@ public class IdPwListActivity extends ListActivity implements OnClickListener,
 				updateAdapter();
 			}
 			break;
-		case Const.REQUEST_TYPE.EDIT:
-			updateAdapter();
+		case Const.REQUEST_TYPE.VIEW:
+			if (resultCode == RESULT_OK) {
+				updateAdapter();
+			}
 			break;
 		}
 	}
 
+	/**
+	 * アイテムがクリックされた時の処理
+	 * 
+	 * Unlock 状態なら編集画面に View モードで遷移
+	 * そうでなければ、lock されている旨を表示
+	 */
 	@Override
 	public void onItemClick(AdapterView<?> parent, View view, int position,
 			long id) {
-		Intent i = new Intent(this, IdPwEditActivity.class);
-		i.putExtra(Const.COLUMN.ID, mAdapter.getItemId(position));
-		startActivityForResult(i, Const.REQUEST_TYPE.VIEW);
+		if( mPasswordManager.isMainPasswordDecrypted() ){
+			Intent intent = new Intent(this, IdPwEditActivity.class);
+			intent.putExtra(Const.COLUMN.ID, mAdapter.getItemId(position));
+			intent.putExtra(Const.REQUEST_TYPE.NAME, Const.REQUEST_TYPE.VIEW);
+			startActivityForResult(intent, Const.REQUEST_TYPE.VIEW);
+		} else {
+			toastMessage(R.string.locked_message);
+		}
 	}
+
+    /** 
+     * メッセージをトーストにして表示
+     */
+    private void toastMessage( int message_id){
+    	String message = getString(message_id);
+        Toast toast = Toast.makeText(this, message, Toast.LENGTH_SHORT);
+        toast.show();   
+    }   
 
 
 
