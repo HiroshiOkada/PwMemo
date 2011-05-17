@@ -146,6 +146,7 @@ public class PasswordManager {
 				mMainPasswordCrypted = null;
 			}
 		}
+		mMainPasswordDecrypted = null;
 	};
 
 }

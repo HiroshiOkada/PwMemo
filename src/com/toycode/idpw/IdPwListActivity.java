@@ -1,7 +1,5 @@
 package com.toycode.idpw;
 
-import java.util.Date;
-
 import android.app.ListActivity;
 import android.content.ContentValues;
 import android.content.Intent;
@@ -19,24 +17,37 @@ import android.widget.AdapterView.OnItemClickListener;
 public class IdPwListActivity extends ListActivity implements OnClickListener,
 		OnItemClickListener {
 
-	LockImageButton mLockImageView;
+	PasswordManager mPasswordManager;
+	LockImageButton mLockImageButton;
+	Button mAddButton;
+	Button mExitButton;
+	ListView mListView;
 	SimpleCursorAdapter mAdapter;
 	SQLiteDatabase mDb;
-	PasswordManager mPasswordManager;
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.list);
-		ListView listView = getListView();
-		listView.setEmptyView(findViewById(R.id.EmptyTextView));
-		listView.setOnItemClickListener(this);
+
+		mPasswordManager = PasswordManager.getInstance(this);
+
+		mLockImageButton = (LockImageButton)findViewById(R.id.lock_image_button);
+		mLockImageButton.setLock( mPasswordManager.isMainPasswordDecrypted() == false);
+
+		mAddButton = (Button) findViewById(R.id.add_button);
+		mAddButton.setOnClickListener(this);
+
+		mExitButton = (Button) findViewById(R.id.exit_button);
+		mExitButton.setOnClickListener(this);
+		
+		mListView = getListView();
+		mListView.setEmptyView(findViewById(R.id.EmptyTextView));
+		mListView.setOnItemClickListener(this);
 
 		mDb = (new IdPwDbOpenHelper(this)).getReadableDatabase();
 		updateAdapter();
-		((Button) findViewById(R.id.AddButton)).setOnClickListener(this);
-		((Button) findViewById(R.id.ExitButton)).setOnClickListener(this);
-		mPasswordManager = PasswordManager.getInstance(this);
+		
 		if (! mPasswordManager.isMainPasswordExist()) {
 			Intent i = new Intent(this, DeclarMasterPasswordActivity.class);
 			startActivityForResult(i, Const.REQUEST_TYPE.NEW);
@@ -51,14 +62,6 @@ public class IdPwListActivity extends ListActivity implements OnClickListener,
 		}
 	}
 	
-	private void setLockState( boolean lock)
-	{
-		if( lock){
-			
-		} else {
-			
-		}
-	}
 
 	private void updateAdapter() {
 		final String[] COLUMNS = { Const.COLUMN.ID, Const.COLUMN.TITLE };
@@ -74,7 +77,7 @@ public class IdPwListActivity extends ListActivity implements OnClickListener,
 	@Override
 	public void onClick(View v) {
 		switch( v.getId()){
-		case R.id.AddButton:
+		case R.id.add_button:
 			ContentValues values = new ContentValues();
 			values.put(Const.COLUMN.TITLE, android.R.string.untitled);
 			long id = mDb.insert(Const.TABLE.IDPW, null, values);
@@ -83,7 +86,7 @@ public class IdPwListActivity extends ListActivity implements OnClickListener,
 			startActivityForResult(intent, Const.REQUEST_TYPE.NEW);
 			//updateAdapter();
 			break;
-		case R.id.ExitButton:
+		case R.id.exit_button:
 			PasswordManager.getInstance(this).unDecrypt();
 			finish();
 			break;
