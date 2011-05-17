@@ -33,7 +33,7 @@ public class IdPwListActivity extends ListActivity implements OnClickListener,
 		mPasswordManager = PasswordManager.getInstance(this);
 
 		mLockImageButton = (LockImageButton)findViewById(R.id.lock_image_button);
-		mLockImageButton.setLock( mPasswordManager.isMainPasswordDecrypted() == false);
+		mLockImageButton.setLock( mPasswordManager.isMainPasswordDecrypted() == false);			
 
 		mAddButton = (Button) findViewById(R.id.add_button);
 		mAddButton.setOnClickListener(this);
@@ -57,12 +57,9 @@ public class IdPwListActivity extends ListActivity implements OnClickListener,
 	@Override
 	protected void onResume() {
 		super.onResume();
-		if( mPasswordManager.isMainPasswordDecrypted()){
-			
-		}
+		mLockImageButton.setLock( mPasswordManager.isMainPasswordDecrypted() == false);			
 	}
 	
-
 	private void updateAdapter() {
 		final String[] COLUMNS = { Const.COLUMN.ID, Const.COLUMN.TITLE };
 		final String[] FROM = { Const.COLUMN.TITLE };
