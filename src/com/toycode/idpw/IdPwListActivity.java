@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
@@ -34,7 +35,8 @@ public class IdPwListActivity extends ListActivity implements OnClickListener,
 		mPasswordManager = PasswordManager.getInstance(this);
 
 		mLockImageButton = (LockImageButton)findViewById(R.id.lock_image_button);
-		mLockImageButton.setLock( mPasswordManager.isMainPasswordDecrypted() == false);			
+		updateLockImageButton();
+		mLockImageButton.setOnClickListener(this);
 
 		mAddButton = (Button) findViewById(R.id.add_button);
 		mAddButton.setOnClickListener(this);
@@ -111,6 +113,19 @@ public class IdPwListActivity extends ListActivity implements OnClickListener,
 	 * LockImageButton が押された時の処理
 	 */
 	private void onLockImageButton() {
+		if( mPasswordManager.isMainPasswordDecrypted()){
+			Log.d(getClass().getName(), "MainPasswordDecrypted");
+			mPasswordManager.unDecrypt();
+			updateLockImageButton();
+		} else {
+			Log.d(getClass().getName(), "ask MainPassword");
+			MasterPasswordInput mpi = new MasterPasswordInput (this) {
+				public void onTureMasterPassword() {
+					updateLockImageButton();
+				 }
+			};
+			mpi.Ask();
+		}
 	}
 	
 	/**
@@ -154,7 +169,6 @@ public class IdPwListActivity extends ListActivity implements OnClickListener,
 		}
 	}
 	
-	
     /** 
      * メッセージをトーストにして表示
      */
@@ -162,5 +176,12 @@ public class IdPwListActivity extends ListActivity implements OnClickListener,
     	String message = getString(message_id);
         Toast toast = Toast.makeText(this, message, Toast.LENGTH_SHORT);
         toast.show();   
-    }   
+    }
+    
+    /**
+     * 現在のマスターパスワードの状況に応じて LockImageButton　を変化させる
+     */
+    private void updateLockImageButton() {
+		mLockImageButton.setLock( mPasswordManager.isMainPasswordDecrypted() == false);						   	
+    }
 }

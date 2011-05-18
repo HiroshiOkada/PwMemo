@@ -1,7 +1,5 @@
 package com.toycode.idpw;
 
-import java.lang.reflect.Method;
-
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -16,7 +14,7 @@ import android.widget.Toast;
  * 機能を実現するクラス
  * 
  * Activity の中で次の用に呼び出す
- * MasterPasswordInput mpi = new MasterPasswordInput () {
+ * MasterPasswordInput mpi = new MasterPasswordInput (this) {
  *   public void onTureMasterPassword() {
  *     正しいパスワードが入力された時の処理
  *   }
@@ -71,9 +69,9 @@ public abstract class MasterPasswordInput {
 	 */
 	private void onPassword( String password) {
 		
-		PasswordManager mPasswordManager = PasswordManager.getInstance(mActivity);
-		if( mPasswordManager.isMainPasswordExist()){
-			if( mPasswordManager.decryptMainPassword(password) == null){
+		PasswordManager passwordManager = PasswordManager.getInstance(mActivity);
+		if( passwordManager.isMainPasswordExist()){
+			if( passwordManager.decryptMainPassword(password) == null){
 				Toast.makeText(mActivity, "Password not match", Toast.LENGTH_LONG).show();
 				return;
 			} else {
@@ -81,7 +79,7 @@ public abstract class MasterPasswordInput {
 			}
 
 		}else{
-			mPasswordManager.createMainPassword(password);
+			passwordManager.createMainPassword(password);
 			Toast.makeText(mActivity, "Set master password", Toast.LENGTH_LONG).show();
 		}
 	}
