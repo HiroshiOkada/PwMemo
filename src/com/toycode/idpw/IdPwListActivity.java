@@ -72,22 +72,21 @@ public class IdPwListActivity extends ListActivity implements OnClickListener,
 		setListAdapter(mAdapter);
 	}
 
+	/**
+	 * 各ボタンが押されたときの処理
+	 * ボタンに合わせたメソッドを呼び出す。
+	 */
 	@Override
 	public void onClick(View v) {
 		switch( v.getId()){
+		case R.id.lock_image_button:
+			onLockImageButton();
+			break;
 		case R.id.add_button:
-			ContentValues values = new ContentValues();
-			values.put(Const.COLUMN.TITLE, android.R.string.untitled);
-			long id = mDb.insert(Const.TABLE.IDPW, null, values);
-			Intent intent = new Intent(this, IdPwEditActivity.class);
-			intent.putExtra(Const.COLUMN.ID, id);
-			intent.putExtra(Const.REQUEST_TYPE.NAME, Const.REQUEST_TYPE.NEW);
-			startActivityForResult(intent, Const.REQUEST_TYPE.NEW);
-			//updateAdapter();
+			onAddButton();
 			break;
 		case R.id.exit_button:
-			PasswordManager.getInstance(this).unDecrypt();
-			finish();
+			onExitButton();
 			break;
 		}
 	}
@@ -108,6 +107,33 @@ public class IdPwListActivity extends ListActivity implements OnClickListener,
 			break;
 		}
 	}
+	/**
+	 * LockImageButton が押された時の処理
+	 */
+	private void onLockImageButton() {
+	}
+	
+	/**
+	 * AddButton が押された時の処理
+	 */
+	private void onAddButton() {
+		ContentValues values = new ContentValues();
+		values.put(Const.COLUMN.TITLE, android.R.string.untitled);
+		long id = mDb.insert(Const.TABLE.IDPW, null, values);
+		Intent intent = new Intent(this, IdPwEditActivity.class);
+		intent.putExtra(Const.COLUMN.ID, id);
+		intent.putExtra(Const.REQUEST_TYPE.NAME, Const.REQUEST_TYPE.NEW);
+		startActivityForResult(intent, Const.REQUEST_TYPE.NEW);
+		//updateAdapter();
+	}
+
+	/**
+	 * ExitButto が押された時の処理
+	 */
+	private void onExitButton() {
+		PasswordManager.getInstance(this).unDecrypt();
+		finish();
+	}
 
 	/**
 	 * アイテムがクリックされた時の処理
@@ -127,7 +153,8 @@ public class IdPwListActivity extends ListActivity implements OnClickListener,
 			toastMessage(R.string.locked_message);
 		}
 	}
-
+	
+	
     /** 
      * メッセージをトーストにして表示
      */
@@ -136,8 +163,4 @@ public class IdPwListActivity extends ListActivity implements OnClickListener,
         Toast toast = Toast.makeText(this, message, Toast.LENGTH_SHORT);
         toast.show();   
     }   
-
-
-
-
 }
