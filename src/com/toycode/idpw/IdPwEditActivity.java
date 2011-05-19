@@ -25,9 +25,13 @@ import android.widget.EditText;
 
 public class IdPwEditActivity extends Activity implements OnClickListener {
 	EditText mTitleEdit;
+    Button mCopyTitleButton;
 	EditText mUserEdit;
+    Button mCopyUserId_button;
 	CopyablePasswordEditText mPasswordEdit;
+    Button mCopyPasswwordButton;
 	EditText mMemoEdit;
+    Button mCopyMemoButton;
 	Button mAddUpdateButton;
 	Long mId;
 	SQLiteDatabase mDb;
@@ -38,31 +42,77 @@ public class IdPwEditActivity extends Activity implements OnClickListener {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setTitle("Edit");
-		setContentView(R.layout.edit);
+		mDb = (new IdPwDbOpenHelper(this)).getReadableDatabase();
+		mPasswordManager = PasswordManager.getInstance(this);
 
+		Bundle extras = getIntent().getExtras();
+		if (extras != null) {
+			mId = extras.getLong(Const.COLUMN.ID);
+			if (mId != null) {
+				readFromDb(mId);	
+				switch( extras.getInt(Const.REQUEST_TYPE.NAME)){
+				case Const.REQUEST_TYPE.VIEW:
+					setUpViewViews();
+					return;
+				case Const.REQUEST_TYPE.NEW:
+					setUpNewViews();
+					return;
+				case Const.REQUEST_TYPE.EDIT:
+					setUpEditViews();
+					return;
+				}
+			}
+		}
+
+	}
+	
+	/**
+	 * View モードで使用する Views を設定する
+	 */
+	private void setUpViewViews() {
+		setTitle(R.string.view_title);
+		setContentView(R.layout.view);
+		mTitleEdit = (EditText) findViewById(R.id.title_textedit);
+	    mCopyTitleButton = (Button)findViewById( R.id.copy_title_button); 
+		mUserEdit = (EditText) findViewById(R.id.user_id_edittext);
+	    mCopyUserId_button = (Button)findViewById( R.id.copy_user_id_button); 
+		mPasswordEdit = (CopyablePasswordEditText) findViewById(R.id.password_edittext);
+	    mCopyPasswwordButton = (Button)findViewById( R.id.copy_passwword_button); 
+		mMemoEdit = (EditText) findViewById(R.id.memo_edittext);
+	    mCopyMemoButton = (Button)findViewById( R.id.copy_memo_button); 
+		mAddUpdateButton = (Button) findViewById(R.id.add_update_button);				
+		mAddUpdateButton.setOnClickListener(this);
+	}
+
+	/**
+	 * New モードで使用する Views を設定する
+	 */
+	private void setUpNewViews() {
+		setTitle(R.string.new_title);
+		setContentView(R.layout.edit);
 		mTitleEdit = (EditText) findViewById(R.id.title_textedit);
 		mUserEdit = (EditText) findViewById(R.id.user_id_edittext);
 		mPasswordEdit = (CopyablePasswordEditText) findViewById(R.id.password_edittext);
 		mMemoEdit = (EditText) findViewById(R.id.memo_edittext);
-		mAddUpdateButton = (Button) findViewById(R.id.add_update_button);
-				
+		mAddUpdateButton = (Button) findViewById(R.id.add_update_button);				
 		mAddUpdateButton.setOnClickListener(this);
+	}
 
-		mDb = (new IdPwDbOpenHelper(this)).getReadableDatabase();
-		Bundle extras = getIntent().getExtras();
-		
-		if (extras != null) {
-			mId = extras.getLong(Const.COLUMN.ID);
-			if (mId != null) {
-				readFromDb(mId);
-			}
-		}
-		
-		mPasswordManager = PasswordManager.getInstance(this);
+	/**
+	 * Edit モードで使用する Views を設定する
+	 */
+	private void setUpEditViews() {
+		setTitle(R.string.edit_title);
+		setContentView(R.layout.edit);
+		mTitleEdit = (EditText) findViewById(R.id.title_textedit);
+		mUserEdit = (EditText) findViewById(R.id.user_id_edittext);
+		mPasswordEdit = (CopyablePasswordEditText) findViewById(R.id.password_edittext);
+		mMemoEdit = (EditText) findViewById(R.id.memo_edittext);
+		mAddUpdateButton = (Button) findViewById(R.id.add_update_button);				
+		mAddUpdateButton.setOnClickListener(this);
 	}
 	
-
+	
 	@Override
 	public void onClick(View v) {
 		switch (v.getId()) {

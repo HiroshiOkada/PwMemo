@@ -7,16 +7,19 @@
 	<string name="confirmation">Confirmation</string>
 	<string name="copy">Copy</string>
 	<string name="define_master_password">Define a master password to protect your IdPw data. This password is used to encrypt and decrypt your data.</string>
+	<string name="edit_title">Edit</string>
 	<string name="empty">No Data</string>
 	<string name="exit">Exit</string>
 	<string name="input_masterpassword">Input master password</string>
 	<string name="locked_message">Locked!</string>
 	<string name="master_password">Master password</string>
 	<string name="memo">Memo</string>
+	<string name="new_title">New</string>
 	<string name="ok">OK</string>
 	<string name="password">Password</string>
 	<string name="title">Title</string>
 	<string name="title_is_not_encrypted">Title is not encrypted.</string>
 	<string name="update">Update</string>
 	<string name="user_id">User ID</string>
+	<string name="view_title">View</string>
 </resources>
