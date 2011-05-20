@@ -97,12 +97,12 @@
 		android:text="@string/cancel"
 		/>
 	<Button
-		android:id="@+id/add_update_button"
+		android:id="@+id/edit_button"
 		android:layout_alignParentBottom="true"
 		android:layout_alignParentRight="true"
 		android:layout_height="wrap_content"
 		android:layout_width="wrap_content"
-		android:text="@string/add_update"
+		android:text="@string/edit"
 		/>
 	<Button
 		android:id="@+id/copy_memo_button"

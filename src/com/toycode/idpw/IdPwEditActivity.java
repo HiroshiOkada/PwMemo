@@ -25,17 +25,18 @@ import android.widget.EditText;
 
 public class IdPwEditActivity extends Activity implements OnClickListener {
 	EditText mTitleEdit;
-    Button mCopyTitleButton;
+	Button mCopyTitleButton;
 	EditText mUserEdit;
-    Button mCopyUserId_button;
+	Button mCopyUserId_button;
 	CopyablePasswordEditText mPasswordEdit;
-    Button mCopyPasswwordButton;
+	Button mCopyPasswwordButton;
 	EditText mMemoEdit;
-    Button mCopyMemoButton;
+	Button mCopyMemoButton;
 	Button mAddUpdateButton;
+	Button mEditButton;
 	Long mId;
 	SQLiteDatabase mDb;
-	byte [] mCriptData = null;
+	byte[] mCriptData = null;
 	final String[] COLUMNS = { Const.COLUMN.TITLE, Const.COLUMN.CRIPTDATA };
 	PasswordManager mPasswordManager;
 
@@ -49,8 +50,8 @@ public class IdPwEditActivity extends Activity implements OnClickListener {
 		if (extras != null) {
 			mId = extras.getLong(Const.COLUMN.ID);
 			if (mId != null) {
-				readFromDb(mId);	
-				switch( extras.getInt(Const.REQUEST_TYPE.NAME)){
+				readFromDb(mId);
+				switch (extras.getInt(Const.REQUEST_TYPE.NAME)) {
 				case Const.REQUEST_TYPE.READ:
 					setUpReadViews();
 					return;
@@ -65,54 +66,55 @@ public class IdPwEditActivity extends Activity implements OnClickListener {
 		}
 
 	}
-	
+
 	/**
 	 * Read モードで使用する Views を設定する
 	 */
 	private void setUpReadViews() {
-		setTitle(R.string.view_title);
+		setTitle(R.string.view);
 		setContentView(R.layout.read);
 		mTitleEdit = (EditText) findViewById(R.id.title_textedit);
-	    mCopyTitleButton = (Button)findViewById( R.id.copy_title_button); 
+		mCopyTitleButton = (Button) findViewById(R.id.copy_title_button);
 		mUserEdit = (EditText) findViewById(R.id.user_id_edittext);
-	    mCopyUserId_button = (Button)findViewById( R.id.copy_user_id_button); 
+		mCopyUserId_button = (Button) findViewById(R.id.copy_user_id_button);
 		mPasswordEdit = (CopyablePasswordEditText) findViewById(R.id.password_edittext);
-	    mCopyPasswwordButton = (Button)findViewById( R.id.copy_passwword_button); 
+		mCopyPasswwordButton = (Button) findViewById(R.id.copy_passwword_button);
 		mMemoEdit = (EditText) findViewById(R.id.memo_edittext);
-	    mCopyMemoButton = (Button)findViewById( R.id.copy_memo_button); 
-		mAddUpdateButton = (Button) findViewById(R.id.add_update_button);				
-		mAddUpdateButton.setOnClickListener(this);
+		mCopyMemoButton = (Button) findViewById(R.id.copy_memo_button);
+		mEditButton = (Button) findViewById(R.id.edit_button);
+		mEditButton.setOnClickListener(this);
 	}
 
 	/**
 	 * New モードで使用する Views を設定する
 	 */
 	private void setUpNewViews() {
-		setTitle(R.string.new_title);
+		setTitle(R.string.new_str);
 		setContentView(R.layout.edit);
 		mTitleEdit = (EditText) findViewById(R.id.title_textedit);
 		mUserEdit = (EditText) findViewById(R.id.user_id_edittext);
 		mPasswordEdit = (CopyablePasswordEditText) findViewById(R.id.password_edittext);
 		mMemoEdit = (EditText) findViewById(R.id.memo_edittext);
-		mAddUpdateButton = (Button) findViewById(R.id.add_update_button);				
+		mAddUpdateButton = (Button) findViewById(R.id.add_update_button);
 		mAddUpdateButton.setOnClickListener(this);
+		mAddUpdateButton.setText(R.string.add);
 	}
 
 	/**
 	 * Edit モードで使用する Views を設定する
 	 */
 	private void setUpEditViews() {
-		setTitle(R.string.edit_title);
+		setTitle(R.string.edit);
 		setContentView(R.layout.edit);
 		mTitleEdit = (EditText) findViewById(R.id.title_textedit);
 		mUserEdit = (EditText) findViewById(R.id.user_id_edittext);
 		mPasswordEdit = (CopyablePasswordEditText) findViewById(R.id.password_edittext);
 		mMemoEdit = (EditText) findViewById(R.id.memo_edittext);
-		mAddUpdateButton = (Button) findViewById(R.id.add_update_button);				
+		mAddUpdateButton = (Button) findViewById(R.id.add_update_button);
 		mAddUpdateButton.setOnClickListener(this);
+		mAddUpdateButton.setText(R.string.update);
 	}
-	
-	
+
 	@Override
 	public void onClick(View v) {
 		switch (v.getId()) {
@@ -127,9 +129,9 @@ public class IdPwEditActivity extends Activity implements OnClickListener {
 	}
 
 	private void readFromDb(Long id) {
-		Cursor cursor = mDb.query(Const.TABLE.IDPW, COLUMNS, 
-			
-				Const.COLUMN.ID + " = " + id, null, null, null, null);
+		Cursor cursor = mDb.query(Const.TABLE.IDPW, COLUMNS,
+
+		Const.COLUMN.ID + " = " + id, null, null, null, null);
 		if (cursor.getCount() > 0) {
 			cursor.moveToFirst();
 			mTitleEdit.setText(cursor.getString(0));
@@ -146,5 +148,5 @@ public class IdPwEditActivity extends Activity implements OnClickListener {
 		mDb.update(Const.TABLE.IDPW, values, Const.COLUMN.ID + " = ?",
 				whereArgs);
 	}
-	
+
 }
