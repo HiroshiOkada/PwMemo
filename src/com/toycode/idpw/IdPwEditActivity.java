@@ -51,8 +51,8 @@ public class IdPwEditActivity extends Activity implements OnClickListener {
 			if (mId != null) {
 				readFromDb(mId);	
 				switch( extras.getInt(Const.REQUEST_TYPE.NAME)){
-				case Const.REQUEST_TYPE.VIEW:
-					setUpViewViews();
+				case Const.REQUEST_TYPE.READ:
+					setUpReadViews();
 					return;
 				case Const.REQUEST_TYPE.NEW:
 					setUpNewViews();
@@ -67,11 +67,11 @@ public class IdPwEditActivity extends Activity implements OnClickListener {
 	}
 	
 	/**
-	 * View モードで使用する Views を設定する
+	 * Read モードで使用する Views を設定する
 	 */
-	private void setUpViewViews() {
+	private void setUpReadViews() {
 		setTitle(R.string.view_title);
-		setContentView(R.layout.view);
+		setContentView(R.layout.read);
 		mTitleEdit = (EditText) findViewById(R.id.title_textedit);
 	    mCopyTitleButton = (Button)findViewById( R.id.copy_title_button); 
 		mUserEdit = (EditText) findViewById(R.id.user_id_edittext);

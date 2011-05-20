@@ -102,7 +102,7 @@ public class IdPwListActivity extends ListActivity implements OnClickListener,
 				updateAdapter();
 			}
 			break;
-		case Const.REQUEST_TYPE.VIEW:
+		case Const.REQUEST_TYPE.READ:
 			if (resultCode == RESULT_OK) {
 				updateAdapter();
 			}
@@ -153,7 +153,7 @@ public class IdPwListActivity extends ListActivity implements OnClickListener,
 	/**
 	 * アイテムがクリックされた時の処理
 	 * 
-	 * Unlock 状態なら編集画面に View モードで遷移
+	 * Unlock 状態なら編集画面に Read モードで遷移
 	 * そうでなければ、lock されている旨を表示
 	 */
 	@Override
@@ -162,8 +162,8 @@ public class IdPwListActivity extends ListActivity implements OnClickListener,
 		if( mPasswordManager.isMainPasswordDecrypted() ){
 			Intent intent = new Intent(this, IdPwEditActivity.class);
 			intent.putExtra(Const.COLUMN.ID, mAdapter.getItemId(position));
-			intent.putExtra(Const.REQUEST_TYPE.NAME, Const.REQUEST_TYPE.VIEW);
-			startActivityForResult(intent, Const.REQUEST_TYPE.VIEW);
+			intent.putExtra(Const.REQUEST_TYPE.NAME, Const.REQUEST_TYPE.READ);
+			startActivityForResult(intent, Const.REQUEST_TYPE.READ);
 		} else {
 			toastMessage(R.string.locked_message);
 		}

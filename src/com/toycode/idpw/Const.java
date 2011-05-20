@@ -18,7 +18,7 @@ public final class Const {
 		static final String NAME="request_type";
 		static final int EDIT = 1;
 		static final int NEW = 2;
-		static final int VIEW = 3;
+		static final int READ = 3;
 	}
 	public static final int MIN_PASSWORD_LEN = 4;
 }
