@@ -34,7 +34,13 @@ public class IdPwEditActivity extends Activity implements OnClickListener {
 		super.onCreate(savedInstanceState);
 		mDb = (new IdPwDbOpenHelper(this)).getReadableDatabase();
 		mPasswordManager = PasswordManager.getInstance(this);
-
+		// アンロック状態でなければ終了
+		if( mPasswordManager.isMainPasswordDecrypted() == false) {
+			setResult( RESULT_CANCELED, new Intent());
+			finish();
+			return;
+		}
+		
 		Bundle extras = getIntent().getExtras();
 		if (extras != null) {
 			mId = extras.getLong(Const.COLUMN.ID);
