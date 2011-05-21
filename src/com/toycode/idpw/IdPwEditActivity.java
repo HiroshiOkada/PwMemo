@@ -39,16 +39,18 @@ public class IdPwEditActivity extends Activity implements OnClickListener {
 		if (extras != null) {
 			mId = extras.getLong(Const.COLUMN.ID);
 			if (mId != null) {
-				readFromDb(mId);
 				switch (extras.getInt(Const.REQUEST_TYPE.NAME)) {
 				case Const.REQUEST_TYPE.READ:
 					setUpReadViews(true);
+					readFromDb(mId);
 					return;
 				case Const.REQUEST_TYPE.NEW:
 					setUpNewViews(true);
+					readFromDb(mId);
 					return;
 				case Const.REQUEST_TYPE.EDIT:
 					setUpEditViews(true);
+					readFromDb(mId);
 					return;
 				}
 			}
@@ -137,9 +139,8 @@ public class IdPwEditActivity extends Activity implements OnClickListener {
 	}
 	
 	private void readFromDb(Long id) {
-		Cursor cursor = mDb.query(Const.TABLE.IDPW, COLUMNS,
-
-		Const.COLUMN.ID + " = " + id, null, null, null, null);
+		Cursor cursor = mDb.query(Const.TABLE.IDPW, COLUMNS, Const.COLUMN.ID
+				+ " = " + id, null, null, null, null);
 		if (cursor.getCount() > 0) {
 			cursor.moveToFirst();
 			mTitleEdit.setText(cursor.getString(0));
