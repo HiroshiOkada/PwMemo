@@ -132,14 +132,17 @@ public class IdPwListActivity extends ListActivity implements OnClickListener,
 	 * AddButton が押された時の処理
 	 */
 	private void onAddButton() {
-		ContentValues values = new ContentValues();
-		values.put(Const.COLUMN.TITLE, android.R.string.untitled);
-		long id = mDb.insert(Const.TABLE.IDPW, null, values);
-		Intent intent = new Intent(this, IdPwEditActivity.class);
-		intent.putExtra(Const.COLUMN.ID, id);
-		intent.putExtra(Const.REQUEST_TYPE.NAME, Const.REQUEST_TYPE.NEW);
-		startActivityForResult(intent, Const.REQUEST_TYPE.NEW);
-		//updateAdapter();
+		if( mPasswordManager.isMainPasswordDecrypted() ){
+			ContentValues values = new ContentValues();
+			values.put(Const.COLUMN.TITLE, android.R.string.untitled);
+			long id = mDb.insert(Const.TABLE.IDPW, null, values);
+			Intent intent = new Intent(this, IdPwEditActivity.class);
+			intent.putExtra(Const.COLUMN.ID, id);
+			intent.putExtra(Const.REQUEST_TYPE.NAME, Const.REQUEST_TYPE.NEW);
+			startActivityForResult(intent, Const.REQUEST_TYPE.NEW);
+		} else {
+			toastMessage(R.string.locked_message);
+		}
 	}
 
 	/**
