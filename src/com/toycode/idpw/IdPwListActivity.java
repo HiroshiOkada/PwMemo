@@ -109,16 +109,15 @@ public class IdPwListActivity extends ListActivity implements OnClickListener,
 			break;
 		}
 	}
+	
 	/**
 	 * LockImageButton が押された時の処理
 	 */
 	private void onLockImageButton() {
 		if( mPasswordManager.isMainPasswordDecrypted()){
-			Log.d(getClass().getName(), "MainPasswordDecrypted");
 			mPasswordManager.unDecrypt();
 			updateLockImageButton();
 		} else {
-			Log.d(getClass().getName(), "ask MainPassword");
 			MasterPasswordInput mpi = new MasterPasswordInput (this) {
 				public void onTureMasterPassword() {
 					updateLockImageButton();
