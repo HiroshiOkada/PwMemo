@@ -7,6 +7,8 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
@@ -170,6 +172,12 @@ public class IdPwListActivity extends ListActivity implements OnClickListener,
 			toastMessage(R.string.locked_message);
 		}
 	}
+
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		getMenuInflater().inflate(R.menu.main_menu, menu);
+	    return true;
+	}
 	
     /** 
      * メッセージをトーストにして表示
@@ -186,4 +194,6 @@ public class IdPwListActivity extends ListActivity implements OnClickListener,
     private void updateLockImageButton() {
 		mLockImageButton.setLock( mPasswordManager.isMainPasswordDecrypted() == false);						   	
     }
+
+
 }

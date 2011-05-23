@@ -10,6 +10,8 @@
 	<string name="edit">Edit</string>
 	<string name="empty">No Data</string>
 	<string name="exit">Exit</string>
+	<string name="export3">export...</string>
+	<string name="import3">import...</string>
 	<string name="input_masterpassword">Input master password</string>
 	<string name="locked_message">Locked!</string>
 	<string name="master_password">Master password</string>
@@ -17,6 +19,7 @@
 	<string name="new_str">New</string>
 	<string name="ok">OK</string>
 	<string name="password">Password</string>
+	<string name="setting3">setting ...</string>
 	<string name="title">Title</string>
 	<string name="title_is_not_encrypted">Title is not encrypted.</string>
 	<string name="update">Update</string>
