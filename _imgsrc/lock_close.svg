@@ -14,7 +14,7 @@
    id="svg2"
    version="1.1"
    inkscape:version="0.47 r22583"
-   sodipodi:docname="lock_close.svg">
+   sodipodi:docname="lock_close (コピー).svg">
   <defs
      id="defs4">
     <inkscape:perspective
@@ -352,46 +352,22 @@
      inkscape:label="レイヤー 1"
      inkscape:groupmode="layer"
      id="layer1">
+    <path
+       style="fill:#ff0000;fill-rule:evenodd;stroke:#000000;stroke-width:5px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="M 242,70 C 142.58875,69.99927 62.00073,150.58875 62,250 l 0,200 80,0 0,-200 c 0,-55.22848 44.77152,-100 100,-100 54.92701,0 99.51491,44.28129 100,99.09375 0.003,0.30084 0,0.60478 0,0.90625 l 0,198.1875 80,0 0,-199.8125 c -5.7e-4,-0.0625 6.3e-4,-0.12497 0,-0.1875 C 421.00676,149.50275 340.71306,70.00073 242,70 z"
+       id="path2906"
+       inkscape:export-filename="/home/hiroshi/lock1.png"
+       inkscape:export-xdpi="13.457944"
+       inkscape:export-ydpi="13.457944" />
     <rect
-       style="color:#00ff00;fill:#00ff00;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;marker:none;visibility:visible;display:inline;overflow:visible;filter:url(#filter3520);enable-background:accumulate"
-       id="rect2824"
-       width="800"
-       height="700"
-       x="-34.506195"
-       y="-31.881823"
-       inkscape:export-filename="/home/hiroshi/workspace/IdPw/_imgsrc/g3017.png"
-       inkscape:export-xdpi="10.674157"
-       inkscape:export-ydpi="10.674157"
-       ry="100" />
-    <g
-       id="g3017"
-       transform="translate(-108,0)"
-       inkscape:export-xdpi="10.674157"
-       inkscape:export-ydpi="10.674157">
-      <path
-         inkscape:export-ydpi="90"
-         inkscape:export-xdpi="90"
-         inkscape:export-filename="/home/hiroshi/lock.png"
-         id="path2906"
-         d="m 350,70 c -99.41125,-7.3e-4 -179.99927,80.58875 -180,180 l 0,200 80,0 0,-200 c 0,-55.22848 44.77152,-100 100,-100 54.92701,0 99.51491,44.28129 100,99.09375 0.003,0.30084 0,0.60478 0,0.90625 l 0,198.1875 80,0 0,-199.8125 c -5.7e-4,-0.0625 6.3e-4,-0.12497 0,-0.1875 C 529.00676,149.50275 448.71306,70.00073 350,70 z"
-         style="fill:#ff0000;fill-rule:evenodd;stroke:#000000;stroke-width:5px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
-      <rect
-         inkscape:export-ydpi="90"
-         inkscape:export-xdpi="90"
-         inkscape:export-filename="/home/hiroshi/lock.png"
-         y="300"
-         x="144"
-         height="300"
-         width="410"
-         id="rect2934"
-         style="fill:#ff0000;fill-rule:evenodd;stroke:#000000;stroke-width:5px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
-      <path
-         inkscape:export-filename="/home/hiroshi/lock.png"
-         inkscape:export-ydpi="90"
-         inkscape:export-xdpi="90"
-         id="path3734"
-         d="m 342.91363,344.96514 c -20.08411,0 -36.375,17.17511 -36.375,38.375 0,17.53796 11.15488,32.31976 26.375,36.90625 l 0,133.09375 20,0 0,-20 25,0 0,-60 -25,0 0,-53.09375 c 15.22012,-4.58649 26.375,-19.36829 26.375,-36.90625 0,-21.19989 -16.29089,-38.375 -36.375,-38.375 z"
-         style="fill:#ffffff;fill-rule:evenodd;stroke:#000000;stroke-width:5px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
-    </g>
+       style="fill:#ff0000;fill-rule:evenodd;stroke:#000000;stroke-width:5px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       id="rect2934"
+       width="410"
+       height="300"
+       x="36"
+       y="300"
+       inkscape:export-filename="/home/hiroshi/lock1.png"
+       inkscape:export-xdpi="13.457944"
+       inkscape:export-ydpi="13.457944" />
   </g>
 </svg>
