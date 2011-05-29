@@ -25,4 +25,6 @@
 	<string name="update">Update</string>
 	<string name="user_id">User ID</string>
 	<string name="view">View</string>
+	<string name="autoend">Auto End</string>
+	<string name="autoend_summary">When no operation is made for 3 minutes, it will automatically end.</string>
 </resources>
