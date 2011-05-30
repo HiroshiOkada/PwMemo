@@ -3,7 +3,11 @@
 	<string name="add">Add</string>
 	<string name="add_update">Add/Update</string>
 	<string name="app_name">IdPw</string>
+	<string name="autoend">Auto End</string>
+	<string name="autoend_summary">When no operation is made for 3 minutes, it will automatically end.</string>
 	<string name="cancel">Cancel</string>
+	<string name="change_password">Change Password</string>
+	<string name="change_password_summary">Change master password</string>
 	<string name="confirmation">Confirmation</string>
 	<string name="copy">Copy</string>
 	<string name="define_master_password">Define a master password to protect your IdPw data. This password is used to encrypt and decrypt your data.</string>
@@ -25,6 +29,4 @@
 	<string name="update">Update</string>
 	<string name="user_id">User ID</string>
 	<string name="view">View</string>
-	<string name="autoend">Auto End</string>
-	<string name="autoend_summary">When no operation is made for 3 minutes, it will automatically end.</string>
 </resources>

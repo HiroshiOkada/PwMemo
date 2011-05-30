@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
@@ -173,11 +174,32 @@ public class IdPwListActivity extends ListActivity implements OnClickListener,
 		}
 	}
 
+	/**
+	 * オプションメニュー表示
+	 */
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		getMenuInflater().inflate(R.menu.main_menu, menu);
 	    return true;
 	}
+	
+	/**
+	 * オプションメニュー項目選択時
+	 */
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		switch( item.getItemId()){
+		case R.id.setting_menu_item:
+			startActivity(new Intent( this, IdPwPreferenceActivity.class));
+			return true;
+		case R.id.export_menu_item:
+			return true;
+		case R.id.import_menu_item:
+			return true;
+		}
+		return false;
+	}
+	
 	
     /** 
      * メッセージをトーストにして表示
@@ -194,6 +216,7 @@ public class IdPwListActivity extends ListActivity implements OnClickListener,
     private void updateLockImageButton() {
 		mLockImageButton.setLock( mPasswordManager.isMainPasswordDecrypted() == false);						   	
     }
+
 
 
 }

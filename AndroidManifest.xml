@@ -15,6 +15,7 @@
         <activity android:name="IdPwEditActivity">
         </activity>
         <activity android:name=".DeclarMasterPasswordActivity"></activity>
+        <activity android:name=".IdPwPreferenceActivity"></activity>
     </application>
     <uses-sdk android:minSdkVersion="4" />
 
