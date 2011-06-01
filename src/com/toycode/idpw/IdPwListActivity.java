@@ -6,9 +6,7 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -55,7 +53,7 @@ public class IdPwListActivity extends ListActivity implements OnClickListener,
 		updateAdapter();
 		
 		if (! mPasswordManager.isMainPasswordExist()) {
-			Intent i = new Intent(this, DeclarMasterPasswordActivity.class);
+			Intent i = new Intent(this, AbstractMasterPasswordActivity.class);
 			startActivityForResult(i, Const.REQUEST_TYPE.NEW);
 		}
 	}

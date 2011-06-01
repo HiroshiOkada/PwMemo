@@ -1,10 +1,11 @@
 package com.toycode.idpw;
 
-public class DeclarMasterPasswordActivity extends
+public class UpdateMasterPasswordActivity extends
 		AbstractMasterPasswordActivity {
 
+	@Override
 	protected int getLayoutResID() {
-		return R.layout.declar_master_password;
+		return R.layout.updae_master_password;
 	}
 
 }

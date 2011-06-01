@@ -12,11 +12,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="IdPwEditActivity">
-        </activity>
-        <activity android:name=".DeclarMasterPasswordActivity"></activity>
-        <activity android:name=".IdPwPreferenceActivity"></activity>
+        <activity android:name="IdPwEditActivity"></activity>
+        <activity android:name="DeclarMasterPasswordActivity"></activity>
+        <activity android:name="UpdateMasterPasswordActivity"></activity>
+        <activity android:name="IdPwPreferenceActivity"></activity>
     </application>
     <uses-sdk android:minSdkVersion="4" />
-
 </manifest> 

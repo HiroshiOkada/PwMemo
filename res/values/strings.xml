@@ -20,6 +20,7 @@
 	<string name="locked_message">Locked!</string>
 	<string name="master_password">Master password</string>
 	<string name="memo">Memo</string>
+	<string name="new_master_password">Plase enter new master password.</string>
 	<string name="new_str">New</string>
 	<string name="ok">OK</string>
 	<string name="password">Password</string>

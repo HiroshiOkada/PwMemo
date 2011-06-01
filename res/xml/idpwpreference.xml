@@ -5,10 +5,11 @@
     	android:enabled="true"
 		android:title="@string/autoend"
 		android:summary="@string/autoend_summary"
-		android:key="autoend"/>
-	<com.toycode.idpw.ChangePasswordDialogPreference 
+		android:key="autoend"
+		/>
+	<com.toycode.idpw.ChangePasswordDialogPreference
 		android:title="@string/change_password"
 		android:summary="@string/change_password_summary"
-		android:key="change"/>
+		android:key="change"
 		/>
 </PreferenceScreen>
