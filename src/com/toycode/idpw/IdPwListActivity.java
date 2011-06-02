@@ -53,7 +53,7 @@ public class IdPwListActivity extends ListActivity implements OnClickListener,
 		updateAdapter();
 		
 		if (! mPasswordManager.isMainPasswordExist()) {
-			Intent i = new Intent(this, AbstractMasterPasswordActivity.class);
+			Intent i = new Intent(this, DeclarMasterPasswordActivity.class);
 			startActivityForResult(i, Const.REQUEST_TYPE.NEW);
 		}
 	}
