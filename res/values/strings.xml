@@ -24,6 +24,7 @@
 	<string name="new_str">New</string>
 	<string name="ok">OK</string>
 	<string name="password">Password</string>
+	<string name="password_does_not_match">Password does not match.</string>
 	<string name="setting3">setting ...</string>
 	<string name="title">Title</string>
 	<string name="title_is_not_encrypted">Title is not encrypted.</string>
