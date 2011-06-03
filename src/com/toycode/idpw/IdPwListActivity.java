@@ -26,7 +26,7 @@ public class IdPwListActivity extends ListActivity implements OnClickListener,
 	ListView mListView;
 	SimpleCursorAdapter mAdapter;
 	SQLiteDatabase mDb;
-	
+
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -34,7 +34,7 @@ public class IdPwListActivity extends ListActivity implements OnClickListener,
 
 		mPasswordManager = PasswordManager.getInstance(this);
 
-		mLockImageButton = (LockImageButton)findViewById(R.id.lock_image_button);
+		mLockImageButton = (LockImageButton) findViewById(R.id.lock_image_button);
 		updateLockImageButton();
 		mLockImageButton.setOnClickListener(this);
 
@@ -43,26 +43,27 @@ public class IdPwListActivity extends ListActivity implements OnClickListener,
 
 		mExitButton = (Button) findViewById(R.id.exit_button);
 		mExitButton.setOnClickListener(this);
-		
+
 		mListView = getListView();
 		mListView.setEmptyView(findViewById(R.id.EmptyTextView));
 		mListView.setOnItemClickListener(this);
 
 		mDb = (new IdPwDbOpenHelper(this)).getReadableDatabase();
 		updateAdapter();
-		
-		if (! mPasswordManager.isMainPasswordExist()) {
+
+		if (!mPasswordManager.isMainPasswordExist()) {
 			Intent i = new Intent(this, DeclarMasterPasswordActivity.class);
 			startActivityForResult(i, Const.REQUEST_TYPE.NEW);
 		}
 	}
-	
+
 	@Override
 	protected void onResume() {
 		super.onResume();
-		mLockImageButton.setLock( mPasswordManager.isMainPasswordDecrypted() == false);			
+		mLockImageButton
+				.setLock(mPasswordManager.isMainPasswordDecrypted() == false);
 	}
-	
+
 	private void updateAdapter() {
 		final String[] COLUMNS = { Const.COLUMN.ID, Const.COLUMN.TITLE };
 		final String[] FROM = { Const.COLUMN.TITLE };
@@ -75,12 +76,11 @@ public class IdPwListActivity extends ListActivity implements OnClickListener,
 	}
 
 	/**
-	 * 各ボタンが押されたときの処理
-	 * ボタンに合わせたメソッドを呼び出す。
+	 * 各ボタンが押されたときの処理 ボタンに合わせたメソッドを呼び出す。
 	 */
 	@Override
 	public void onClick(View v) {
-		switch( v.getId()){
+		switch (v.getId()) {
 		case R.id.lock_image_button:
 			onLockImageButton();
 			break;
@@ -109,29 +109,29 @@ public class IdPwListActivity extends ListActivity implements OnClickListener,
 			break;
 		}
 	}
-	
+
 	/**
 	 * LockImageButton が押された時の処理
 	 */
 	private void onLockImageButton() {
-		if( mPasswordManager.isMainPasswordDecrypted()){
+		if (mPasswordManager.isMainPasswordDecrypted()) {
 			mPasswordManager.unDecrypt();
 			updateLockImageButton();
 		} else {
-			MasterPasswordInput mpi = new MasterPasswordInput (this) {
+			MasterPasswordInput mpi = new MasterPasswordInput(this) {
 				public void onTureMasterPassword() {
 					updateLockImageButton();
-				 }
+				}
 			};
 			mpi.Ask();
 		}
 	}
-	
+
 	/**
 	 * AddButton が押された時の処理
 	 */
 	private void onAddButton() {
-		if( mPasswordManager.isMainPasswordDecrypted() ){
+		if (mPasswordManager.isMainPasswordDecrypted()) {
 			ContentValues values = new ContentValues();
 			values.put(Const.COLUMN.TITLE, android.R.string.untitled);
 			long id = mDb.insert(Const.TABLE.IDPW, null, values);
@@ -155,13 +155,12 @@ public class IdPwListActivity extends ListActivity implements OnClickListener,
 	/**
 	 * アイテムがクリックされた時の処理
 	 * 
-	 * Unlock 状態なら編集画面に Read モードで遷移
-	 * そうでなければ、lock されている旨を表示
+	 * Unlock 状態なら編集画面に Read モードで遷移 そうでなければ、lock されている旨を表示
 	 */
 	@Override
 	public void onItemClick(AdapterView<?> parent, View view, int position,
 			long id) {
-		if( mPasswordManager.isMainPasswordDecrypted() ){
+		if (mPasswordManager.isMainPasswordDecrypted()) {
 			Intent intent = new Intent(this, IdPwEditActivity.class);
 			intent.putExtra(Const.COLUMN.ID, mAdapter.getItemId(position));
 			intent.putExtra(Const.REQUEST_TYPE.NAME, Const.REQUEST_TYPE.READ);
@@ -177,17 +176,17 @@ public class IdPwListActivity extends ListActivity implements OnClickListener,
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		getMenuInflater().inflate(R.menu.main_menu, menu);
-	    return true;
+		return true;
 	}
-	
+
 	/**
 	 * オプションメニュー項目選択時
 	 */
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
-		switch( item.getItemId()){
+		switch (item.getItemId()) {
 		case R.id.setting_menu_item:
-			startActivity(new Intent( this, IdPwPreferenceActivity.class));
+			startActivity(new Intent(this, IdPwPreferenceActivity.class));
 			return true;
 		case R.id.export_menu_item:
 			return true;
@@ -196,13 +195,12 @@ public class IdPwListActivity extends ListActivity implements OnClickListener,
 		}
 		return false;
 	}
-	
-	
-    
-    /**
-     * 現在のマスターパスワードの状況に応じて LockImageButton　を変化させる
-     */
-    private void updateLockImageButton() {
-		mLockImageButton.setLock( mPasswordManager.isMainPasswordDecrypted() == false);						   	
-    }
+
+	/**
+	 * 現在のマスターパスワードの状況に応じて LockImageButton　を変化させる
+	 */
+	private void updateLockImageButton() {
+		mLockImageButton
+				.setLock(mPasswordManager.isMainPasswordDecrypted() == false);
+	}
 }
