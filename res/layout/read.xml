@@ -27,6 +27,7 @@
 		android:layout_alignParentLeft="true"
 		android:layout_below="@id/title_textview"
 		android:layout_height="wrap_content"
+		android:layout_width="fill_parent"
 		android:layout_marginBottom="3dp"
 		android:layout_toLeftOf="@id/copy_title_button"
 		/>
@@ -52,6 +53,7 @@
 		android:layout_alignParentLeft="true"
 		android:layout_below="@id/user_id_textview"
 		android:layout_height="wrap_content"
+		android:layout_width="fill_parent"
 		android:layout_marginBottom="3dp"
 		android:layout_toLeftOf="@id/copy_user_id_button"
 		/>
@@ -77,6 +79,7 @@
 		android:layout_alignParentLeft="true"
 		android:layout_below="@id/password_textview"
 		android:layout_height="wrap_content"
+		android:layout_width="fill_parent"
 		android:layout_marginBottom="3dp"
 		android:layout_toLeftOf="@id/copy_passwword_button"
 		/>
@@ -119,6 +122,7 @@
 		android:layout_alignParentLeft="true"
 		android:layout_below="@id/memo_textview"
 		android:layout_height="wrap_content"
+		android:layout_width="fill_parent"
 		android:layout_marginBottom="3dp"
 		android:layout_toLeftOf="@id/copy_memo_button"
 		/>
