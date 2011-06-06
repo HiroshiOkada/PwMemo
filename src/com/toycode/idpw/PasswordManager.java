@@ -24,12 +24,13 @@ public class PasswordManager {
 
 	/**
 	 * インスタンスを得る
+	 * 
 	 * @param context
 	 * @return PasswordManagerのインスタンス(singleton)
 	 */
 	public static PasswordManager getInstance(Context context) {
-		if( (sInstance == null) && (context != null)){
-				sInstance = new PasswordManager(context);
+		if ((sInstance == null) && (context != null)) {
+			sInstance = new PasswordManager(context);
 		}
 		return sInstance;
 	}
@@ -100,30 +101,29 @@ public class PasswordManager {
 	}
 
 	/**
-	 * パスワードマネージャーを廃棄する
-	 * (テスト等に使用一般には使わない)
+	 * パスワードマネージャーを廃棄する (テスト等に使用一般には使わない)
 	 */
 	public static void deleteInstance() {
 		sInstance = null;
 	}
 
 	/**
-	 * マスターパスワードを変更する
-	 *
+	 * マスターパスワードを変更する 古いマスターパスワードで解読済みである必要がある
+	 * 
 	 * @return 変更に成功すれば true
 	 */
-	public boolean changeMasterPassword(  String before, String after)
-	{
-		// 古いマスターパスワードで解読、解読できなければ失敗
-		if( decryptMainPassword( before) == null){
+	public boolean changeMasterPassword(String newMasterPassword) {
+		// 古いマスターパスワードで解読済みでなければ失敗
+		if (mMainPasswordDecrypted == null) {
 			return false;
 		}
+
 		// 新しいマスターパスワードで暗号化
 		mMainPasswordCrypted = OpenSSLAES128CBCCrypt.INSTANCE.encrypt(
-				after.getBytes(), mMainPasswordDecrypted);
+				newMasterPassword.getBytes(), mMainPasswordDecrypted);
 		return true;
 	}
-	
+
 	/**
 	 * 引数無しのコンストラクタを呼べないように private として宣言しておく
 	 */

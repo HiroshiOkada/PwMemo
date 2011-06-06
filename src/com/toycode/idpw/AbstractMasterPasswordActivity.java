@@ -1,7 +1,6 @@
 package com.toycode.idpw;
 
 import android.app.Activity;
-import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -24,6 +23,11 @@ public abstract class AbstractMasterPasswordActivity extends Activity implements
 	 * @return
 	 */
 	protected abstract int getLayoutResID();
+	
+	/**
+	 * OKボタンが押された時の処理
+	 */
+	protected abstract void onOkBtnClick();
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -57,19 +61,26 @@ public abstract class AbstractMasterPasswordActivity extends Activity implements
 	@Override
 	public void onClick(View v) {
 		if ( v.getId() == R.id.ok_button){
-			if( inputVaildateion()){
-				PasswordManager.getInstance(this).createMainPassword(mMasterPasswordEditText.getText().toString());
-				Intent intent = new Intent();
-				setResult(RESULT_OK, intent);
-				finish();
-			}
+			onOkBtnClick();
 		}
-	}
+	}	
 	
-	private boolean inputVaildateion() {
+	protected boolean inputVaildateion() {
 		String pw = mMasterPasswordEditText.getText().toString();
 		String confirm = mConfirmationEditText.getText().toString();
+		// 短すぎる
+		if ((pw.length() >0) && 
+				(pw.length() == confirm.length()) && 
+				(pw.length() <Const.MIN_PASSWORD_LEN)) {
+			Toy.toastMessage(this, R.string.password_is_too_short);
+			return false;
+		}
+		// 長さが一致しているが違う
+		if ((pw.length() == confirm.length()) && !pw.equals(confirm)){
+			Toy.toastMessage(this, R.string.confirmation_password_does_not_match);
+			return false;
+		}
+		// それ以外
 		return (pw.length() >= Const.MIN_PASSWORD_LEN) && pw.equals(confirm);
 	}
-
 }
