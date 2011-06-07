@@ -12,4 +12,10 @@
 		android:summary="@string/change_password_summary"
 		android:key="change"
 		/>
+	<com.toycode.idpw.DeleteAllDialogPreference 
+		android:title="@string/delete_all"
+		android:summary="@string/delete_all_summary"
+		android:key="delete"
+		android:dialogIcon="@android:drawable/ic_dialog_alert"
+	    />
 </PreferenceScreen>
