@@ -23,4 +23,12 @@ public class IdPwDbOpenHelper extends SQLiteOpenHelper {
 		db.execSQL("drop table if exists " + Const.TABLE.IDPW + ";");
 		onCreate(db);
 	}
+
+	/**
+	 * DBのデータを全部削除する
+	 */
+	public void deleteaAll() {
+		SQLiteDatabase db = getWritableDatabase();
+		db.execSQL("delete from " + Const.TABLE.IDPW + ";");
+	}
 }

@@ -123,6 +123,18 @@ public class PasswordManager {
 				newMasterPassword.getBytes(), mMainPasswordDecrypted);
 		return true;
 	}
+	
+	/**
+	 * マスターパスワードを削除する
+	 * メモリからもSharedPreferencesからも
+	 */
+	public void deleteMasterPassword() {
+		mMainPasswordDecrypted = null;
+		mMainPasswordCrypted = null;
+		SharedPreferences.Editor editor = mPreferences.edit();
+		editor.remove(PREF_KEY);
+		editor.commit();	
+	}
 
 	/**
 	 * 引数無しのコンストラクタを呼べないように private として宣言しておく

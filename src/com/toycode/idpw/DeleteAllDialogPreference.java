@@ -35,8 +35,12 @@ public class DeleteAllDialogPreference extends DialogPreference {
 	 */
 	@Override
 	protected void onDialogClosed(boolean positiveResult) {
-		if (positiveResult) {
-			Toy.toastMessage(getContext(), "r=" + Boolean.toString(mCheckBox.isChecked()));
+		if (positiveResult & mCheckBox.isChecked()) {
+			Context context = getContext();
+			IdPwDbOpenHelper dbHelper = new IdPwDbOpenHelper(context);
+			dbHelper.deleteaAll();
+			PasswordManager.getInstance(context).deleteMasterPassword();
+			Toy.toastMessage(context, R.string.all_data_deleted);
 		}
 	}
 }

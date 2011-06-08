@@ -60,8 +60,14 @@ public class IdPwListActivity extends ListActivity implements OnClickListener,
 	@Override
 	protected void onResume() {
 		super.onResume();
-		mLockImageButton
-				.setLock(mPasswordManager.isMainPasswordDecrypted() == false);
+		if (!mPasswordManager.isMainPasswordExist()) {
+			Intent i = new Intent(this, DeclarMasterPasswordActivity.class);
+			startActivityForResult(i, Const.REQUEST_TYPE.NEW);
+		} else {
+			mLockImageButton
+					.setLock(mPasswordManager.isMainPasswordDecrypted() == false);
+			updateAdapter();
+		}
 	}
 
 	private void updateAdapter() {
