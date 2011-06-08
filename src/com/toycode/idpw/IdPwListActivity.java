@@ -48,7 +48,7 @@ public class IdPwListActivity extends ListActivity implements OnClickListener,
 		mListView.setEmptyView(findViewById(R.id.EmptyTextView));
 		mListView.setOnItemClickListener(this);
 
-		mDb = (new IdPwDbOpenHelper(this)).getReadableDatabase();
+		mDb = (new IdPwDbOpenHelper(this)).getWritableDatabase();
 		updateAdapter();
 
 		if (!mPasswordManager.isMainPasswordExist()) {
