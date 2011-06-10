@@ -8,5 +8,8 @@
             android:id="@+id/RowTitleTextView"
             android:layout_width="fill_parent" 
             android:layout_height="wrap_content" 
+			style="@android:style/TextAppearance.Large"
+			android:layout_marginTop="6sp"
+			android:layout_marginBottom="4sp"
             android:text="-" />  
 </LinearLayout>
