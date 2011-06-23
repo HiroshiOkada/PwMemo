@@ -139,7 +139,7 @@ public class IdPwListActivity extends ListActivity implements OnClickListener,
 	private void onAddButton() {
 		if (mPasswordManager.isMainPasswordDecrypted()) {
 			ContentValues values = new ContentValues();
-			values.put(Const.COLUMN.TITLE, android.R.string.untitled);
+			values.put(Const.COLUMN.TITLE, "");
 			long id = mDb.insert(Const.TABLE.IDPW, null, values);
 			Intent intent = new Intent(this, IdPwEditActivity.class);
 			intent.putExtra(Const.COLUMN.ID, id);

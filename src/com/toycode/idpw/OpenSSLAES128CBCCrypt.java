@@ -21,14 +21,14 @@ public class OpenSSLAES128CBCCrypt {
 	
 	public static OpenSSLAES128CBCCrypt INSTANCE = new OpenSSLAES128CBCCrypt() ;
 
-	final byte[] SALTED = { 0x53, 0x61, 0x6c, 0x74, 0x65, 0x64, 0x5f, 0x5f };
-	final String ALGORITHM = "AES";
-	final String MODE = "CBC";
-	final String PADDING = "PKCS5Padding";
-	final String TRANSFORMATION = ALGORITHM + "/" + MODE + "/" + PADDING;
-	final int SALT_LENGTH = 8;
-	final int KEY_LENGTH = 16;
-	final int BLOCK_LENGTH = 16;
+	public static final int BLOCK_LENGTH = 16;
+	static final byte[] SALTED = { 0x53, 0x61, 0x6c, 0x74, 0x65, 0x64, 0x5f, 0x5f };
+	static final String ALGORITHM = "AES";
+	static final String MODE = "CBC";
+	static final String PADDING = "PKCS5Padding";
+	static final String TRANSFORMATION = ALGORITHM + "/" + MODE + "/" + PADDING;
+	static final int SALT_LENGTH = 8;
+	static final int KEY_LENGTH = 16;
 
 	Cipher mChipher = null;
 

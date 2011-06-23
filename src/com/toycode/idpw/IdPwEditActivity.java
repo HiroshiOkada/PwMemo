@@ -1,5 +1,8 @@
 package com.toycode.idpw;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+
 import android.app.Activity;
 import android.content.ContentValues;
 import android.content.Intent;
@@ -25,7 +28,6 @@ public class IdPwEditActivity extends Activity implements OnClickListener {
 	Button mEditButton;
 	Long mId;
 	SQLiteDatabase mDb;
-	byte[] mCriptData = null;
 	final String[] COLUMNS = { Const.COLUMN.TITLE, Const.COLUMN.CRIPTDATA };
 	PasswordManager mPasswordManager;
 
@@ -67,7 +69,7 @@ public class IdPwEditActivity extends Activity implements OnClickListener {
 	 * Read モードで使用する Views を設定する
 	 */
 	private void setUpReadViews( boolean isOnCreate) {
-		setTitle(R.string.view);
+		setTitle(R.string.view_str);
 		setContentView(isOnCreate, R.layout.read);
 		mTitleEdit = (EditText) findViewById(R.id.title_textedit);
 		mCopyTitleButton = (Button) findViewById(R.id.copy_title_button);
@@ -149,17 +151,66 @@ public class IdPwEditActivity extends Activity implements OnClickListener {
 				+ " = " + id, null, null, null, null);
 		if (cursor.getCount() > 0) {
 			cursor.moveToFirst();
+			Toy.debugLog(this, "TITLE=" + cursor.getString(0));
 			mTitleEdit.setText(cursor.getString(0));
-			mCriptData = cursor.getBlob(1);
+			byte [] cryptdata = cursor.getBlob(1);
+			setCryptDataToFileds(cryptdata);
 		}
-		cursor.close();
+		cursor.close();		
+	}
+	
+	private String getStringFromJSONArray(JSONArray jsonArray) {
+		try {
+			return jsonArray.getString(0);
+		} catch (JSONException e) {
+			return "";
+		}
 	}
 
+	private void setCryptDataToFileds(byte [] cryptdata) {
+		if (cryptdata != null && cryptdata.length < OpenSSLAES128CBCCrypt.BLOCK_LENGTH) {
+			byte [] password = mPasswordManager.getDecryptedMainPassword();
+			if (password != null) {
+				byte [] bytesData = OpenSSLAES128CBCCrypt.INSTANCE.decrypt(password, cryptdata);
+				String stringData = new String(bytesData);
+				try {
+					JSONArray jsonArray = new JSONArray(stringData);
+					mUserEdit.setText(getStringFromJSONArray(jsonArray));
+					mPasswordEdit.setText(getStringFromJSONArray(jsonArray));
+					mMemoEdit.setText(getStringFromJSONArray(jsonArray));
+				} catch (JSONException e) {
+					mUserEdit.setText("");
+					mPasswordEdit.setText("");
+					mMemoEdit.setText("");
+				}
+			} else {
+				Toy.toastMessage(this, R.string.timeout);
+				finish();
+			}
+		}
+	}
+	
+	private void putCryptDataFromFileds(ContentValues values) {
+		byte [] password = mPasswordManager.getDecryptedMainPassword();
+		if (password == null) {
+			Toy.toastMessage(this, R.string.timeout);
+			return;
+		} else {
+			JSONArray jsonArray = new JSONArray();
+			jsonArray.put(mUserEdit.getText().toString());
+			jsonArray.put(mPasswordEdit.getText().toString());
+			jsonArray.put(mMemoEdit.getText().toString());
+			byte [] bytesData = jsonArray.toString().getBytes();
+			values.put(Const.COLUMN.CRIPTDATA,
+					OpenSSLAES128CBCCrypt.INSTANCE.encrypt(password, bytesData));			
+		}
+	}
+	
 	private void updateDb(Long id) {
 		String[] whereArgs = { id.toString() };
 		ContentValues values = new ContentValues();
 		values.put(Const.COLUMN.TITLE, mTitleEdit.getText().toString());
-		values.put(Const.COLUMN.CRIPTDATA, mCriptData);
+		putCryptDataFromFileds(values);
 		mDb.update(Const.TABLE.IDPW, values, Const.COLUMN.ID + " = ?",
 				whereArgs);
 	}
