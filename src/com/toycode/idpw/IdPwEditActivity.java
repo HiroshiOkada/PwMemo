@@ -19,7 +19,7 @@ public class IdPwEditActivity extends Activity implements OnClickListener {
 	Button mCopyTitleButton;
 	EditText mUserEdit;
 	Button mCopyUserId_button;
-	CopyablePasswordEditText mPasswordEdit;
+	EditText mPasswordEdit;
 	Button mCopyPasswwordButton;
 	EditText mMemoEdit;
 	Button mCopyMemoButton;
@@ -50,7 +50,7 @@ public class IdPwEditActivity extends Activity implements OnClickListener {
 				setContentView(R.layout.edit);
 				mTitleEdit = (EditText) findViewById(R.id.title_textedit);
 				mUserEdit = (EditText) findViewById(R.id.user_id_edittext);
-				mPasswordEdit = (CopyablePasswordEditText) findViewById(R.id.password_edittext);
+				mPasswordEdit = (EditText) findViewById(R.id.password_edittext);
 				mMemoEdit = (EditText) findViewById(R.id.memo_edittext);
 				mOkButton = (Button) findViewById(R.id.ok_button);
 				mOkButton.setOnClickListener(this);

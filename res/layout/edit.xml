@@ -73,7 +73,7 @@
 		android:layout_width="wrap_content"
 		android:text="@string/copy"
 		/>
-	<com.toycode.idpw.CopyablePasswordEditText
+	<EditText
 		android:id="@+id/password_edittext"
 		android:singleLine="true"
 		android:layout_below="@id/password_textview"
