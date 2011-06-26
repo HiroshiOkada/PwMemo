@@ -34,7 +34,7 @@
  		android:layout_alignBottom="@id/lock_image_button"
          />
      <FrameLayout
-        android:id="@+id/FrameLayout"
+        android:id="@+id/frame_layout"
         android:layout_width="fill_parent"
         android:layout_below="@id/lock_image_button"
         android:layout_height="wrap_content">

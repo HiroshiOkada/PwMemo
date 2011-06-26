@@ -24,7 +24,7 @@ public class IdPwEditActivity extends Activity implements OnClickListener {
 	Button mCopyPasswwordButton;
 	EditText mMemoEdit;
 	Button mCopyMemoButton;
-	Button mAddUpdateButton;
+	Button mOkButton;
 	Button mEditButton;
 	Long mId;
 	SQLiteDatabase mDb;
@@ -47,90 +47,25 @@ public class IdPwEditActivity extends Activity implements OnClickListener {
 		if (extras != null) {
 			mId = extras.getLong(Const.COLUMN.ID);
 			if (mId != null) {
-				switch (extras.getInt(Const.REQUEST_TYPE.NAME)) {
-				case Const.REQUEST_TYPE.READ:
-					setUpReadViews(true);
-					readFromDb(mId);
-					return;
-				case Const.REQUEST_TYPE.NEW:
-					setUpNewViews(true);
-					readFromDb(mId);
-					return;
-				case Const.REQUEST_TYPE.EDIT:
-					setUpEditViews(true);
-					readFromDb(mId);
-					return;
-				}
+				setTitle(R.string.edit);
+				setContentView(R.layout.edit);
+				mTitleEdit = (EditText) findViewById(R.id.title_textedit);
+				mUserEdit = (EditText) findViewById(R.id.user_id_edittext);
+				mPasswordEdit = (CopyablePasswordEditText) findViewById(R.id.password_edittext);
+				mMemoEdit = (EditText) findViewById(R.id.memo_edittext);
+				mOkButton = (Button) findViewById(R.id.ok_button);
+				mOkButton.setOnClickListener(this);
+				readFromDb(mId);
+			} else {
+				finish();
 			}
 		}
-	}
-
-	/**
-	 * Read モードで使用する Views を設定する
-	 */
-	private void setUpReadViews( boolean isOnCreate) {
-		setTitle(R.string.view_str);
-		setContentView(isOnCreate, R.layout.read);
-		mTitleEdit = (EditText) findViewById(R.id.title_textedit);
-		mCopyTitleButton = (Button) findViewById(R.id.copy_title_button);
-		mUserEdit = (EditText) findViewById(R.id.user_id_edittext);
-		mCopyUserId_button = (Button) findViewById(R.id.copy_user_id_button);
-		mPasswordEdit = (CopyablePasswordEditText) findViewById(R.id.password_edittext);
-		mCopyPasswwordButton = (Button) findViewById(R.id.copy_passwword_button);
-		mMemoEdit = (EditText) findViewById(R.id.memo_edittext);
-		mCopyMemoButton = (Button) findViewById(R.id.copy_memo_button);
-		mEditButton = (Button) findViewById(R.id.edit_button);
-		mEditButton.setOnClickListener(this);
-	}
-
-	/**
-	 * New モードで使用する Views を設定する
-	 */
-	private void setUpNewViews( boolean isOnCreate) {
-		setTitle(R.string.new_str);
-		setContentView(isOnCreate, R.layout.edit);
-		mTitleEdit = (EditText) findViewById(R.id.title_textedit);
-		mUserEdit = (EditText) findViewById(R.id.user_id_edittext);
-		mPasswordEdit = (CopyablePasswordEditText) findViewById(R.id.password_edittext);
-		mMemoEdit = (EditText) findViewById(R.id.memo_edittext);
-		mAddUpdateButton = (Button) findViewById(R.id.add_update_button);
-		mAddUpdateButton.setOnClickListener(this);
-		mAddUpdateButton.setText(R.string.add);
-	}
-
-	/**
-	 * Edit モードで使用する Views を設定する
-	 */
-	private void setUpEditViews( boolean isOnCreate) {
-		setTitle(R.string.edit);
-		setContentView( isOnCreate, R.layout.edit);
-		mTitleEdit = (EditText) findViewById(R.id.title_textedit);
-		mUserEdit = (EditText) findViewById(R.id.user_id_edittext);
-		mPasswordEdit = (CopyablePasswordEditText) findViewById(R.id.password_edittext);
-		mMemoEdit = (EditText) findViewById(R.id.memo_edittext);
-		mAddUpdateButton = (Button) findViewById(R.id.add_update_button);
-		mAddUpdateButton.setOnClickListener(this);
-		mAddUpdateButton.setText(R.string.update);
-	}
-	
-	/**
-	 * 指定した View を setContentView する
-	 * onCreate 以外の時も対応
-	 */
-	public void setContentView( boolean isOnCreate, int layoutID) {
-		if( isOnCreate ){
-			setContentView( layoutID);
-		} else {
-			LayoutInflater layoutInflater = getLayoutInflater();
-			View contentView = layoutInflater.inflate(layoutID, null, false);
-			setContentView(contentView);
-		}		
 	}
 
 	@Override
 	public void onClick(View v) {
 		switch (v.getId()) {
-		case R.id.add_update_button:
+		case R.id.ok_button:
 			updateDb(mId);
 			mDb.close();
 			setResult(RESULT_OK, new Intent());
@@ -139,9 +74,6 @@ public class IdPwEditActivity extends Activity implements OnClickListener {
 		case R.id.cancel_button:
 			setResult( RESULT_CANCELED, new Intent());
 			finish();
-			break;
-		case R.id.edit_button:
-			setContentView( false, R.id.edit_button);
 			break;
 		}
 	}

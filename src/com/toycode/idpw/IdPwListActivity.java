@@ -143,7 +143,6 @@ public class IdPwListActivity extends ListActivity implements OnClickListener,
 			long id = mDb.insert(Const.TABLE.IDPW, null, values);
 			Intent intent = new Intent(this, IdPwEditActivity.class);
 			intent.putExtra(Const.COLUMN.ID, id);
-			intent.putExtra(Const.REQUEST_TYPE.NAME, Const.REQUEST_TYPE.NEW);
 			startActivityForResult(intent, Const.REQUEST_TYPE.NEW);
 		} else {
 			Toy.toastMessage(this, R.string.locked_message);
@@ -161,7 +160,7 @@ public class IdPwListActivity extends ListActivity implements OnClickListener,
 	/**
 	 * アイテムがクリックされた時の処理
 	 * 
-	 * Unlock 状態なら編集画面に Read モードで遷移 そうでなければ、lock されている旨を表示
+	 * Unlock 状態なら編集画面に遷移、そうでなければ、lock されている旨を表示
 	 */
 	@Override
 	public void onItemClick(AdapterView<?> parent, View view, int position,
@@ -169,8 +168,7 @@ public class IdPwListActivity extends ListActivity implements OnClickListener,
 		if (mPasswordManager.isMainPasswordDecrypted()) {
 			Intent intent = new Intent(this, IdPwEditActivity.class);
 			intent.putExtra(Const.COLUMN.ID, mAdapter.getItemId(position));
-			intent.putExtra(Const.REQUEST_TYPE.NAME, Const.REQUEST_TYPE.READ);
-			startActivityForResult(intent, Const.REQUEST_TYPE.READ);
+			startActivityForResult(intent, Const.REQUEST_TYPE.EDIT);
 		} else {
 			Toy.toastMessage(this, R.string.locked_message);
 		}
