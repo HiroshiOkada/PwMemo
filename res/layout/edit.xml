@@ -22,7 +22,6 @@
 		android:text="@string/copy"
 		/>
 	<EditText
-		android:editable="false"
 		android:id="@+id/title_textedit"
 		android:layout_alignParentLeft="true"
 		android:layout_below="@id/title_textview"
@@ -48,7 +47,6 @@
 		android:text="@string/copy"
 		/>
 	<EditText
-		android:editable="false"
 		android:id="@+id/user_id_edittext"
 		android:layout_alignParentLeft="true"
 		android:layout_below="@id/user_id_textview"
@@ -74,7 +72,6 @@
 		android:text="@string/copy"
 		/>
 	<com.toycode.idpw.CopyablePasswordEditText
-		android:editable="false"
 		android:id="@+id/password_edittext"
 		android:layout_alignParentLeft="true"
 		android:layout_below="@id/password_textview"
@@ -116,7 +113,6 @@
 		android:text="@string/copy"
 		/>
 	<EditText
-		android:editable="false"
 		android:id="@+id/memo_edittext"
 		android:layout_above="@id/cancel_button"
 		android:layout_alignParentLeft="true"
