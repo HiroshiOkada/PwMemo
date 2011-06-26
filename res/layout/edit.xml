@@ -23,6 +23,7 @@
 		/>
 	<EditText
 		android:id="@+id/title_textedit"
+		android:singleLine="true"
 		android:layout_alignParentLeft="true"
 		android:layout_below="@id/title_textview"
 		android:layout_height="wrap_content"
@@ -48,6 +49,7 @@
 		/>
 	<EditText
 		android:id="@+id/user_id_edittext"
+		android:singleLine="true"
 		android:layout_alignParentLeft="true"
 		android:layout_below="@id/user_id_textview"
 		android:layout_height="wrap_content"
@@ -73,7 +75,7 @@
 		/>
 	<com.toycode.idpw.CopyablePasswordEditText
 		android:id="@+id/password_edittext"
-		android:layout_alignParentLeft="true"
+		android:singleLine="true"
 		android:layout_below="@id/password_textview"
 		android:layout_height="wrap_content"
 		android:layout_width="fill_parent"
@@ -118,7 +120,7 @@
 		android:layout_alignParentLeft="true"
 		android:layout_below="@id/memo_textview"
 		android:layout_height="wrap_content"
-		android:layout_width="fill_parent"
+		android:layout_width="wrap_content"
 		android:layout_marginBottom="3dp"
 		android:layout_toLeftOf="@id/copy_memo_button"
 		/>
