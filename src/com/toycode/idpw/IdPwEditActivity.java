@@ -89,9 +89,9 @@ public class IdPwEditActivity extends Activity implements OnClickListener {
 		cursor.close();		
 	}
 	
-	private String getStringFromJSONArray(JSONArray jsonArray) {
+	private String getStringFromJSONArray(JSONArray jsonArray, int n) {
 		try {
-			return jsonArray.getString(0);
+			return jsonArray.getString(n);
 		} catch (JSONException e) {
 			return "";
 		}
@@ -105,9 +105,9 @@ public class IdPwEditActivity extends Activity implements OnClickListener {
 				String stringData = new String(bytesData);
 				try {
 					JSONArray jsonArray = new JSONArray(stringData);
-					mUserEdit.setText(getStringFromJSONArray(jsonArray));
-					mPasswordEdit.setText(getStringFromJSONArray(jsonArray));
-					mMemoEdit.setText(getStringFromJSONArray(jsonArray));
+					mUserEdit.setText(getStringFromJSONArray(jsonArray, 0));
+					mPasswordEdit.setText(getStringFromJSONArray(jsonArray, 1));
+					mMemoEdit.setText(getStringFromJSONArray(jsonArray, 2));
 				} catch (JSONException e) {
 					mUserEdit.setText("");
 					mPasswordEdit.setText("");
