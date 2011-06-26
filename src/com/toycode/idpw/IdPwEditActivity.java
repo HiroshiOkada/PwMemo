@@ -82,7 +82,6 @@ public class IdPwEditActivity extends Activity implements OnClickListener {
 				+ " = " + id, null, null, null, null);
 		if (cursor.getCount() > 0) {
 			cursor.moveToFirst();
-			Toy.debugLog(this, "TITLE=" + cursor.getString(0));
 			mTitleEdit.setText(cursor.getString(0));
 			byte [] cryptdata = cursor.getBlob(1);
 			setCryptDataToFileds(cryptdata);
@@ -99,7 +98,7 @@ public class IdPwEditActivity extends Activity implements OnClickListener {
 	}
 
 	private void setCryptDataToFileds(byte [] cryptdata) {
-		if (cryptdata != null && cryptdata.length < OpenSSLAES128CBCCrypt.BLOCK_LENGTH) {
+		if (cryptdata != null && cryptdata.length >= OpenSSLAES128CBCCrypt.BLOCK_LENGTH) {
 			byte [] password = mPasswordManager.getDecryptedMainPassword();
 			if (password != null) {
 				byte [] bytesData = OpenSSLAES128CBCCrypt.INSTANCE.decrypt(password, cryptdata);
