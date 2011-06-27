@@ -50,8 +50,11 @@ public class EditActivity extends Activity implements OnClickListener {
 				setContentView(R.layout.edit);
 				mTitleEdit = (EditText) findViewById(R.id.title_textedit);
 				mUserIdEdit = (EditText) findViewById(R.id.user_id_edittext);
+                mCopyUserIdButton = (Button) findViewById(R.id.copy_user_id_button);
 				mPasswordEdit = (EditText) findViewById(R.id.password_edittext);
+                mCopyPasswwordButton = (Button) findViewById(R.id.copy_passwword_button);
 				mMemoEdit = (EditText) findViewById(R.id.memo_edittext);
+                mCopyMemoButton = (Button) findViewById(R.id.copy_memo_button);
 				mOkButton = (Button) findViewById(R.id.ok_button);
 				mOkButton.setOnClickListener(this);
 				mCancelButton = (Button) findViewById(R.id.cancel_button);
