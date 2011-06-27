@@ -14,7 +14,7 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 
-public class IdPwEditActivity extends Activity implements OnClickListener {
+public class EditActivity extends Activity implements OnClickListener {
 	EditText mTitleEdit;
 	Button mCopyTitleButton;
 	EditText mUserEdit;

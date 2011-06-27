@@ -141,7 +141,7 @@ public class IdPwListActivity extends ListActivity implements OnClickListener,
 			ContentValues values = new ContentValues();
 			values.put(Const.COLUMN.TITLE, "");
 			long id = mDb.insert(Const.TABLE.IDPW, null, values);
-			Intent intent = new Intent(this, IdPwEditActivity.class);
+			Intent intent = new Intent(this, EditActivity.class);
 			intent.putExtra(Const.COLUMN.ID, id);
 			startActivityForResult(intent, Const.REQUEST_TYPE.NEW);
 		} else {
@@ -166,7 +166,7 @@ public class IdPwListActivity extends ListActivity implements OnClickListener,
 	public void onItemClick(AdapterView<?> parent, View view, int position,
 			long id) {
 		if (mPasswordManager.isMainPasswordDecrypted()) {
-			Intent intent = new Intent(this, IdPwEditActivity.class);
+			Intent intent = new Intent(this, EditActivity.class);
 			intent.putExtra(Const.COLUMN.ID, mAdapter.getItemId(position));
 			startActivityForResult(intent, Const.REQUEST_TYPE.EDIT);
 		} else {
