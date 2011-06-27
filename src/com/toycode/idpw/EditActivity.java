@@ -17,8 +17,8 @@ import android.widget.EditText;
 public class EditActivity extends Activity implements OnClickListener {
 	EditText mTitleEdit;
 	Button mCopyTitleButton;
-	EditText mUserEdit;
-	Button mCopyUserId_button;
+	EditText mUserIdEdit;
+	Button mCopyUserIdButton;
 	EditText mPasswordEdit;
 	Button mCopyPasswwordButton;
 	EditText mMemoEdit;
@@ -49,7 +49,7 @@ public class EditActivity extends Activity implements OnClickListener {
 				setTitle(R.string.edit);
 				setContentView(R.layout.edit);
 				mTitleEdit = (EditText) findViewById(R.id.title_textedit);
-				mUserEdit = (EditText) findViewById(R.id.user_id_edittext);
+				mUserIdEdit = (EditText) findViewById(R.id.user_id_edittext);
 				mPasswordEdit = (EditText) findViewById(R.id.password_edittext);
 				mMemoEdit = (EditText) findViewById(R.id.memo_edittext);
 				mOkButton = (Button) findViewById(R.id.ok_button);
@@ -106,11 +106,11 @@ public class EditActivity extends Activity implements OnClickListener {
 				String stringData = new String(bytesData);
 				try {
 					JSONArray jsonArray = new JSONArray(stringData);
-					mUserEdit.setText(getStringFromJSONArray(jsonArray, 0));
+					mUserIdEdit.setText(getStringFromJSONArray(jsonArray, 0));
 					mPasswordEdit.setText(getStringFromJSONArray(jsonArray, 1));
 					mMemoEdit.setText(getStringFromJSONArray(jsonArray, 2));
 				} catch (JSONException e) {
-					mUserEdit.setText("");
+					mUserIdEdit.setText("");
 					mPasswordEdit.setText("");
 					mMemoEdit.setText("");
 				}
@@ -128,7 +128,7 @@ public class EditActivity extends Activity implements OnClickListener {
 			return;
 		} else {
 			JSONArray jsonArray = new JSONArray();
-			jsonArray.put(mUserEdit.getText().toString());
+			jsonArray.put(mUserIdEdit.getText().toString());
 			jsonArray.put(mPasswordEdit.getText().toString());
 			jsonArray.put(mMemoEdit.getText().toString());
 			byte [] bytesData = jsonArray.toString().getBytes();
