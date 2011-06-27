@@ -24,7 +24,7 @@ public class EditActivity extends Activity implements OnClickListener {
 	EditText mMemoEdit;
 	Button mCopyMemoButton;
 	Button mOkButton;
-	Button mEditButton;
+	Button mCancelButton;
 	Long mId;
 	SQLiteDatabase mDb;
 	final String[] COLUMNS = { Const.COLUMN.TITLE, Const.COLUMN.CRIPTDATA };
@@ -54,6 +54,7 @@ public class EditActivity extends Activity implements OnClickListener {
 				mMemoEdit = (EditText) findViewById(R.id.memo_edittext);
 				mOkButton = (Button) findViewById(R.id.ok_button);
 				mOkButton.setOnClickListener(this);
+				mCancelButton = (Button) findViewById(R.id.cancel_button);
 				readFromDb(mId);
 			} else {
 				finish();
