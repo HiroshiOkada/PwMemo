@@ -1,9 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+<ScrollView
 	xmlns:android="http://schemas.android.com/apk/res/android"
 	android:layout_height="fill_parent"
-	android:layout_width="fill_parent"
+	android:layout_width="fill_parent">
+<RelativeLayout
 	android:padding="10dp"
+	android:layout_height="fill_parent"
+	android:layout_width="fill_parent">
 	>
 	<TextView 
 		android:id="@+id/title_textview"
@@ -83,22 +86,6 @@
 		android:text="@string/memo"
 		/>
 	<Button
-		android:id="@+id/cancel_button"
-		android:layout_alignParentBottom="true"
-		android:layout_alignParentLeft="true"
-		android:layout_height="wrap_content"
-		android:layout_width="wrap_content"
-		android:text="@string/cancel"
-		/>
-	<Button
-		android:id="@+id/ok_button"
-		android:layout_alignParentBottom="true"
-		android:layout_alignParentRight="true"
-		android:layout_height="wrap_content"
-		android:layout_width="wrap_content"
-		android:text="@string/ok"
-		/>
-	<Button
 		android:id="@+id/copy_memo_button"
 		android:layout_alignParentRight="true"
 		android:layout_below="@id/memo_textview"
@@ -108,7 +95,6 @@
 		/>
 	<EditText
 		android:id="@+id/memo_edittext"
-		android:layout_above="@id/cancel_button"
 		android:layout_alignParentLeft="true"
 		android:layout_below="@id/memo_textview"
 		android:layout_height="wrap_content"
@@ -116,4 +102,21 @@
 		android:layout_marginBottom="3dp"
 		android:layout_toLeftOf="@id/copy_memo_button"
 		/>
+	<Button
+		android:id="@+id/cancel_button"
+		android:layout_below="@id/memo_edittext"
+		android:layout_alignParentLeft="true"
+		android:layout_height="wrap_content"
+		android:layout_width="wrap_content"
+		android:text="@string/cancel"
+		/>
+	<Button
+		android:id="@+id/ok_button"
+		android:layout_below="@id/memo_edittext"
+		android:layout_alignParentRight="true"
+		android:layout_height="wrap_content"
+		android:layout_width="wrap_content"
+		android:text="@string/ok"
+		/>
 </RelativeLayout>
+</ScrollView>
