@@ -61,6 +61,7 @@ public class EditActivity extends Activity implements OnClickListener {
                 mOkButton = (Button) findViewById(R.id.ok_button);
                 mOkButton.setOnClickListener(this);
                 mCancelButton = (Button) findViewById(R.id.cancel_button);
+                mCancelButton.setOnClickListener(this);                
                 readFromDb(mId);
                 assinCopyText(mUserIdEdit, mCopyUserIdButton);
                 assinCopyText(mPasswordEdit, mCopyPasswwordButton);
