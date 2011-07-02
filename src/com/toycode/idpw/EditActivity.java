@@ -62,6 +62,9 @@ public class EditActivity extends Activity implements OnClickListener {
                 mOkButton.setOnClickListener(this);
                 mCancelButton = (Button) findViewById(R.id.cancel_button);
                 readFromDb(mId);
+                assinCopyText(mUserIdEdit, mCopyUserIdButton);
+                assinCopyText(mPasswordEdit, mCopyPasswwordButton);
+                assinCopyText(mMemoEdit, mCopyMemoButton);
             } else {
                 finish();
             }
@@ -152,5 +155,15 @@ public class EditActivity extends Activity implements OnClickListener {
         putCryptDataFromFileds(values);
         mDb.update(Const.TABLE.IDPW, values, Const.COLUMN.ID + " = ?",
                 whereArgs);
+    }
+
+    private void assinCopyText( final EditText editText, final Button button) {
+        button.setOnClickListener(new OnClickListener() {
+            public void onClick(View v) {
+                android.text.ClipboardManager cm 
+                    = (android.text.ClipboardManager)getSystemService(CLIPBOARD_SERVICE);
+                cm.setText(editText.getText() );
+            }
+        });
     }
 }
