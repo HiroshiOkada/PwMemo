@@ -27,6 +27,7 @@
 	<string name="new_master_password">Plase enter new master password.</string>
 	<string name="new_str">New</string>
 	<string name="ok">OK</string>
+	<string name="old_password">Old Password</string>
 	<string name="password">Password</string>
 	<string name="password_does_not_match">Password does not match.</string>
 	<string name="password_change_failed">Password change failed.</string>

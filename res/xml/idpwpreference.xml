@@ -11,6 +11,7 @@
 		android:title="@string/change_password"
 		android:summary="@string/change_password_summary"
 		android:key="change"
+		android:dialogTitle="@string/old_password"
 		/>
 	<com.toycode.idpw.DeleteAllDialogPreference 
 		android:title="@string/delete_all"

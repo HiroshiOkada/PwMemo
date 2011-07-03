@@ -121,7 +121,9 @@ public class PasswordManager {
 		// 新しいマスターパスワードで暗号化
 		mMainPasswordCrypted = OpenSSLAES128CBCCrypt.INSTANCE.encrypt(
 				newMasterPassword.getBytes(), mMainPasswordDecrypted);
-		return true;
+        SharedPreferences.Editor editor = mPreferences.edit();
+        editor.putString(PREF_KEY, BytesUtil.toHex(mMainPasswordCrypted));
+        return editor.commit();
 	}
 	
 	/**
