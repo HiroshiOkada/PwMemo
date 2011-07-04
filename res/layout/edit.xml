@@ -18,7 +18,7 @@
 		/>
 	<EditText
 		android:id="@+id/title_textedit"
-		android:singleLine="true"
+		android:inputType="text"
 		android:layout_alignParentRight="true"
 		android:layout_alignParentLeft="true"
 		android:layout_below="@id/title_textview"
@@ -44,7 +44,7 @@
 		/>
 	<EditText
 		android:id="@+id/user_id_edittext"
-		android:singleLine="true"
+		android:inputType="text"
 		android:layout_alignParentLeft="true"
 		android:layout_below="@id/user_id_textview"
 		android:layout_height="wrap_content"
@@ -70,7 +70,7 @@
 		/>
 	<EditText
 		android:id="@+id/password_edittext"
-		android:singleLine="true"
+		android:inputType="textNoSuggestions"
 		android:layout_below="@id/password_textview"
 		android:layout_height="wrap_content"
 		android:layout_width="fill_parent"
@@ -96,6 +96,7 @@
 	<EditText
 		android:id="@+id/memo_edittext"
 		android:layout_alignParentLeft="true"
+		android:inputType="textMultiLine"
 		android:layout_below="@id/memo_textview"
 		android:layout_height="wrap_content"
 		android:layout_width="wrap_content"
