@@ -31,15 +31,13 @@ public class EditActivity extends Activity implements OnClickListener {
     final String[] COLUMNS = {
             Const.COLUMN.TITLE, Const.COLUMN.CRIPTDATA
     };
-    PasswordManager mPasswordManager;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mDb = (new IdPwDbOpenHelper(this)).getReadableDatabase();
-        mPasswordManager = PasswordManager.getInstance(this);
         // アンロック状態でなければ終了
-        if (mPasswordManager.isMainPasswordDecrypted() == false) {
+        if (PasswordManager.getInstance(this).isMainPasswordDecrypted() == false) {
             setResult(RESULT_CANCELED, new Intent());
             finish();
             return;
@@ -110,7 +108,7 @@ public class EditActivity extends Activity implements OnClickListener {
 
     private void setCryptDataToFileds(byte[] cryptdata) {
         if (cryptdata != null && cryptdata.length >= OpenSSLAES128CBCCrypt.BLOCK_LENGTH) {
-            byte[] password = mPasswordManager.getDecryptedMainPassword();
+            byte[] password = PasswordManager.getInstance(this).getDecryptedMainPassword();
             if (password != null) {
                 byte[] bytesData = OpenSSLAES128CBCCrypt.INSTANCE.decrypt(password, cryptdata);
                 String stringData = new String(bytesData);
@@ -132,7 +130,7 @@ public class EditActivity extends Activity implements OnClickListener {
     }
 
     private void putCryptDataFromFileds(ContentValues values) {
-        byte[] password = mPasswordManager.getDecryptedMainPassword();
+        byte[] password = PasswordManager.getInstance(this).getDecryptedMainPassword();
         if (password == null) {
             Toy.toastMessage(this, R.string.timeout);
             return;

@@ -19,7 +19,6 @@ import android.widget.AdapterView.OnItemClickListener;
 public class IdPwListActivity extends ListActivity implements OnClickListener,
 		OnItemClickListener {
 
-	PasswordManager mPasswordManager;
 	LockImageButton mLockImageButton;
 	Button mAddButton;
 	Button mExitButton;
@@ -31,8 +30,6 @@ public class IdPwListActivity extends ListActivity implements OnClickListener,
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.list);
-
-		mPasswordManager = PasswordManager.getInstance(this);
 
 		mLockImageButton = (LockImageButton) findViewById(R.id.lock_image_button);
 		updateLockImageButton();
@@ -51,7 +48,7 @@ public class IdPwListActivity extends ListActivity implements OnClickListener,
 		mDb = (new IdPwDbOpenHelper(this)).getWritableDatabase();
 		updateAdapter();
 
-		if (!mPasswordManager.isMainPasswordExist()) {
+		if (!PasswordManager.getInstance(this).isMainPasswordExist()) {
 			Intent i = new Intent(this, DeclarMasterPasswordActivity.class);
 			startActivityForResult(i, Const.REQUEST_TYPE.NEW);
 		}
@@ -60,12 +57,12 @@ public class IdPwListActivity extends ListActivity implements OnClickListener,
 	@Override
 	protected void onResume() {
 		super.onResume();
-		if (!mPasswordManager.isMainPasswordExist()) {
+		if (!PasswordManager.getInstance(this).isMainPasswordExist()) {
 			Intent i = new Intent(this, DeclarMasterPasswordActivity.class);
 			startActivityForResult(i, Const.REQUEST_TYPE.NEW);
 		} else {
 			mLockImageButton
-					.setLock(mPasswordManager.isMainPasswordDecrypted() == false);
+					.setLock(PasswordManager.getInstance(this).isMainPasswordDecrypted() == false);
 			updateAdapter();
 		}
 	}
@@ -120,8 +117,8 @@ public class IdPwListActivity extends ListActivity implements OnClickListener,
 	 * LockImageButton が押された時の処理
 	 */
 	private void onLockImageButton() {
-		if (mPasswordManager.isMainPasswordDecrypted()) {
-			mPasswordManager.unDecrypt();
+		if (PasswordManager.getInstance(this).isMainPasswordDecrypted()) {
+			PasswordManager.getInstance(this).unDecrypt();
 			updateLockImageButton();
 		} else {
 			MasterPasswordInput mpi = new MasterPasswordInput(this) {
@@ -137,7 +134,7 @@ public class IdPwListActivity extends ListActivity implements OnClickListener,
 	 * AddButton が押された時の処理
 	 */
 	private void onAddButton() {
-		if (mPasswordManager.isMainPasswordDecrypted()) {
+		if (PasswordManager.getInstance(this).isMainPasswordDecrypted()) {
 			ContentValues values = new ContentValues();
 			values.put(Const.COLUMN.TITLE, "");
 			long id = mDb.insert(Const.TABLE.IDPW, null, values);
@@ -165,7 +162,7 @@ public class IdPwListActivity extends ListActivity implements OnClickListener,
 	@Override
 	public void onItemClick(AdapterView<?> parent, View view, int position,
 			long id) {
-		if (mPasswordManager.isMainPasswordDecrypted()) {
+		if (PasswordManager.getInstance(this).isMainPasswordDecrypted()) {
 			Intent intent = new Intent(this, EditActivity.class);
 			intent.putExtra(Const.COLUMN.ID, mAdapter.getItemId(position));
 			startActivityForResult(intent, Const.REQUEST_TYPE.EDIT);
@@ -205,6 +202,6 @@ public class IdPwListActivity extends ListActivity implements OnClickListener,
 	 */
 	private void updateLockImageButton() {
 		mLockImageButton
-				.setLock(mPasswordManager.isMainPasswordDecrypted() == false);
+				.setLock(PasswordManager.getInstance(this).isMainPasswordDecrypted() == false);
 	}
 }

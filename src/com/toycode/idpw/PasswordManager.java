@@ -30,7 +30,7 @@ public class PasswordManager {
 	 */
 	public static PasswordManager getInstance(Context context) {
 		if ((sInstance == null) && (context != null)) {
-			sInstance = new PasswordManager(context);
+			sInstance = new PasswordManager(context.getApplicationContext());
 		}
 		return sInstance;
 	}
