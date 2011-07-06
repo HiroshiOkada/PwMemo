@@ -47,6 +47,8 @@
 	  />
  <ViewStub 
 	 android:id="@+id/selectfile_viewstub" 
+	 android:inflatedId="@+id/selectfile_button_import"
+	 android:layout="@layout/selectfile_button"
 	 android:layout_below="@id/filename_edittext"
 	 android:layout_height="wrap_content"
 	 android:layout_toLeftOf="@id/write_file_button"

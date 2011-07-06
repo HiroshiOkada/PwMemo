@@ -190,6 +190,7 @@ public class IdPwListActivity extends ListActivity implements OnClickListener,
 			startActivity(new Intent(this, IdPwPreferenceActivity.class));
 			return true;
 		case R.id.export_menu_item:
+            startActivity(new Intent(this, ExportActivity.class));
 			return true;
 		case R.id.import_menu_item:
 			return true;
