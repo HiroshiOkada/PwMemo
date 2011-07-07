@@ -36,6 +36,7 @@
 	<string name="password_change_failed">Password change failed.</string>
 	<string name="password_is_too_short">The password is too short.</string>
 	<string name="please_set_export_password">Please set a password for export.I recommend this is different from the master password.</string>
+	<string name="save_as">Save as ...</string>
 	<string name="setting3">setting ...</string>
 	<string name="timeout">timeout</string>
 	<string name="title">Title</string>

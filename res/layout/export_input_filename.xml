@@ -21,14 +21,29 @@
 	  android:layout_width="fill_parent" 
 	  android:layout_marginBottom="10dp"
 	  />
-   <Button 
-	  android:id="@+id/write_file_button" 
+  <TextView 
+	  android:id="@+id/filename_textview" 
 	  android:layout_alignParentLeft="true"
 	  android:layout_below="@id/export_password_edittext"
 	  android:layout_height="wrap_content"
+	  android:layout_width="wrap_content" 
+	  android:text="@string/filename" 
+	  />
+  <EditText 
+	  android:id="@+id/filename_edittext" 
+	  android:layout_alignParentLeft="true"
+	  android:layout_below="@id/filename_textview"
+	  android:layout_height="wrap_content"
+	  android:layout_width="fill_parent" 
+	  />
+  <Button 
+	  android:id="@+id/write_file_button" 
+	  android:layout_alignParentRight="true"
+	  android:layout_below="@id/filename_edittext"
+	  android:layout_height="wrap_content"
 	  android:layout_marginBottom="10dp"
-	  android:layout_width="fill_parent"
-	  android:text="@string/save_as" 
+	  android:layout_width="wrap_content"
+	  android:text="@string/write_str" 
 	  />
    <TextView 
 	  android:id="@+id/export_textview" 
