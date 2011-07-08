@@ -17,15 +17,10 @@ import android.widget.EditText;
 
 public class EditActivity extends Activity implements OnClickListener {
     EditText mTitleEdit;
-    Button mCopyTitleButton;
     EditText mUserIdEdit;
-    Button mCopyUserIdButton;
     EditText mPasswordEdit;
-    Button mCopyPasswwordButton;
     EditText mMemoEdit;
-    Button mCopyMemoButton;
     Button mOkButton;
-    Button mCancelButton;
     Long mId;
     SQLiteDatabase mDb;
     final String[] COLUMNS = {
@@ -51,19 +46,14 @@ public class EditActivity extends Activity implements OnClickListener {
                 setContentView(R.layout.edit);
                 mTitleEdit = (EditText) findViewById(R.id.title_textedit);
                 mUserIdEdit = (EditText) findViewById(R.id.user_id_edittext);
-                mCopyUserIdButton = (Button) findViewById(R.id.copy_user_id_button);
                 mPasswordEdit = (EditText) findViewById(R.id.password_edittext);
-                mCopyPasswwordButton = (Button) findViewById(R.id.copy_passwword_button);
                 mMemoEdit = (EditText) findViewById(R.id.memo_edittext);
-                mCopyMemoButton = (Button) findViewById(R.id.copy_memo_button);
-                mOkButton = (Button) findViewById(R.id.ok_button);
-                mOkButton.setOnClickListener(this);
-                mCancelButton = (Button) findViewById(R.id.cancel_button);
-                mCancelButton.setOnClickListener(this);                
+                findViewById(R.id.copy_user_id_button).setOnClickListener(this);
+                findViewById(R.id.copy_passwword_button).setOnClickListener(this);
+                findViewById(R.id.copy_memo_button).setOnClickListener(this);
+                findViewById(R.id.ok_button).setOnClickListener(this);
+                findViewById(R.id.cancel_button).setOnClickListener(this);
                 readFromDb(mId);
-                assinCopyText(mUserIdEdit, mCopyUserIdButton);
-                assinCopyText(mPasswordEdit, mCopyPasswwordButton);
-                assinCopyText(mMemoEdit, mCopyMemoButton);
             } else {
                 finish();
             }
@@ -83,7 +73,19 @@ public class EditActivity extends Activity implements OnClickListener {
                 setResult(RESULT_CANCELED, new Intent());
                 finish();
                 break;
-        }
+            case R.id.copy_user_id_button:
+                copyText(mUserIdEdit.getText());
+                break;
+            case R.id.copy_passwword_button:
+                copyText(mPasswordEdit.getText());
+                break;
+            case R.id.copy_memo_button:
+                copyText(mMemoEdit.getText());
+                break;
+            default:
+                // did not come
+                break;
+         }
     }
 
     private void readFromDb(Long id) {
@@ -156,13 +158,8 @@ public class EditActivity extends Activity implements OnClickListener {
                 whereArgs);
     }
 
-    private void assinCopyText( final EditText editText, final Button button) {
-        button.setOnClickListener(new OnClickListener() {
-            public void onClick(View v) {
-                android.text.ClipboardManager cm 
-                    = (android.text.ClipboardManager)getSystemService(CLIPBOARD_SERVICE);
-                cm.setText(editText.getText() );
-            }
-        });
+    private void copyText( CharSequence text) {
+        android.text.ClipboardManager cm  = (android.text.ClipboardManager)getSystemService(CLIPBOARD_SERVICE);
+        cm.setText(text);
     }
 }
