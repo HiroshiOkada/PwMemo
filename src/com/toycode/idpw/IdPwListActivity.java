@@ -121,12 +121,11 @@ public class IdPwListActivity extends ListActivity implements OnClickListener,
 			PasswordManager.getInstance(this).unDecrypt();
 			updateLockImageButton();
 		} else {
-			MasterPasswordInput mpi = new MasterPasswordInput(this) {
+			(new MasterPasswordInput(this) {
 				public void onTureMasterPassword() {
 					updateLockImageButton();
 				}
-			};
-			mpi.Ask();
+			}).Ask();
 		}
 	}
 
@@ -190,7 +189,16 @@ public class IdPwListActivity extends ListActivity implements OnClickListener,
 			startActivity(new Intent(this, IdPwPreferenceActivity.class));
 			return true;
 		case R.id.export_menu_item:
-            startActivity(new Intent(this, ExportActivity.class));
+	        if (PasswordManager.getInstance(this).isMainPasswordDecrypted()) {
+                startActivity(new Intent(this, ExportActivity.class));
+	        } else {
+	            (new MasterPasswordInput(this) {
+	                public void onTureMasterPassword() {
+	                    updateLockImageButton();
+	                    startActivity(new Intent(IdPwListActivity.this, ExportActivity.class));
+	                }
+	            }).Ask();        
+		    }
 			return true;
 		case R.id.import_menu_item:
 			return true;
@@ -204,5 +212,5 @@ public class IdPwListActivity extends ListActivity implements OnClickListener,
 	private void updateLockImageButton() {
 		mLockImageButton
 				.setLock(PasswordManager.getInstance(this).isMainPasswordDecrypted() == false);
-	}
+	}	
 }

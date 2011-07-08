@@ -20,7 +20,12 @@ public class ExportActivity extends Activity implements OnClickListener {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        // アンロック状態でなければ終了
+        if (PasswordManager.getInstance(this).isMainPasswordDecrypted() == false) {
+            setResult(RESULT_CANCELED, new Intent());
+            finish();
+            return;
+        }
         if (checkOIActionPickFile()) {
             setContentView(R.layout.export);
         } else {
