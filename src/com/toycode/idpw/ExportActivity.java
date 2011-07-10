@@ -25,7 +25,7 @@ public class ExportActivity extends Activity implements OnClickListener {
 
     private File mOutputFile;
     private boolean mUseFileManeger;
-    
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,7 +44,7 @@ public class ExportActivity extends Activity implements OnClickListener {
         }
         findViewById(R.id.write_file_button).setOnClickListener(this);
         mOutputFile = getDefaultOutputFile();
-     }
+    }
 
     private boolean checkOIActionPickFile() {
         Intent intent = new Intent(OI_ACTION_PICK_FILE);
@@ -77,7 +77,7 @@ public class ExportActivity extends Activity implements OnClickListener {
             }
         }
     }
-    
+
     private void startSaveFileManager() {
         Intent intent = new Intent(OI_ACTION_PICK_FILE);
         intent.setData(Uri.fromFile(mOutputFile));
@@ -88,12 +88,12 @@ public class ExportActivity extends Activity implements OnClickListener {
         } catch (ActivityNotFoundException e) {
             throw new RuntimeException(e.getMessage());
         }
-   }
-    
+    }
+
     private File getDefaultOutputFile() {
-        if( Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {
+        if (Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {
             File dir = Environment.getExternalStorageDirectory();
-            File file = new File(dir, OUTPUT_FILENAME); 
+            File file = new File(dir, OUTPUT_FILENAME);
             file.mkdirs();
             return file;
         } else {

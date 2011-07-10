@@ -14,28 +14,28 @@ public class EditActivity extends Activity implements OnClickListener {
     EditText mUserIdEdit;
     EditText mPasswordEdit;
     EditText mMemoEdit;
-	DbRw mDbRw;
-	Long mId;
+    DbRw mDbRw;
+    Long mId;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Toy.debugLog(this,"onCreate(Bundle savedInstanceState)");
-    	SQLiteDatabase db = (new IdPwDbOpenHelper(this)).getReadableDatabase();
+        Toy.debugLog(this, "onCreate(Bundle savedInstanceState)");
+        SQLiteDatabase db = (new IdPwDbOpenHelper(this)).getReadableDatabase();
         if (db == null) {
             setResult(RESULT_CANCELED, new Intent());
-			finish();
+            finish();
             return;
         }
 
-        byte [] mainPasswod = PasswordManager.getInstance(this).getDecryptedMainPassword();
+        byte[] mainPasswod = PasswordManager.getInstance(this).getDecryptedMainPassword();
         if (mainPasswod == null) {
             setResult(RESULT_CANCELED, new Intent());
-			finish();
+            finish();
             return;
         }
 
-		mDbRw = new DbRw( db, mainPasswod);
+        mDbRw = new DbRw(db, mainPasswod);
 
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
@@ -52,10 +52,10 @@ public class EditActivity extends Activity implements OnClickListener {
                 findViewById(R.id.copy_memo_button).setOnClickListener(this);
                 findViewById(R.id.ok_button).setOnClickListener(this);
                 findViewById(R.id.cancel_button).setOnClickListener(this);
-				dbToField();
+                dbToField();
             } else {
                 setResult(RESULT_CANCELED, new Intent());
-				finish();
+                finish();
             }
         }
     }
@@ -66,11 +66,11 @@ public class EditActivity extends Activity implements OnClickListener {
             case R.id.ok_button:
                 fieldToDb();
                 setResult(RESULT_OK, new Intent());
-				finish();
+                finish();
                 break;
             case R.id.cancel_button:
                 setResult(RESULT_CANCELED, new Intent());
-				finish();
+                finish();
                 break;
             case R.id.copy_user_id_button:
                 copyText(mUserIdEdit.getText());
@@ -84,19 +84,19 @@ public class EditActivity extends Activity implements OnClickListener {
             default:
                 // did not come
                 break;
-         }
+        }
     }
 
     @Override
     public void onDestroy() {
-        Toy.debugLog(this,"onDestroy");
-		mDbRw.cleanup();
-		mDbRw = null;
+        Toy.debugLog(this, "onDestroy");
+        mDbRw.cleanup();
+        mDbRw = null;
         super.onDestroy();
     }
 
     private void dbToField() {
-		DbRw.Data data = mDbRw.getRecord(mId);
+        DbRw.Data data = mDbRw.getRecord(mId);
         mTitleEdit.setText(data.getTitle());
         mUserIdEdit.setText(data.getUserId());
         mPasswordEdit.setText(data.getPassword());
@@ -104,16 +104,16 @@ public class EditActivity extends Activity implements OnClickListener {
     }
 
     private void fieldToDb() {
-		DbRw.Data data = new DbRw.Data(
-				mTitleEdit.getText().toString(),
-				mUserIdEdit.getText().toString(),
-				mPasswordEdit.getText().toString(),
-				mMemoEdit.getText().toString());
-		mDbRw.updateRecord( mId, data);
+        DbRw.Data data = new DbRw.Data(
+                mTitleEdit.getText().toString(),
+                mUserIdEdit.getText().toString(),
+                mPasswordEdit.getText().toString(),
+                mMemoEdit.getText().toString());
+        mDbRw.updateRecord(mId, data);
     }
 
-    private void copyText( CharSequence text) {
-        android.text.ClipboardManager cm  = (android.text.ClipboardManager)getSystemService(CLIPBOARD_SERVICE);
+    private void copyText(CharSequence text) {
+        android.text.ClipboardManager cm = (android.text.ClipboardManager) getSystemService(CLIPBOARD_SERVICE);
         cm.setText(text);
     }
 
