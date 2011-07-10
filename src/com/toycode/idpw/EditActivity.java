@@ -1,18 +1,12 @@
 
 package com.toycode.idpw;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-
 import android.app.Activity;
-import android.content.ContentValues;
 import android.content.Intent;
-import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.widget.Button;
 import android.widget.EditText;
 
 public class EditActivity extends Activity implements OnClickListener {
@@ -20,23 +14,28 @@ public class EditActivity extends Activity implements OnClickListener {
     EditText mUserIdEdit;
     EditText mPasswordEdit;
     EditText mMemoEdit;
-    Button mOkButton;
-    Long mId;
-    SQLiteDatabase mDb;
-    final String[] COLUMNS = {
-            Const.COLUMN.TITLE, Const.COLUMN.CRIPTDATA
-    };
+	DbRw mDbRw;
+	Long mId;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mDb = (new IdPwDbOpenHelper(this)).getReadableDatabase();
-        // アンロック状態でなければ終了
-        if (PasswordManager.getInstance(this).isMainPasswordDecrypted() == false) {
+        Toy.debugLog(this,"onCreate(Bundle savedInstanceState)");
+    	SQLiteDatabase db = (new IdPwDbOpenHelper(this)).getReadableDatabase();
+        if (db == null) {
             setResult(RESULT_CANCELED, new Intent());
-            finish();
+			finish();
             return;
         }
+
+        byte [] mainPasswod = PasswordManager.getInstance(this).getDecryptedMainPassword();
+        if (mainPasswod == null) {
+            setResult(RESULT_CANCELED, new Intent());
+			finish();
+            return;
+        }
+
+		mDbRw = new DbRw( db, mainPasswod);
 
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
@@ -53,9 +52,10 @@ public class EditActivity extends Activity implements OnClickListener {
                 findViewById(R.id.copy_memo_button).setOnClickListener(this);
                 findViewById(R.id.ok_button).setOnClickListener(this);
                 findViewById(R.id.cancel_button).setOnClickListener(this);
-                readFromDb(mId);
+				dbToField();
             } else {
-                finish();
+                setResult(RESULT_CANCELED, new Intent());
+				finish();
             }
         }
     }
@@ -64,14 +64,13 @@ public class EditActivity extends Activity implements OnClickListener {
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.ok_button:
-                updateDb(mId);
-                mDb.close();
+                fieldToDb();
                 setResult(RESULT_OK, new Intent());
-                finish();
+				finish();
                 break;
             case R.id.cancel_button:
                 setResult(RESULT_CANCELED, new Intent());
-                finish();
+				finish();
                 break;
             case R.id.copy_user_id_button:
                 copyText(mUserIdEdit.getText());
@@ -88,78 +87,34 @@ public class EditActivity extends Activity implements OnClickListener {
          }
     }
 
-    private void readFromDb(Long id) {
-        Cursor cursor = mDb.query(Const.TABLE.IDPW, COLUMNS, Const.COLUMN.ID
-                + " = " + id, null, null, null, null);
-        if (cursor.getCount() > 0) {
-            cursor.moveToFirst();
-            mTitleEdit.setText(cursor.getString(0));
-            byte[] cryptdata = cursor.getBlob(1);
-            setCryptDataToFileds(cryptdata);
-        }
-        cursor.close();
+    @Override
+    public void onDestroy() {
+        Toy.debugLog(this,"onDestroy");
+		mDbRw.cleanup();
+		mDbRw = null;
+        super.onDestroy();
     }
 
-    private String getStringFromJSONArray(JSONArray jsonArray, int n) {
-        try {
-            return jsonArray.getString(n);
-        } catch (JSONException e) {
-            return "";
-        }
+    private void dbToField() {
+		DbRw.Data data = mDbRw.getRecord(mId);
+        mTitleEdit.setText(data.getTitle());
+        mUserIdEdit.setText(data.getUserId());
+        mPasswordEdit.setText(data.getPassword());
+        mMemoEdit.setText(data.getMemo());
     }
 
-    private void setCryptDataToFileds(byte[] cryptdata) {
-        if (cryptdata != null && cryptdata.length >= OpenSSLAES128CBCCrypt.BLOCK_LENGTH) {
-            byte[] password = PasswordManager.getInstance(this).getDecryptedMainPassword();
-            if (password != null) {
-                byte[] bytesData = OpenSSLAES128CBCCrypt.INSTANCE.decrypt(password, cryptdata);
-                String stringData = new String(bytesData);
-                try {
-                    JSONArray jsonArray = new JSONArray(stringData);
-                    mUserIdEdit.setText(getStringFromJSONArray(jsonArray, 0));
-                    mPasswordEdit.setText(getStringFromJSONArray(jsonArray, 1));
-                    mMemoEdit.setText(getStringFromJSONArray(jsonArray, 2));
-                } catch (JSONException e) {
-                    mUserIdEdit.setText("");
-                    mPasswordEdit.setText("");
-                    mMemoEdit.setText("");
-                }
-            } else {
-                Toy.toastMessage(this, R.string.timeout);
-                finish();
-            }
-        }
-    }
-
-    private void putCryptDataFromFileds(ContentValues values) {
-        byte[] password = PasswordManager.getInstance(this).getDecryptedMainPassword();
-        if (password == null) {
-            Toy.toastMessage(this, R.string.timeout);
-            return;
-        } else {
-            JSONArray jsonArray = new JSONArray();
-            jsonArray.put(mUserIdEdit.getText().toString());
-            jsonArray.put(mPasswordEdit.getText().toString());
-            jsonArray.put(mMemoEdit.getText().toString());
-            byte[] bytesData = jsonArray.toString().getBytes();
-            values.put(Const.COLUMN.CRIPTDATA,
-                    OpenSSLAES128CBCCrypt.INSTANCE.encrypt(password, bytesData));
-        }
-    }
-
-    private void updateDb(Long id) {
-        String[] whereArgs = {
-            id.toString()
-        };
-        ContentValues values = new ContentValues();
-        values.put(Const.COLUMN.TITLE, mTitleEdit.getText().toString());
-        putCryptDataFromFileds(values);
-        mDb.update(Const.TABLE.IDPW, values, Const.COLUMN.ID + " = ?",
-                whereArgs);
+    private void fieldToDb() {
+		DbRw.Data data = new DbRw.Data(
+				mTitleEdit.getText().toString(),
+				mUserIdEdit.getText().toString(),
+				mPasswordEdit.getText().toString(),
+				mMemoEdit.getText().toString());
+		mDbRw.updateRecord( mId, data);
     }
 
     private void copyText( CharSequence text) {
         android.text.ClipboardManager cm  = (android.text.ClipboardManager)getSystemService(CLIPBOARD_SERVICE);
         cm.setText(text);
     }
+
 }
