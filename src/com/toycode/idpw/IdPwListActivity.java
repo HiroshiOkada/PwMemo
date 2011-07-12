@@ -78,8 +78,15 @@ public class IdPwListActivity extends ListActivity implements OnClickListener,
         final int[] TO = {
             R.id.RowTitleTextView
         };
-        Cursor cursor = mDb.query(Const.TABLE.IDPW, COLUMNS, null, null, null,
-                null, Const.COLUMN.TITLE + " ASC");
+        Cursor cursor = mDb.query(
+                Const.TABLE.IDPW,    // table 
+                COLUMNS,             // columns
+                null,               // selection
+                null,               // selectionArgs
+                null,               // groupBy
+                null,               // having
+                Const.COLUMN.TITLE + " COLLATE NOCASE"    // orderBy
+                );
         mAdapter = new SimpleCursorAdapter(this, R.layout.list_row, cursor,
                 FROM, TO);
         setListAdapter(mAdapter);
