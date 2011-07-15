@@ -40,6 +40,7 @@ public class EditActivity extends Activity implements OnClickListener {
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
             mId = extras.getLong(Const.COLUMN.ID);
+            Toy.debugLog(this, "mId=" + mId.toString());
             if (mId != null) {
                 setTitle(R.string.edit);
                 setContentView(R.layout.edit);

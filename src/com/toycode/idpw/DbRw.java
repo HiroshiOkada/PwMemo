@@ -10,10 +10,12 @@ import android.database.sqlite.SQLiteDatabase;
 
 /**
  * データベースを読み書きする
- * 
+ *
+ * 廃棄する前に必ず cleanup() を呼ぶこと
  * @author hiroshi
  */
 public final class DbRw {
+    static final int INDENT_SPACES=4;
 
     public static final class Data {
         public Data(String title, String userId, String password, String memo) {
@@ -68,7 +70,7 @@ public final class DbRw {
      * @param db
      * @param masterPassword
      */
-    public final void updateRecord(Long id, Data data) {
+    public void updateRecord(Long id, Data data) {
         if ((mDB == null) || (mMainPassword == null)) {
             throw new IllegalStateException();
         }
@@ -92,13 +94,13 @@ public final class DbRw {
     /**
      * レコードの取得
      */
-    public final Data getRecord(Long id) {
+    public Data getRecord(Long id) {
         if ((mDB == null) || (mMainPassword == null)) {
             throw new IllegalStateException();
         }
         Cursor cursor = mDB.query(Const.TABLE.IDPW, COLUMNS, Const.COLUMN.ID
                 + " = " + id, null, null, null, null);
-        if (cursor.getCount() > 0) {
+       if (cursor.getCount() > 0) {
             cursor.moveToFirst();
             String title = cursor.getString(0);
             byte[] cryptdata = cursor.getBlob(1);
@@ -124,7 +126,44 @@ public final class DbRw {
         return new Data(null, null, null, null);
     }
 
-    private static final String[] COLUMNS = {
+    /**
+     * 全てのレコードを json 文字列データとして得る
+     */
+    public String getAllRecords() {
+        if ((mDB == null) || (mMainPassword == null)) {
+            throw new IllegalStateException();
+        }
+        Cursor cursor = mDB.query(Const.TABLE.IDPW, COLUMNS,
+                null, null, null, null, null, null);
+        JSONArray root = new JSONArray();
+        if (cursor.moveToFirst()) {
+            do {
+                JSONArray child = new JSONArray();
+                child.put(cursor.getString(0));
+                byte[] cryptdata = cursor.getBlob(1);
+                if (cryptdata != null) {
+                    byte[] bytesData = OpenSSLAES128CBCCrypt.INSTANCE.decrypt(mMainPassword, cryptdata);
+                    try {
+                        JSONArray idPwMemo = new JSONArray(new String(bytesData));
+                        child.put(idPwMemo.getString(0));
+                        child.put(idPwMemo.getString(1));
+                        child.put(idPwMemo.getString(2));
+                    } catch (JSONException e) {
+                    }
+                }
+                root.put(child);
+            } while (cursor.moveToNext());
+        }
+        cursor.close();
+        try {
+            return root.toString(INDENT_SPACES);
+        } catch (JSONException e) {
+            Toy.debugLog(this, e.toString());
+            return "[]";
+        }
+    }
+
+    private final String[] COLUMNS = {
             Const.COLUMN.TITLE, Const.COLUMN.CRIPTDATA
     };
 

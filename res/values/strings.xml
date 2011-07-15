@@ -7,6 +7,7 @@
 	<string name="autoend">Auto End</string>
 	<string name="autoend_summary">When no operation is made for 3 minutes, it will automatically end.</string>
 	<string name="cancel">Cancel</string>
+	<string name="cannot_make_x">Cannot make "%s".</string>
 	<string name="change_password">Change Password</string>
 	<string name="change_password_summary">Change master password</string>
 	<string name="confirmation">Confirmation</string>
@@ -21,6 +22,7 @@
 	<string name="export">Export</string>
 	<string name="export3">export...</string>
 	<string name="export_email_etc">exports by using E-mail etc...</string>
+	<string name="faild_writing_x">Failed writing (%s).</string>
 	<string name="filename">file name</string>
 	<string name="import3">import...</string>
 	<string name="input_masterpassword">Input master password</string>
@@ -35,7 +37,8 @@
 	<string name="password_does_not_match">Password does not match.</string>
 	<string name="password_change_failed">Password change failed.</string>
 	<string name="password_is_too_short">The password is too short.</string>
-	<string name="please_set_export_password">Please set a password for export.I recommend this is different from the master password.</string>
+	<string name="please_set_export_password_info">Please set a password for export.I recommend this is different from the master password.</string>
+	<string name="please_set_export_password">Please set a password for export.</string>
 	<string name="save_as">Save as ...</string>
 	<string name="select_folder">Select a folder</string>
 	<string name="setting3">setting ...</string>
@@ -46,4 +49,6 @@
 	<string name="user_id">User ID</string>
 	<string name="view_str">View</string>
 	<string name="write_str">Write</string>
+	<string name="write_x_ok">Wirte %s OK.</string>
+	<string name="x_is_not_a_folder">"%s" is not a folder.</string>
 </resources>

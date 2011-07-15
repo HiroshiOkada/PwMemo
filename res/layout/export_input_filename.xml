@@ -11,7 +11,7 @@
 	  android:layout_alignParentTop="true"
 	  android:layout_height="wrap_content"
 	  android:layout_width="wrap_content"
-	  android:text="@string/please_set_export_password"
+	  android:text="@string/please_set_export_password_info"
 	  />
   <EditText 
 	  android:id="@+id/export_password_edittext" 
