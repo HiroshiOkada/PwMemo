@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  android:layout_width="fill_parent"
+  android:layout_height="fill_parent"
+  android:padding="10dp"
+  >
+  <TextView 
+	  android:id="@+id/import_password_textview" 
+	  android:layout_alignParentLeft="true"
+	  android:layout_alignParentTop="true"
+	  android:layout_height="wrap_content"
+	  android:layout_width="wrap_content"
+	  android:text="@string/please_set_import_password_info"
+	  />
+  <EditText 
+	  android:id="@+id/import_password_edittext" 
+	  android:inputType="textNoSuggestions"
+	  android:layout_alignParentLeft="true"
+	  android:layout_below="@id/import_password_textview"
+	  android:layout_height="wrap_content"
+	  android:layout_width="fill_parent" 
+	  android:layout_marginBottom="10dp"
+	  />
+   <Button 
+	  android:id="@+id/read_file_button" 
+	  android:layout_alignParentLeft="true"
+	  android:layout_below="@id/import_password_edittext"
+	  android:layout_height="wrap_content"
+	  android:layout_marginBottom="10dp"
+	  android:layout_width="fill_parent" android:text="@string/open_file3"/>
+</RelativeLayout>

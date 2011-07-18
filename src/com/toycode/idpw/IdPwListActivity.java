@@ -213,7 +213,17 @@ public class IdPwListActivity extends ListActivity implements OnClickListener,
                 }
                 return true;
             case R.id.import_menu_item:
-                return true;
+                if (PasswordManager.getInstance(this).isMainPasswordDecrypted()) {
+                    startActivity(new Intent(this, ImportActivity.class));
+                } else {
+                    (new MasterPasswordInput(this) {
+                        public void onTureMasterPassword() {
+                            updateLockImageButton();
+                            startActivity(new Intent(IdPwListActivity.this, ImportActivity.class));
+                        }
+                    }).Ask();
+                }
+               return true;
         }
         return false;
     }
