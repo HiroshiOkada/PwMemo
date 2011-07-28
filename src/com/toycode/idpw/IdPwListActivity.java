@@ -49,12 +49,8 @@ public class IdPwListActivity extends ListActivity implements OnClickListener,
         mDb = (new IdPwDbOpenHelper(this)).getWritableDatabase();
         updateAdapter();
 
-        if (!PasswordManager.getInstance(this).isMainPasswordExist()) {
-            Intent i = new Intent(this, DeclarMasterPasswordActivity.class);
-            startActivityForResult(i, Const.REQUEST_TYPE.NEW);
-        }
     }
-
+       
     @Override
     protected void onResume() {
         super.onResume();
@@ -235,4 +231,6 @@ public class IdPwListActivity extends ListActivity implements OnClickListener,
         mLockImageButton
                 .setLock(PasswordManager.getInstance(this).isMainPasswordDecrypted() == false);
     }
+
+ 
 }
