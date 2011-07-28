@@ -78,9 +78,9 @@ public class DeclarMasterPasswordActivityTest extends
 		
 		setActivityInitialTouchMode(false); // テストがキーイベントを送る時はタッチモードをoffにする 
 		mActiviy = getActivity();
-		mMasterPasswordEditText = (EditText)mActiviy.findViewById( R.id.MasterPasswordEditText);
-		mConfirmationEditText = (EditText)mActiviy.findViewById( R.id.ConfirmationEditText);
-		mOkButton = (Button)mActiviy.findViewById( R.id.OkButton);
+		mMasterPasswordEditText = (EditText)mActiviy.findViewById( R.id.master_password_edit_text);
+		mConfirmationEditText = (EditText)mActiviy.findViewById( R.id.confirmation_edit_text);
+		mOkButton = (Button)mActiviy.findViewById( R.id.ok_button);
 		// ShardPerefe を削除
 		SharedPreferences pref = mActiviy.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);
 		pref.edit().clear().commit();

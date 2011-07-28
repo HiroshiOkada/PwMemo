@@ -64,7 +64,7 @@ public class IdPwListActivityTest extends
 		setActivityInitialTouchMode(false); // テストがキーイベントを送る時はタッチモードをoffにする
 		
 		mActivity = getActivity();
-		mFrameLayout = (FrameLayout) mActivity.findViewById(R.id.FrameLayout);
+		mFrameLayout = (FrameLayout) mActivity.findViewById(R.id.frame_layout);
 	}
 
 	@Override
