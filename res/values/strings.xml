@@ -28,10 +28,14 @@
 	<string name="import3">import...</string>
 	<string name="import_email_etc">Import from E-mail etc...</string>
 	<string name="import_str">Import</string>
+	<string name="insert_str">Insert</string>
+	<string name="insert_info">All items are inserted. (except items that match all fields.)</string>
 	<string name="input_masterpassword">Input master password</string>
 	<string name="locked_message">Locked!</string>
 	<string name="master_password">Master password</string>
 	<string name="memo">Memo</string>
+	<string name="merge">Merge</string>
+	<string name="merge_info">The item with the same title and User ID is overwritten.</string>
 	<string name="new_master_password">Plase enter new master password.</string>
 	<string name="new_str">New</string>
 	<string name="ok">OK</string>

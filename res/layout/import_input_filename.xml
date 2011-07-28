@@ -38,40 +38,41 @@
 	  android:layout_width="fill_parent" 
 	  />
   <RadioGroup 
-  	android:id="@+id/merge_method_group"
+  	android:id="@+id/read_method_group"
   	android:layout_height="wrap_content"
-  	android:layout_width="fill_parent"
+  	android:layout_width="wrap_content"
   	android:layout_alignParentLeft="true"
 	android:layout_below="@id/filename_edittext"
-	android:checkedButton="@+id/radio0"
+	android:checkedButton="@+id/merge_radio"
   	>
       <RadioButton
-      	android:text="RadioButton"
+      	android:text="@string/merge"
       	android:layout_height="wrap_content"
       	android:layout_width="wrap_content"
-      	android:id="@+id/radio0"
+      	android:id="@id/merge_radio"
       	android:checked="true"
       	/>
       <RadioButton
-      	android:text="RadioButton"
+      	android:text="@string/insert_str"
       	android:layout_height="wrap_content"
       	android:layout_width="wrap_content"
-      	android:id="@+id/radio1"
-      	android:checked="true"
-      	/>
-      <RadioButton
-      	android:text="RadioButton"
-      	android:layout_height="wrap_content"
-      	android:layout_width="wrap_content"
-      	android:id="@+id/radio2"
-      	android:checked="true"
+      	android:id="@+id/insert_radio"
       	/>
   </RadioGroup>
-	  
+  <TextView
+    android:text="@string/merge_info" 
+    android:layout_height="wrap_content"
+	android:layout_below="@id/filename_edittext"
+	android:layout_toRightOf="@id/read_method_group"
+	android:layout_marginTop="15dp"
+	android:layout_marginLeft="10dp"
+   	android:id="@+id/read_method_info_textview"
+   	android:layout_width="wrap_content"
+  />
   <Button 
 	  android:id="@+id/read_file_button" 
 	  android:layout_alignParentRight="true"
-	  android:layout_below="@id/merge_method_group"
+	  android:layout_below="@id/read_method_group"
 	  android:layout_height="wrap_content"
 	  android:layout_marginBottom="10dp"
 	  android:layout_width="wrap_content" android:text="@string/read"/>

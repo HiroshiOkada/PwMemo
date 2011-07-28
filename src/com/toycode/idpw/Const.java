@@ -4,7 +4,7 @@ package com.toycode.idpw;
 public final class Const {
     public static final class DB {
         static final String NAME = "idpw.db";
-        static final int VERSION = 5;
+        static final int VERSION = 6;
     }
 
     static final class TABLE {
@@ -16,6 +16,7 @@ public final class Const {
         static final String ID = "_id";
         static final String TITLE = "title";
         static final String CRIPTDATA = "cryptdata";
+        static final String TEMPORARY_FLAGS = "temporaryflags";
     }
 
     static final class REQUEST_TYPE {

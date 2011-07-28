@@ -13,9 +13,11 @@ import android.os.Environment;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.nio.channels.FileChannel;
@@ -33,7 +35,11 @@ public class ImportActivity extends Activity implements OnClickListener {
     private boolean mUseFileManeger;
     private EditText mPasswordEdittext;
     private EditText mFileNameEdittext;
-
+    private TextView mReadMethodInfoTextview;
+    
+    enum ReadMethod { MERGE, INSERT };
+    private ReadMethod mReadMethod = ReadMethod.MERGE;
+    
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,12 +55,15 @@ public class ImportActivity extends Activity implements OnClickListener {
         } else {
             setContentView(R.layout.import_input_filename);
             mUseFileManeger = false;
-            mFileNameEdittext = (EditText)findViewById(R.id.filename_edittext);
-            mFileNameEdittext.setText(getDefaultInputFile().toString());
+            mFileNameEdittext = (EditText) findViewById(R.id.filename_edittext);
+            mFileNameEdittext.setText(FileUtils.getDefaultInputFile(this).toString());
         }
-        mPasswordEdittext = (EditText)findViewById(R.id.import_password_edittext);
+        mPasswordEdittext = (EditText) findViewById(R.id.import_password_edittext);
         findViewById(R.id.read_file_button).setOnClickListener(this);
-        mInputFile = getDefaultInputFile();
+        mInputFile = FileUtils.getDefaultInputFile(this);
+        findViewById(R.id.merge_radio).setOnClickListener(this);
+        findViewById(R.id.insert_radio).setOnClickListener(this);
+        mReadMethodInfoTextview = (TextView)findViewById(R.id.read_method_info_textview);
     }
 
     private boolean checkOIActionPickFile() {
@@ -78,9 +87,20 @@ public class ImportActivity extends Activity implements OnClickListener {
                 } else {
                     File file = new File(mFileNameEdittext.getText().toString());
                     if (file != null) {
-                            readFile(file);
+                        readFile(file);
                     }
                 }
+                break;
+            case R.id.merge_radio:
+                mReadMethodInfoTextview.setText(R.string.merge_info);
+                mReadMethod = ReadMethod.MERGE;
+                break;
+            case R.id.insert_radio:
+                mReadMethodInfoTextview.setText(R.string.insert_info);
+                mReadMethod = ReadMethod.INSERT;
+                break;
+            default:
+                // did not come
                 break;
         }
     }
@@ -92,7 +112,7 @@ public class ImportActivity extends Activity implements OnClickListener {
             if (uri != null) {
                 File file = new File(uri.getPath());
                 if (file != null) {
-                   readFile(file);
+                    readFile(file);
                 }
             }
         }
@@ -108,23 +128,38 @@ public class ImportActivity extends Activity implements OnClickListener {
         if (mainPasswod == null) {
             throw new RuntimeException("mainPasswod==null");
         }
+        String json = "";
+        try {
+            byte[] password = mPasswordEdittext.getText().toString().getBytes();
+            FileInputStream fis = new FileInputStream(file);
+            FileChannel ch = fis.getChannel();
+            int size = (int) ch.size();
+            byte[] cryptBytes = new byte[size];
+            ch.read(ByteBuffer.wrap(cryptBytes));
+            ch.close();
+            fis.close();
+            byte[] bytesData = OpenSSLAES128CBCCrypt.INSTANCE.decrypt(password, cryptBytes);
+            json = new String(bytesData);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        mInputFile = file;
 
         DbRw dbrw = new DbRw(db, mainPasswod);
-
-        String data = dbrw.getAllRecords();
-
-        try {
-            byte [] password = mPasswordEdittext.getText().toString().getBytes();
-            FileInputStream fos = new FileInputStream(file);
-            FileChannel ch = fos.getChannel();
-            fos.close();
-            Toy.toastMessage(this, R.string.read_x_ok, file.toString());
-        } catch (IOException e) {
-            Toy.debugLog(this, e.toString());
-            Toy.toastMessage(this, R.string.faild_read_x, file.toString());
+        switch (mReadMethod) {
+            case MERGE:
+                dbrw.insertRecords(json);
+                break;
+            case INSERT:
+                dbrw.mergeRecords(json);
+                break;
+            default:
+                // did not come
+                break;
         }
         dbrw.cleanup();
-        mInputFile = file;
     }
 
     private void startSaveFileManager() {
@@ -138,15 +173,4 @@ public class ImportActivity extends Activity implements OnClickListener {
             throw new RuntimeException(e.getMessage());
         }
     }
-
-    private File getDefaultInputFile() {
-        if (Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {
-            File dir = Environment.getExternalStorageDirectory();
-            File file = new File(dir, DEFALUT_OUTPUT_FILENAME);
-            return file;
-        } else {
-            return new File(Environment.getDataDirectory(), DEFALUT_OUTPUT_FILENAME);
-        }
-    }
-
 }

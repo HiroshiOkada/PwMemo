@@ -48,14 +48,14 @@ public final class DbRw {
     };
 
     public DbRw(SQLiteDatabase db, byte[] masterPassword) {
-        mDB = db;
+        mDb = db;
         mMainPassword = masterPassword;
     }
 
     public void cleanup() {
-        if (mDB != null) {
-            mDB.close();
-            mDB = null;
+        if (mDb != null) {
+            mDb.close();
+            mDb = null;
         }
         if (mMainPassword != null) {
             mMainPassword = null;
@@ -71,7 +71,7 @@ public final class DbRw {
      * @param masterPassword
      */
     public void updateRecord(Long id, Data data) {
-        if ((mDB == null) || (mMainPassword == null)) {
+        if ((mDb == null) || (mMainPassword == null)) {
             throw new IllegalStateException();
         }
 
@@ -87,7 +87,7 @@ public final class DbRw {
         byte[] bytesData = jsonArray.toString().getBytes();
         values.put(Const.COLUMN.CRIPTDATA,
                 OpenSSLAES128CBCCrypt.INSTANCE.encrypt(mMainPassword, bytesData));
-        mDB.update(Const.TABLE.IDPW, values, Const.COLUMN.ID + " = ?",
+        mDb.update(Const.TABLE.IDPW, values, Const.COLUMN.ID + " = ?",
                 whereArgs);
     }
 
@@ -95,10 +95,11 @@ public final class DbRw {
      * レコードの取得
      */
     public Data getRecord(Long id) {
-        if ((mDB == null) || (mMainPassword == null)) {
+        final String[] COLUMNS = { Const.COLUMN.TITLE, Const.COLUMN.CRIPTDATA};
+        if ((mDb == null) || (mMainPassword == null)) {
             throw new IllegalStateException();
         }
-        Cursor cursor = mDB.query(Const.TABLE.IDPW, COLUMNS, Const.COLUMN.ID
+        Cursor cursor = mDb.query(Const.TABLE.IDPW, COLUMNS, Const.COLUMN.ID
                 + " = " + id, null, null, null, null);
        if (cursor.getCount() > 0) {
             cursor.moveToFirst();
@@ -130,10 +131,11 @@ public final class DbRw {
      * 全てのレコードを json 文字列データとして得る
      */
     public String getAllRecords() {
-        if ((mDB == null) || (mMainPassword == null)) {
+        final String[] COLUMNS = { Const.COLUMN.TITLE, Const.COLUMN.CRIPTDATA};
+        if ((mDb == null) || (mMainPassword == null)) {
             throw new IllegalStateException();
         }
-        Cursor cursor = mDB.query(Const.TABLE.IDPW, COLUMNS,
+        Cursor cursor = mDb.query(Const.TABLE.IDPW, COLUMNS,
                 null, null, null, null, null, null);
         JSONArray root = new JSONArray();
         if (cursor.moveToFirst()) {
@@ -163,10 +165,173 @@ public final class DbRw {
         }
     }
 
-    private final String[] COLUMNS = {
-            Const.COLUMN.TITLE, Const.COLUMN.CRIPTDATA
-    };
+    /**
+     * Insert records with the JSON data.
+     * The record with the same title and data isn't duplicated.
+     * 
+     * @param json
+     */
+    public void insertRecords(String json) {
+        // TEMPORARY_FLAGS == 0 : not changed
+        // TEMPORARY_FLAGS == 1 : updated or inserted 
+        clearAllTemporaryFlags();
+        JSONArray root;
+        try {
+            root = new JSONArray(json);
+        } catch (JSONException e1) {
+            Toy.debugLog(this, e1.getMessage());
+            return;
+        }
+        for (int i=0; i<root.length(); i++){
+            try {
+                JSONArray record = root.getJSONArray(i);
+                String title = record.getString(0);
+                String userId = record.getString(1);
+                String password = record.getString(2);
+                String memo = record.getString(3);
+                insertRecord(title, userId, password, memo);
+            } catch (JSONException e) {
+                // only disregarded.
+            }
+        }
+    }
+    
+    /**
+     * Merge records with the JSON data.
+     * Data with the same title and user ID is overwritten. 
+     * 
+     * @param json
+     */
+    public void mergeRecords(String json) {
+        // TEMPORARY_FLAGS == 0 : not changed
+        // TEMPORARY_FLAGS == 1 : updated or inserted 
+        clearAllTemporaryFlags();
+        JSONArray root;
+        try {
+            root = new JSONArray(json);
+        } catch (JSONException e1) {
+            Toy.debugLog(this, e1.getMessage());
+            return;
+        }
+        for (int i=0; i<root.length(); i++){
+            try {
+                JSONArray record = root.getJSONArray(i);
+                String title = record.getString(0);
+                String userId = record.getString(1);
+                String password = record.getString(2);
+                String memo = record.getString(3);
+                mergeRecord(title, userId, password, memo);
+            } catch (JSONException e) {
+                // only disregarded.
+            }
+        }
+    }
 
-    private SQLiteDatabase mDB = null;
+    /**
+     * Insert one record
+     */
+    private void insertRecord(String newTitle, String newUserId, String newPassword, String newMemo) {
+        final String[] COLUMNS = { Const.COLUMN.ID, Const.COLUMN.CRIPTDATA};
+        // TEMPORARY_FLAGS == 0 : not changed
+        final String SELECTION = Const.COLUMN.TEMPORARY_FLAGS + " = 0  AND " + Const.COLUMN.TITLE + " = ?"; 
+        String [] selectionArgs = { newTitle};
+
+        Cursor cursor = mDb.query(
+                Const.TABLE.IDPW,    // table 
+                COLUMNS,
+                SELECTION,
+                selectionArgs,
+                null,               // groupBy
+                null,               // having
+                null    // orderBy
+                );
+        Long id = null;
+        if (cursor.moveToFirst()) {
+            do {
+                byte[] cryptdata = cursor.getBlob(1);
+                if (cryptdata != null) {
+                    byte[] bytesData = OpenSSLAES128CBCCrypt.INSTANCE.decrypt(mMainPassword, cryptdata);
+                    try {
+                        JSONArray idPwMemo = new JSONArray(new String(bytesData));
+                        if (idPwMemo.getString(0).equals(newUserId)  &&
+                              idPwMemo.getString(1).equals(newPassword) &&
+                              idPwMemo.getString(2).equals(newMemo)) {
+                            id = cursor.getLong(0);
+                        }
+                    } catch (JSONException e) {
+                    }
+                }
+            } while (cursor.moveToNext());
+        }
+        if (id == null) {
+            ContentValues values = new ContentValues();
+            values.put(Const.COLUMN.TITLE, newTitle);
+            id = mDb.insert(Const.TABLE.IDPW, null, values);
+        }
+        ContentValues values = new ContentValues();
+        JSONArray jsonArray = new JSONArray();
+        jsonArray.put(newUserId);
+        jsonArray.put(newPassword);
+        jsonArray.put(newMemo);
+        byte[] newBytesData = jsonArray.toString().getBytes();
+        values.put(Const.COLUMN.CRIPTDATA,
+                OpenSSLAES128CBCCrypt.INSTANCE.encrypt(mMainPassword, newBytesData));
+        // TEMPORARY_FLAGS == 1 : updated or inserted 
+        values.put(Const.COLUMN.TEMPORARY_FLAGS, 1);
+        String [] whereArgs = { id.toString()};
+        mDb.update(Const.TABLE.IDPW, values, Const.COLUMN.ID + " = ?", whereArgs);
+    }
+
+    /**
+     * Merge one record
+     */
+    private void mergeRecord(String newTitle, String newUserId, String newPassword, String newMemo) {
+        final String[] COLUMNS = { Const.COLUMN.ID};
+        // TEMPORARY_FLAGS == 0 : not changed
+        final String SELECTION = Const.COLUMN.TEMPORARY_FLAGS + " = 0  AND " + Const.COLUMN.TITLE + " = ?"; 
+        String [] selectionArgs = { newTitle};
+
+        Cursor cursor = mDb.query(
+                Const.TABLE.IDPW,    // table 
+                COLUMNS,
+                SELECTION,
+                selectionArgs,
+                null,               // groupBy
+                null,               // having
+                null    // orderBy
+                );
+        Long id = null;
+        if (cursor.moveToFirst()) {
+           id = cursor.getLong(0);
+        } else {
+           ContentValues values = new ContentValues();
+           values.put(Const.COLUMN.TITLE, newTitle);
+           id = mDb.insert(Const.TABLE.IDPW, null, values);
+        }
+        ContentValues values = new ContentValues();
+        JSONArray jsonArray = new JSONArray();
+        jsonArray.put(newUserId);
+        jsonArray.put(newPassword);
+        jsonArray.put(newMemo);
+        byte[] newBytesData = jsonArray.toString().getBytes();
+        values.put(Const.COLUMN.CRIPTDATA,
+                OpenSSLAES128CBCCrypt.INSTANCE.encrypt(mMainPassword, newBytesData));
+        // TEMPORARY_FLAGS == 1 : updated or inserted 
+        values.put(Const.COLUMN.TEMPORARY_FLAGS, 1);
+        String [] whereArgs = { id.toString()};
+        mDb.update(Const.TABLE.IDPW, values, Const.COLUMN.ID + " = ?", whereArgs);
+    }
+
+    /**
+     * Set all TEMPORARY_FLAGS to 0
+     */
+    private void clearAllTemporaryFlags() {
+        ContentValues values = new ContentValues();
+        values.put(Const.COLUMN.TEMPORARY_FLAGS, 0);
+        mDb.update(Const.TABLE.IDPW, values, null, null);
+    }
+    
+
+    private SQLiteDatabase mDb = null;
     private byte[] mMainPassword = null;
 }
