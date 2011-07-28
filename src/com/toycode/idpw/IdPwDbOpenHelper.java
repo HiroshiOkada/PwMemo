@@ -17,18 +17,13 @@ public class IdPwDbOpenHelper extends SQLiteOpenHelper {
                     " ( " + Const.COLUMN.ID + " integer primary key autoincrement," +
                             Const.COLUMN.TITLE + " text not null," +
                             Const.COLUMN.CRIPTDATA + " text," +
-                            Const.COLUMN.TEMPORARY_FLAGS + "integer);");
+                            Const.COLUMN.TEMPORARY_FLAGS + " integer);");
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        if (oldVersion == 5) {
-            db.execSQL("alter table " + Const.TABLE.IDPW + " " +
-                       "add " + Const.COLUMN.TEMPORARY_FLAGS + " integer;");
-        } else {
-            db.execSQL("drop table if exists " + Const.TABLE.IDPW + ";");
-            onCreate(db);
-        }
+        db.execSQL("drop table if exists " + Const.TABLE.IDPW + ";");
+        onCreate(db);
     }
 
     /**
