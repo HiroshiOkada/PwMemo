@@ -2,14 +2,15 @@
 package com.toycode.idpw;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
-import android.os.Environment;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.EditText;
@@ -87,7 +88,7 @@ public class ImportActivity extends Activity implements OnClickListener {
                 } else {
                     File file = new File(mFileNameEdittext.getText().toString());
                     if (file != null) {
-                        readFile(file);
+                        new ReadFileTask().execute(file);
                     }
                 }
                 break;
@@ -112,56 +113,75 @@ public class ImportActivity extends Activity implements OnClickListener {
             if (uri != null) {
                 File file = new File(uri.getPath());
                 if (file != null) {
-                    readFile(file);
+                    new ReadFileTask().execute(file);
                 }
             }
         }
     }
-
-    private void readFile(File file) {
-        SQLiteDatabase db = (new IdPwDbOpenHelper(this)).getReadableDatabase();
-        if (db == null) {
-            throw new RuntimeException("db==null");
+    
+    
+    private class ReadFileTask extends AsyncTask<File, Void, Void> {
+        ProgressDialog mProgressDialog;
+        
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            mProgressDialog = ProgressDialog.show(ImportActivity.this, "", "Reading...");
         }
 
-        byte[] mainPasswod = PasswordManager.getInstance(this).getDecryptedMainPassword();
-        if (mainPasswod == null) {
-            throw new RuntimeException("mainPasswod==null");
-        }
-        String json = "";
-        try {
-            byte[] password = mPasswordEdittext.getText().toString().getBytes();
-            FileInputStream fis = new FileInputStream(file);
-            FileChannel ch = fis.getChannel();
-            int size = (int) ch.size();
-            byte[] cryptBytes = new byte[size];
-            ch.read(ByteBuffer.wrap(cryptBytes));
-            ch.close();
-            fis.close();
-            byte[] bytesData = OpenSSLAES128CBCCrypt.INSTANCE.decrypt(password, cryptBytes);
-            json = new String(bytesData);
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        mInputFile = file;
+        @Override
+        protected Void doInBackground(File... files) {
+            SQLiteDatabase db = (new IdPwDbOpenHelper(ImportActivity.this)).getReadableDatabase();
+            if (db == null) {
+                throw new RuntimeException("db==null");
+            }
 
-        DbRw dbrw = new DbRw(db, mainPasswod);
-        switch (mReadMethod) {
-            case MERGE:
-                dbrw.insertRecords(json);
-                break;
-            case INSERT:
-                dbrw.mergeRecords(json);
-                break;
-            default:
-                // did not come
-                break;
-        }
-        dbrw.cleanup();
-    }
+            byte[] mainPasswod = PasswordManager.getInstance(ImportActivity.this).getDecryptedMainPassword();
+            if (mainPasswod == null) {
+                throw new RuntimeException("mainPasswod==null");
+            }
+            String json = "";
+            try {
+                byte[] password = mPasswordEdittext.getText().toString().getBytes();
+                FileInputStream fis = new FileInputStream(files[0]);
+                FileChannel ch = fis.getChannel();
+                int size = (int) ch.size();
+                byte[] cryptBytes = new byte[size];
+                ch.read(ByteBuffer.wrap(cryptBytes));
+                ch.close();
+                fis.close();
+                byte[] bytesData = OpenSSLAES128CBCCrypt.INSTANCE.decrypt(password, cryptBytes);
+                json = new String(bytesData);
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            mInputFile = files[0];
 
+            DbRw dbrw = new DbRw(db, mainPasswod);
+            switch (mReadMethod) {
+                case MERGE:
+                    dbrw.insertRecords(json);
+                    break;
+                case INSERT:
+                    dbrw.mergeRecords(json);
+                    break;
+                default:
+                    break;
+            }
+            dbrw.cleanup();
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void result) {
+            mProgressDialog.dismiss();
+            super.onPostExecute(result);
+        }
+        
+     }
+ 
     private void startSaveFileManager() {
         Intent intent = new Intent(OI_ACTION_PICK_FILE);
         intent.setData(Uri.fromFile(mInputFile));
