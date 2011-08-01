@@ -18,6 +18,8 @@
         <activity android:name="IdPwPreferenceActivity"></activity>
         <activity android:name="ExportActivity"></activity>
         <activity android:name="ImportActivity"></activity>
+        <provider android:name=".ExportProvider" 
+                  android:authorities="com.toycode.idpw.exportprovider"></provider>
     </application>
     <uses-sdk android:minSdkVersion="7" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>

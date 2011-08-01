@@ -9,7 +9,6 @@ import android.content.pm.ResolveInfo;
 import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Environment;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.EditText;
@@ -26,7 +25,6 @@ public class ExportActivity extends Activity implements OnClickListener {
     public static final String OI_ACTION_PICK_FILE = "org.openintents.action.PICK_FILE";
     public static final String OI_TITLE_EXTRA = "org.openintents.extra.TITLE";
     public static final String OI_BUTTON_TEXT_EXTRA = "org.openintents.extra.BUTTON_TEXT";
-    public static final String DEFALUT_OUTPUT_FILENAME = "idpw.dat";
     public static final int REQUEST_FILENAME = 0;
 
     private File mOutputFile;
@@ -50,11 +48,12 @@ public class ExportActivity extends Activity implements OnClickListener {
             setContentView(R.layout.export_input_filename);
             mUseFileManeger = false;
             mFileNameEdittext = (EditText)findViewById(R.id.filename_edittext);
-            mFileNameEdittext.setText(getDefaultOutputFile().toString());
+            mFileNameEdittext.setText(FileUtils.getDefaultOutputFile(this).toString());
         }
         mPasswordEdittext = (EditText)findViewById(R.id.export_password_edittext);
         findViewById(R.id.write_file_button).setOnClickListener(this);
-        mOutputFile = getDefaultOutputFile();
+        findViewById(R.id.export_button).setOnClickListener(this);
+        mOutputFile = FileUtils.getDefaultOutputFile(this);
     }
 
     private boolean checkOIActionPickFile() {
@@ -83,6 +82,20 @@ public class ExportActivity extends Activity implements OnClickListener {
                         }
                     }
                 }
+                break;
+            case R.id.export_button:
+                //
+                if (Toy.isEmptyTextView(mPasswordEdittext)) {
+                    Toy.toastMessage(this, R.string.please_set_export_password);
+                    return;
+                }
+                wirteFile(getFileStreamPath(FileUtils.DEFALUT_FILENAME));
+                
+                Intent intent = new Intent();
+                intent.setAction(Intent.ACTION_SEND);
+                intent.setType("application/octet-stream");
+                intent.putExtra(Intent.EXTRA_STREAM, Uri.withAppendedPath(ExportProvider.CONTENT_URI, FileUtils.DEFALUT_FILENAME));
+                this.startActivity(intent);
                 break;
         }
     }
@@ -115,6 +128,7 @@ public class ExportActivity extends Activity implements OnClickListener {
     }
 
     private void wirteFile(File file) {
+        Toy.debugLog(this, "wirteFile:" + file.toString());
         SQLiteDatabase db = (new IdPwDbOpenHelper(this)).getReadableDatabase();
         if (db == null) {
             throw new RuntimeException("db==null");
@@ -158,15 +172,4 @@ public class ExportActivity extends Activity implements OnClickListener {
             throw new RuntimeException(e.getMessage());
         }
     }
-
-    private File getDefaultOutputFile() {
-        if (Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {
-            File dir = Environment.getExternalStorageDirectory();
-            File file = new File(dir, DEFALUT_OUTPUT_FILENAME);
-            return file;
-        } else {
-            return new File(Environment.getDataDirectory(), DEFALUT_OUTPUT_FILENAME);
-        }
-    }
-
 }

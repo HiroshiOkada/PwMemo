@@ -10,7 +10,7 @@ import java.util.List;
 public final class FileUtils {
 
     private static final String DEFAULT_FILENAME_KEY = "DEFAULT_FILENAME";
-    public static final String DEFALUT_FILENAME = "idpw.dat";
+    public static final String DEFALUT_FILENAME = "data.idpw";
     
     private static final String [] CANDIDATE_SUBFOLDER_NAMES = {
         "My Document",

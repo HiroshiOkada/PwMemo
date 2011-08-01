@@ -29,7 +29,6 @@ public class ImportActivity extends Activity implements OnClickListener {
     public static final String OI_ACTION_PICK_FILE = "org.openintents.action.PICK_FILE";
     public static final String OI_TITLE_EXTRA = "org.openintents.extra.TITLE";
     public static final String OI_BUTTON_TEXT_EXTRA = "org.openintents.extra.BUTTON_TEXT";
-    public static final String DEFALUT_OUTPUT_FILENAME = "idpw.dat";
     public static final int REQUEST_FILENAME = 0;
 
     private File mInputFile = null;
