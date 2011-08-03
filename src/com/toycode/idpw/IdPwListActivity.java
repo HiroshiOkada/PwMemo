@@ -7,14 +7,20 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.view.ContextMenu;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
+import android.view.ContextMenu.ContextMenuInfo;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
+import android.widget.TextView;
+import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.AdapterView.OnItemClickListener;
 
 public class IdPwListActivity extends ListActivity implements OnClickListener,
@@ -45,6 +51,7 @@ public class IdPwListActivity extends ListActivity implements OnClickListener,
         mListView = getListView();
         mListView.setEmptyView(findViewById(R.id.EmptyTextView));
         mListView.setOnItemClickListener(this);
+        registerForContextMenu(mListView);
 
         mDb = (new IdPwDbOpenHelper(this)).getWritableDatabase();
         updateAdapter();
@@ -224,6 +231,34 @@ public class IdPwListActivity extends ListActivity implements OnClickListener,
         return false;
     }
 
+    @Override
+    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenuInfo menuInfo) {
+        super.onCreateContextMenu(menu, v, menuInfo);
+        getMenuInflater().inflate(R.menu.list_item_menu, menu);
+        if (!(menuInfo instanceof AdapterContextMenuInfo)) {
+            return;
+        }
+        View tv = ((AdapterContextMenuInfo)menuInfo).targetView;
+        if (tv instanceof ViewGroup) {
+            View cv = ((ViewGroup)tv).getChildAt(0);
+            if (cv instanceof TextView) {
+                menu.setHeaderTitle(((TextView) cv).getText());
+            }
+        }
+    }
+
+    /* (non-Javadoc)
+     * @see android.app.Activity#onContextItemSelected(android.view.MenuItem)
+     */
+    @Override
+    public boolean onContextItemSelected(MenuItem item) {
+        ContextMenuInfo menuInfo = item.getMenuInfo();
+        if (!(menuInfo instanceof AdapterContextMenuInfo)) {
+            return false;
+        }
+        return super.onContextItemSelected(item);
+    }
+   
     /**
      * 現在のマスターパスワードの状況に応じて LockImageButton　を変化させる
      */
@@ -231,6 +266,8 @@ public class IdPwListActivity extends ListActivity implements OnClickListener,
         mLockImageButton
                 .setLock(PasswordManager.getInstance(this).isMainPasswordDecrypted() == false);
     }
+
+    
 
  
 }

@@ -13,6 +13,8 @@
 	<string name="confirmation">Confirmation</string>
 	<string name="confirmation_password_does_not_match">The confirmation password does not match.</string>
 	<string name="copy">Copy</string>
+	<string name="copy_password">Copy Password</string>
+	<string name="copy_userid">Copy User ID</string>
 	<string name="define_master_password">Define a master password to protect your IdPw data. This password is used to encrypt and decrypt your data.</string>
 	<string name="delete_all">Delete All</string>
 	<string name="delete_all_summary">Delete all password and data.</string>
