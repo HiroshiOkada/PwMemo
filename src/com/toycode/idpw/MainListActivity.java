@@ -23,7 +23,7 @@ import android.widget.TextView;
 import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.AdapterView.OnItemClickListener;
 
-public class IdPwListActivity extends ListActivity implements OnClickListener,
+public class MainListActivity extends ListActivity implements OnClickListener,
         OnItemClickListener {
 
     LockImageButton mLockImageButton;
@@ -210,7 +210,7 @@ public class IdPwListActivity extends ListActivity implements OnClickListener,
                     (new MasterPasswordInput(this) {
                         public void onTureMasterPassword() {
                             updateLockImageButton();
-                            startActivity(new Intent(IdPwListActivity.this, ExportActivity.class));
+                            startActivity(new Intent(MainListActivity.this, ExportActivity.class));
                         }
                     }).Ask();
                 }
@@ -222,7 +222,7 @@ public class IdPwListActivity extends ListActivity implements OnClickListener,
                     (new MasterPasswordInput(this) {
                         public void onTureMasterPassword() {
                             updateLockImageButton();
-                            startActivity(new Intent(IdPwListActivity.this, ImportActivity.class));
+                            startActivity(new Intent(MainListActivity.this, ImportActivity.class));
                         }
                     }).Ask();
                 }
