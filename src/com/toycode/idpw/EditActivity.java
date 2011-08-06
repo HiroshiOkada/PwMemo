@@ -74,13 +74,13 @@ public class EditActivity extends Activity implements OnClickListener {
                 finish();
                 break;
             case R.id.copy_user_id_button:
-                copyText(mUserIdEdit.getText());
+                Toy.copyTextToClipboard(this, mUserIdEdit.getText());
                 break;
             case R.id.copy_passwword_button:
-                copyText(mPasswordEdit.getText());
+                Toy.copyTextToClipboard(this, mPasswordEdit.getText());
                 break;
             case R.id.copy_memo_button:
-                copyText(mMemoEdit.getText());
+                Toy.copyTextToClipboard(this, mMemoEdit.getText());
                 break;
             default:
                 // did not come
@@ -113,9 +113,5 @@ public class EditActivity extends Activity implements OnClickListener {
         mDbRw.updateRecord(mId, data);
     }
 
-    private void copyText(CharSequence text) {
-        android.text.ClipboardManager cm = (android.text.ClipboardManager) getSystemService(CLIPBOARD_SERVICE);
-        cm.setText(text);
-    }
-
+ 
 }

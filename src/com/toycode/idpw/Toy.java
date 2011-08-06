@@ -129,4 +129,17 @@ public final class Toy {
        editor.putBoolean(key, value);
        editor.commit();
    }
+   
+   /**
+    * copy text to clipboard
+    * @param context
+    * @param text
+    */
+    static public void copyTextToClipboard(Context context, CharSequence text) {
+        android.text.ClipboardManager cm = 
+            (android.text.ClipboardManager) context
+                .getSystemService(Context.CLIPBOARD_SERVICE);
+        cm.setText(text);
+    }
+
 }

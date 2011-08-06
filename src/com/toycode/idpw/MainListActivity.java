@@ -9,7 +9,6 @@ import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.ContextMenu;
 import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,10 +26,6 @@ public class MainListActivity extends ListActivity implements OnClickListener,
         OnItemClickListener {
 
     LockImageButton mLockImageButton;
-    Button mAddButton;
-    Button mExitButton;
-    ListView mListView;
-    SimpleCursorAdapter mAdapter;
     SQLiteDatabase mDb;
 
     @Override
@@ -42,16 +37,13 @@ public class MainListActivity extends ListActivity implements OnClickListener,
         updateLockImageButton();
         mLockImageButton.setOnClickListener(this);
 
-        mAddButton = (Button) findViewById(R.id.add_button);
-        mAddButton.setOnClickListener(this);
+        findViewById(R.id.add_button).setOnClickListener(this);
+        findViewById(R.id.exit_button).setOnClickListener(this);
 
-        mExitButton = (Button) findViewById(R.id.exit_button);
-        mExitButton.setOnClickListener(this);
-
-        mListView = getListView();
-        mListView.setEmptyView(findViewById(R.id.EmptyTextView));
-        mListView.setOnItemClickListener(this);
-        registerForContextMenu(mListView);
+        ListView listView = getListView();
+        listView.setEmptyView(findViewById(R.id.EmptyTextView));
+        listView.setOnItemClickListener(this);
+        registerForContextMenu(listView);
 
         mDb = (new IdPwDbOpenHelper(this)).getWritableDatabase();
         updateAdapter();
@@ -65,8 +57,7 @@ public class MainListActivity extends ListActivity implements OnClickListener,
             Intent i = new Intent(this, DeclarMasterPasswordActivity.class);
             startActivityForResult(i, Const.REQUEST_TYPE.NEW);
         } else {
-            mLockImageButton
-                    .setLock(PasswordManager.getInstance(this).isMainPasswordDecrypted() == false);
+            mLockImageButton.setLock(isLocked());
             updateAdapter();
         }
     }
@@ -90,9 +81,9 @@ public class MainListActivity extends ListActivity implements OnClickListener,
                 null,               // having
                 Const.COLUMN.TITLE + " COLLATE NOCASE"    // orderBy
                 );
-        mAdapter = new SimpleCursorAdapter(this, R.layout.list_row, cursor,
+        SimpleCursorAdapter adapter = new SimpleCursorAdapter(this, R.layout.list_row, cursor,
                 FROM, TO);
-        setListAdapter(mAdapter);
+        setListAdapter(adapter);
     }
 
     /**
@@ -134,15 +125,15 @@ public class MainListActivity extends ListActivity implements OnClickListener,
      * LockImageButton が押された時の処理
      */
     private void onLockImageButton() {
-        if (PasswordManager.getInstance(this).isMainPasswordDecrypted()) {
-            PasswordManager.getInstance(this).unDecrypt();
-            updateLockImageButton();
-        } else {
+        if (isLocked()) {
             (new MasterPasswordInput(this) {
                 public void onTureMasterPassword() {
                     updateLockImageButton();
                 }
             }).Ask();
+        } else {
+            PasswordManager.getInstance(this).unDecrypt();
+            updateLockImageButton();
         }
     }
 
@@ -150,15 +141,13 @@ public class MainListActivity extends ListActivity implements OnClickListener,
      * AddButton が押された時の処理
      */
     private void onAddButton() {
-        if (PasswordManager.getInstance(this).isMainPasswordDecrypted()) {
+        if (isLocked()) {
+            Toy.toastMessage(this, R.string.locked_message);
+        } else {
             ContentValues values = new ContentValues();
             values.put(Const.COLUMN.TITLE, "");
             long id = mDb.insert(Const.TABLE.IDPW, null, values);
-            Intent intent = new Intent(this, EditActivity.class);
-            intent.putExtra(Const.COLUMN.ID, id);
-            startActivityForResult(intent, Const.REQUEST_TYPE.NEW);
-        } else {
-            Toy.toastMessage(this, R.string.locked_message);
+            startEditActivity(id, Const.REQUEST_TYPE.NEW);
         }
     }
 
@@ -176,12 +165,10 @@ public class MainListActivity extends ListActivity implements OnClickListener,
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position,
             long id) {
-        if (PasswordManager.getInstance(this).isMainPasswordDecrypted()) {
-            Intent intent = new Intent(this, EditActivity.class);
-            intent.putExtra(Const.COLUMN.ID, mAdapter.getItemId(position));
-            startActivityForResult(intent, Const.REQUEST_TYPE.EDIT);
-        } else {
+        if (isLocked()) {
             Toy.toastMessage(this, R.string.locked_message);
+        } else {
+            startEditActivity(getListAdapter().getItemId(position), Const.REQUEST_TYPE.EDIT);
         }
     }
 
@@ -231,32 +218,111 @@ public class MainListActivity extends ListActivity implements OnClickListener,
         return false;
     }
 
+    /**
+     * Called when a list item long-pressed and context menu is about to be shown.
+     */
     @Override
     public void onCreateContextMenu(ContextMenu menu, View v, ContextMenuInfo menuInfo) {
-        super.onCreateContextMenu(menu, v, menuInfo);
-        getMenuInflater().inflate(R.menu.list_item_menu, menu);
-        if (!(menuInfo instanceof AdapterContextMenuInfo)) {
+        //  If locked Show the toast message and do nothing.
+        if (isLocked()) {
+            Toy.toastMessage(this, R.string.locked_message);
             return;
         }
-        View tv = ((AdapterContextMenuInfo)menuInfo).targetView;
-        if (tv instanceof ViewGroup) {
-            View cv = ((ViewGroup)tv).getChildAt(0);
-            if (cv instanceof TextView) {
-                menu.setHeaderTitle(((TextView) cv).getText());
-            }
-        }
-    }
 
-    /* (non-Javadoc)
-     * @see android.app.Activity#onContextItemSelected(android.view.MenuItem)
+        // Create context nemu
+        super.onCreateContextMenu(menu, v, menuInfo);
+        getMenuInflater().inflate(R.menu.list_item_menu, menu);
+       
+        // set menu title
+        if (!(menuInfo instanceof AdapterContextMenuInfo)) {
+            Toy.debugLog(this, "bad menuInfo");
+            return;
+        }
+        int position = ((AdapterContextMenuInfo)menuInfo).position;
+        Cursor cursor = (Cursor)(getListAdapter().getItem(position));
+        if (cursor != null) {
+            Toy.debugLog(this, "bad cursor");
+        }
+        menu.setHeaderTitle(cursor.getString(1));
+     }
+
+    /**
+     * Called when a context menu item selected 
      */
     @Override
     public boolean onContextItemSelected(MenuItem item) {
+        //  If locked do nothing. (maybe never occur.)
+        if (isLocked()) {
+            Toy.debugLog(this, "onContextItemSelected and locked");
+            return false;
+        }
+       
+        // get Id and title
         ContextMenuInfo menuInfo = item.getMenuInfo();
         if (!(menuInfo instanceof AdapterContextMenuInfo)) {
             return false;
         }
-        return super.onContextItemSelected(item);
+        int position = ((AdapterContextMenuInfo)menuInfo).position;
+        Cursor cursor = (Cursor)(getListAdapter().getItem(position));
+        if (cursor == null) {
+            Toy.debugLog(this, "bad cursor");
+            return false;
+        }
+        Long id = cursor.getLong(0);
+        String title = cursor.getString(1);
+        DbRw.Data data;
+        switch (item.getItemId()) {
+            case R.id.copy_userid_menu_item:
+                data = getData(id);
+                if (data != null) {
+                    Toy.copyTextToClipboard(this, data.getUserId());
+                    Toy.toastMessage(this, R.string.copy_x, data.getUserId());
+                }
+                break;
+            case R.id.copy_password_menu_item:
+                data = getData(id);
+                if (data != null) {
+                    Toy.copyTextToClipboard(this, data.getPassword());
+                    Toy.toastMessage(this, R.string.copy_x_password, title);
+                }
+                break;
+            case R.id.edit_menu_item:
+                startEditActivity(id, Const.REQUEST_TYPE.EDIT);
+                break;
+            default:
+                return false;
+        }
+        return true;
+    }
+
+    /**
+     * read data spcified id
+     */
+    private DbRw.Data getData(long id) {
+        byte[] mainPasswod = PasswordManager.getInstance(this).getDecryptedMainPassword();
+        if (mainPasswod == null) {
+            setResult(RESULT_CANCELED, new Intent());
+            finish();
+            return null;
+        }
+        DbRw dbrw = new DbRw(mDb, mainPasswod);
+        return dbrw.getRecord(id);
+    }
+    
+    /**
+     * start EditActivity via intent.
+     */
+    private void startEditActivity(long id, int requestCode) {
+        Intent intent = new Intent(this, EditActivity.class);
+        intent.putExtra(Const.COLUMN.ID, id);
+        startActivityForResult(intent, requestCode);
+    }
+
+    /**
+     * return ture when lockd
+     */
+    private boolean isLocked() {
+        return ! (PasswordManager.getInstance(this).isMainPasswordDecrypted());
     }
    
     /**
@@ -266,8 +332,4 @@ public class MainListActivity extends ListActivity implements OnClickListener,
         mLockImageButton
                 .setLock(PasswordManager.getInstance(this).isMainPasswordDecrypted() == false);
     }
-
-    
-
- 
 }
