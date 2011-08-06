@@ -40,6 +40,8 @@
 	<string name="memo">Memo</string>
 	<string name="merge">Merge</string>
 	<string name="merge_info">The item with the same title and User ID is overwritten.</string>
+	<string name="mushroom_action">com.adamrocker.android.simeji.ACTION_INTERCEPT</string>
+	<string name="mushroom_category">com.adamrocker.android.simeji.REPLACE</string>
 	<string name="new_master_password">Plase enter new master password.</string>
 	<string name="new_str">New</string>
 	<string name="ok">OK</string>
