@@ -54,7 +54,7 @@ public class MainListActivity extends ListActivity implements OnClickListener,
     protected void onResume() {
         super.onResume();
         if (TimeOutChecker.getInstance().isTimeOut()) {
-            finish();
+            PasswordManager.getInstance(this).unDecrypt();
         }
         if (!PasswordManager.getInstance(this).isMainPasswordExist()) {
             Intent i = new Intent(this, DeclarMasterPasswordActivity.class);
