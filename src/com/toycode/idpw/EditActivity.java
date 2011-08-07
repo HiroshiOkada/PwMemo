@@ -5,11 +5,17 @@ import android.app.Activity;
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.View.OnFocusChangeListener;
 import android.widget.EditText;
 
-public class EditActivity extends Activity implements OnClickListener {
+import java.util.Observable;
+import java.util.Observer;
+
+public class EditActivity extends Activity implements OnClickListener, Observer, TextWatcher, OnFocusChangeListener {
     EditText mTitleEdit;
     EditText mUserIdEdit;
     EditText mPasswordEdit;
@@ -44,10 +50,10 @@ public class EditActivity extends Activity implements OnClickListener {
             if (mId != null) {
                 setTitle(R.string.edit);
                 setContentView(R.layout.edit);
-                mTitleEdit = (EditText) findViewById(R.id.title_textedit);
-                mUserIdEdit = (EditText) findViewById(R.id.user_id_edittext);
-                mPasswordEdit = (EditText) findViewById(R.id.password_edittext);
-                mMemoEdit = (EditText) findViewById(R.id.memo_edittext);
+                mTitleEdit = setupEditText(R.id.title_textedit);
+                mUserIdEdit = setupEditText(R.id.user_id_edittext);
+                mPasswordEdit = setupEditText(R.id.password_edittext);
+                mMemoEdit = setupEditText(R.id.memo_edittext);
                 findViewById(R.id.copy_user_id_button).setOnClickListener(this);
                 findViewById(R.id.copy_passwword_button).setOnClickListener(this);
                 findViewById(R.id.copy_memo_button).setOnClickListener(this);
@@ -61,8 +67,28 @@ public class EditActivity extends Activity implements OnClickListener {
         }
     }
 
+    private EditText setupEditText(int id) {
+        EditText et = (EditText) findViewById(id);
+        et.addTextChangedListener(this);
+        et.setOnFocusChangeListener(this);
+        return et;
+    }
+    
+    @Override
+    protected void onResume() {
+        super.onResume();
+        TimeOutChecker.getInstance().addObserver(this);
+    }
+
+    @Override
+    protected void onPause() {
+        TimeOutChecker.getInstance().deleteObserver(this);
+        super.onPause();
+    }
+
     @Override
     public void onClick(View v) {
+        TimeOutChecker.getInstance().onUser();
         switch (v.getId()) {
             case R.id.ok_button:
                 fieldToDb();
@@ -113,5 +139,29 @@ public class EditActivity extends Activity implements OnClickListener {
         mDbRw.updateRecord(mId, data);
     }
 
- 
+    @Override
+    public void update(Observable observable, Object data) {
+        if (observable == TimeOutChecker.getInstance()) {
+            setResult(RESULT_CANCELED, new Intent());
+            finish();
+        }        
+    }
+
+    @Override
+    public void afterTextChanged(Editable s) {
+    }
+
+    @Override
+    public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+    }
+
+    @Override
+    public void onTextChanged(CharSequence s, int start, int before, int count) {
+        TimeOutChecker.getInstance().onUser();
+    }
+
+    @Override
+    public void onFocusChange(View v, boolean hasFocus) {
+        TimeOutChecker.getInstance().onUser();
+    }
 }

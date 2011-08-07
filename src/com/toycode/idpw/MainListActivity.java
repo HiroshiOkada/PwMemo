@@ -11,19 +11,19 @@ import android.view.ContextMenu;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
-import android.widget.Button;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
-import android.widget.TextView;
 import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.AdapterView.OnItemClickListener;
 
+import java.util.Observable;
+import java.util.Observer;
+
 public class MainListActivity extends ListActivity implements OnClickListener,
-        OnItemClickListener {
+        OnItemClickListener, Observer {
 
     LockImageButton mLockImageButton;
     SQLiteDatabase mDb;
@@ -53,6 +53,9 @@ public class MainListActivity extends ListActivity implements OnClickListener,
     @Override
     protected void onResume() {
         super.onResume();
+        if (TimeOutChecker.getInstance().isTimeOut()) {
+            finish();
+        }
         if (!PasswordManager.getInstance(this).isMainPasswordExist()) {
             Intent i = new Intent(this, DeclarMasterPasswordActivity.class);
             startActivityForResult(i, Const.REQUEST_TYPE.NEW);
@@ -60,6 +63,13 @@ public class MainListActivity extends ListActivity implements OnClickListener,
             mLockImageButton.setLock(isLocked());
             updateAdapter();
         }
+        TimeOutChecker.getInstance().addObserver(this);
+    }
+
+    @Override
+    protected void onPause() {
+        TimeOutChecker.getInstance().deleteObserver(this);
+        super.onPause();
     }
 
     private void updateAdapter() {
@@ -91,6 +101,7 @@ public class MainListActivity extends ListActivity implements OnClickListener,
      */
     @Override
     public void onClick(View v) {
+        TimeOutChecker.getInstance().onUser();
         switch (v.getId()) {
             case R.id.lock_image_button:
                 onLockImageButton();
@@ -165,6 +176,7 @@ public class MainListActivity extends ListActivity implements OnClickListener,
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position,
             long id) {
+        TimeOutChecker.getInstance().onUser();
         if (isLocked()) {
             Toy.toastMessage(this, R.string.locked_message);
         } else {
@@ -177,6 +189,7 @@ public class MainListActivity extends ListActivity implements OnClickListener,
      */
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
+        TimeOutChecker.getInstance().onUser();
         getMenuInflater().inflate(R.menu.main_menu, menu);
         return true;
     }
@@ -186,6 +199,7 @@ public class MainListActivity extends ListActivity implements OnClickListener,
      */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+        TimeOutChecker.getInstance().onUser();
         switch (item.getItemId()) {
             case R.id.setting_menu_item:
                 startActivity(new Intent(this, IdPwPreferenceActivity.class));
@@ -223,6 +237,7 @@ public class MainListActivity extends ListActivity implements OnClickListener,
      */
     @Override
     public void onCreateContextMenu(ContextMenu menu, View v, ContextMenuInfo menuInfo) {
+        TimeOutChecker.getInstance().onUser();
         //  If locked Show the toast message and do nothing.
         if (isLocked()) {
             Toy.toastMessage(this, R.string.locked_message);
@@ -251,6 +266,8 @@ public class MainListActivity extends ListActivity implements OnClickListener,
      */
     @Override
     public boolean onContextItemSelected(MenuItem item) {
+        TimeOutChecker.getInstance().onUser();
+
         //  If locked do nothing. (maybe never occur.)
         if (isLocked()) {
             Toy.debugLog(this, "onContextItemSelected and locked");
@@ -331,5 +348,13 @@ public class MainListActivity extends ListActivity implements OnClickListener,
     private void updateLockImageButton() {
         mLockImageButton
                 .setLock(PasswordManager.getInstance(this).isMainPasswordDecrypted() == false);
+    }
+
+    @Override
+    public void update(Observable observable, Object data) {
+        if (observable == TimeOutChecker.getInstance()) {
+            PasswordManager.getInstance(this).unDecrypt();
+            updateLockImageButton();    
+        }        
     }
 }
