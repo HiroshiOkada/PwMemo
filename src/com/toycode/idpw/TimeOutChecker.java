@@ -22,7 +22,7 @@ public class TimeOutChecker extends Observable {
     private TimeOutChecker() {
         super();
         mT0 = System.currentTimeMillis();
-        new TimeOutCheckTask();
+        (new TimeOutCheckTask()).execute();
     }
     
     public void onUser() {
@@ -40,27 +40,29 @@ public class TimeOutChecker extends Observable {
         return false;
     }
     
-    private class TimeOutCheckTask extends AsyncTask<Void, Void, Boolean> {
+    private class TimeOutCheckTask extends AsyncTask<Void, Boolean, Void> {
 
         @Override
-        protected Boolean doInBackground(Void... params) {           
+        protected Void doInBackground(Void... params) {           
             while (!isCancelled()) {
                 try {
                     Thread.sleep(5000);
                 } catch (InterruptedException e) {
                 }
                 if (TimeOutChecker.this.isTimeOut()) {
-                    return true;
+                    return null;
                 }
             }
-            return false;
+            return null;
         }
 
+        /* (non-Javadoc)
+         * @see android.os.AsyncTask#onProgressUpdate(Progress[])
+         */
         @Override
-        protected void onPostExecute(Boolean result) {
-            if (result) {
-                TimeOutChecker.this.notifyObservers();
-            }
+        protected void onProgressUpdate(Boolean... values) {
+            // TODO Auto-generated method stub
+            super.onProgressUpdate(values);
         }
     }    
 }
