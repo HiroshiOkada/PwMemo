@@ -352,9 +352,9 @@ public class MainListActivity extends ListActivity implements OnClickListener,
 
     @Override
     public void update(Observable observable, Object data) {
-        if (observable == TimeOutChecker.getInstance()) {
+        if( TimeOutChecker.getInstance().isTimeOut()) {
             PasswordManager.getInstance(this).unDecrypt();
             updateLockImageButton();    
-        }        
+        }
     }
 }

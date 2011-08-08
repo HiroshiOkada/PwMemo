@@ -17,7 +17,6 @@ public class TimeOutChecker extends Observable {
         }
         return sInstance;
     }
-
     
     private TimeOutChecker() {
         super();
@@ -40,29 +39,29 @@ public class TimeOutChecker extends Observable {
         return false;
     }
     
-    private class TimeOutCheckTask extends AsyncTask<Void, Boolean, Void> {
+    private class TimeOutCheckTask extends AsyncTask<Void, Void, Void> {
 
         @Override
         protected Void doInBackground(Void... params) {           
+            boolean isTimeOutSave = false;
             while (!isCancelled()) {
                 try {
                     Thread.sleep(5000);
                 } catch (InterruptedException e) {
                 }
-                if (TimeOutChecker.this.isTimeOut()) {
-                    return null;
+                boolean isTimeOut = TimeOutChecker.this.isTimeOut();
+                 if (isTimeOutSave != isTimeOut) {
+                     isTimeOutSave = isTimeOut;
+                     publishProgress(new Void[0]);
                 }
             }
             return null;
         }
 
-        /* (non-Javadoc)
-         * @see android.os.AsyncTask#onProgressUpdate(Progress[])
-         */
         @Override
-        protected void onProgressUpdate(Boolean... values) {
-            // TODO Auto-generated method stub
-            super.onProgressUpdate(values);
+        protected void onProgressUpdate(Void... values) {
+            TimeOutChecker.this.setChanged();
+            TimeOutChecker.this.notifyObservers();
         }
     }    
 }

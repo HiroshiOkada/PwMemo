@@ -141,7 +141,7 @@ public class EditActivity extends Activity implements OnClickListener, Observer,
 
     @Override
     public void update(Observable observable, Object data) {
-        if (observable == TimeOutChecker.getInstance()) {
+        if (TimeOutChecker.getInstance().isTimeOut()) {
             setResult(RESULT_CANCELED, new Intent());
             finish();
         }        
