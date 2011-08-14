@@ -72,6 +72,12 @@ public class MainListActivity extends ListActivity implements OnClickListener,
         super.onPause();
     }
 
+    @Override
+    protected void onDestroy() {
+        // TODO Auto-generated method stub
+        super.onDestroy();
+    }
+
     private void updateAdapter() {
         final String[] COLUMNS = {
                 Const.COLUMN.ID, Const.COLUMN.TITLE

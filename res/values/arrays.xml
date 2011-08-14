@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="autolocktime_sec_list">
+        <item>60</item>
+        <item>300</item>
+        <item>1800</item>
+        <item>10800</item>
+        <item>86400</item>
+    </string-array>
+    <string-array name="autolocktime_list">
+        <item>1min</item>
+        <item>5min</item>
+        <item>30min</item>
+        <item>3hour</item>
+        <item>1day</item>
+    </string-array>
+</resources>

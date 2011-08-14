@@ -4,8 +4,9 @@
 	<string name="add_update">Add/Update</string>
 	<string name="all_data_deleted">All data deleted.</string>
 	<string name="app_name">IdPw</string>
-	<string name="autoend">Auto End</string>
-	<string name="autoend_summary">When no operation is made for 3 minutes, it will automatically end.</string>
+	<string name="autolock">Auto Lock</string>
+	<string name="autolock_summary">If not been operated for some time then lock automatically.</string>
+	<string name="autolock_timeout">Auto Lock Timeout</string>
 	<string name="cancel">Cancel</string>
 	<string name="cannot_make_x">Cannot make "%s".</string>
 	<string name="change_password">Change Password</string>

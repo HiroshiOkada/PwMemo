@@ -3,20 +3,21 @@
   xmlns:android="http://schemas.android.com/apk/res/android">
     <CheckBoxPreference 
     	android:enabled="true"
-		android:title="@string/autoend"
-		android:summary="@string/autoend_summary"
-		android:key="autoend"
-		/>
-	<com.toycode.idpw.ChangePasswordDialogPreference
-		android:title="@string/change_password"
-		android:summary="@string/change_password_summary"
-		android:key="change"
-		android:dialogTitle="@string/old_password"
-		/>
+		android:title="@string/autolock"
+		android:summary="@string/autolock_summary" android:key="autolock"/>
+	<ListPreference 
+	    android:title="@string/autolock_timeout"
+	    android:dialogTitle="@string/autolock_timeout"
+	    android:key="autolocktime" 
+        android:entries="@array/autolocktime_list"
+        android:entryValues="@array/autolocktime_sec_list"	/>
+    <com.toycode.idpw.ChangePasswordDialogPreference
+		android:summary="@string/change_password_summary" android:title="@string/change_password" android:key="change" android:dialogTitle="@string/old_password"/>
 	<com.toycode.idpw.DeleteAllDialogPreference 
 		android:title="@string/delete_all"
 		android:summary="@string/delete_all_summary"
 		android:key="delete"
 		android:dialogIcon="@android:drawable/ic_dialog_alert"
 	    />
+	
 </PreferenceScreen>
