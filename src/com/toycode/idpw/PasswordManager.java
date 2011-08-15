@@ -5,6 +5,7 @@ import java.security.SecureRandom;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 
 /**
  * マスター/メインパスワードマネージャー マスターパスワードとは、ユーザーが入力したパスワード
@@ -13,7 +14,6 @@ import android.content.SharedPreferences;
  */
 public class PasswordManager {
 
-    static final String PREF_NAME = "PREF";
     static final String PREF_KEY = "MAIN_CRYPTED";
     static final int LENGTH = 16;
 
@@ -150,8 +150,7 @@ public class PasswordManager {
      * @param context
      */
     private PasswordManager(Context context) {
-        mPreferences = context.getSharedPreferences(PREF_NAME,
-                Context.MODE_PRIVATE);
+        mPreferences = PreferenceManager.getDefaultSharedPreferences(context);  
         if (mPreferences.contains(PREF_KEY)) {
             try {
                 mMainPasswordCrypted = BytesUtil.fromHex(mPreferences
