@@ -33,6 +33,8 @@
 	<string name="export_email_etc">exports by using E-mail etc...</string>
 	<string name="faild_writing_x">Failed writing (%s).</string>
 	<string name="faild_read_x">Failed read (%s).</string>
+	<string name="file_not_found">File not found.</string>
+	<string name="file_read_error">File read error.</string>
 	<string name="filename">file name</string>
 	<string name="import3">import...</string>
 	<string name="import_email_etc">Import from E-mail etc...</string>

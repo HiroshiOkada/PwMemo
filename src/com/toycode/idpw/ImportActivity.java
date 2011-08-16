@@ -119,8 +119,9 @@ public class ImportActivity extends Activity implements OnClickListener {
     }
     
     
-    private class ReadFileTask extends AsyncTask<File, Void, Void> {
+    private class ReadFileTask extends AsyncTask<File, Void, Boolean> {
         ProgressDialog mProgressDialog;
+        int mErrorMessageId = 0;
         
         @Override
         protected void onPreExecute() {
@@ -129,7 +130,7 @@ public class ImportActivity extends Activity implements OnClickListener {
         }
 
         @Override
-        protected Void doInBackground(File... files) {
+        protected Boolean doInBackground(File... files) {
             SQLiteDatabase db = (new IdPwDbOpenHelper(ImportActivity.this)).getReadableDatabase();
             if (db == null) {
                 throw new RuntimeException("db==null");
@@ -150,11 +151,17 @@ public class ImportActivity extends Activity implements OnClickListener {
                 ch.close();
                 fis.close();
                 byte[] bytesData = OpenSSLAES128CBCCrypt.INSTANCE.decrypt(password, cryptBytes);
+                if (bytesData == null) {
+                    mErrorMessageId = R.string.password_does_not_match;
+                    return false;
+                }
                 json = new String(bytesData);
             } catch (FileNotFoundException e) {
-                e.printStackTrace();
+                mErrorMessageId = R.string.file_not_found;
+                return false;
             } catch (IOException e) {
-                e.printStackTrace();
+                mErrorMessageId = R.string.file_read_error;
+                return false;
             }
             mInputFile = files[0];
 
@@ -170,12 +177,15 @@ public class ImportActivity extends Activity implements OnClickListener {
                     break;
             }
             dbrw.cleanup();
-            return null;
+            return true;
         }
 
         @Override
-        protected void onPostExecute(Void result) {
+        protected void onPostExecute(Boolean result) {
             mProgressDialog.dismiss();
+            if (result == false) {
+                Toy.toastMessage(ImportActivity.this, mErrorMessageId);
+            }
             super.onPostExecute(result);
         }
         
