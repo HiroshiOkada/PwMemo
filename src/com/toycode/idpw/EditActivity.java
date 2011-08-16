@@ -2,11 +2,15 @@
 package com.toycode.idpw;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.View.OnFocusChangeListener;
@@ -66,13 +70,6 @@ public class EditActivity extends Activity implements OnClickListener, Observer,
             }
         }
     }
-
-    private EditText setupEditText(int id) {
-        EditText et = (EditText) findViewById(id);
-        et.addTextChangedListener(this);
-        et.setOnFocusChangeListener(this);
-        return et;
-    }
     
     @Override
     protected void onResume() {
@@ -84,6 +81,14 @@ public class EditActivity extends Activity implements OnClickListener, Observer,
     protected void onPause() {
         TimeOutChecker.getInstance().deleteObserver(this);
         super.onPause();
+    }
+
+    @Override
+    public void onDestroy() {
+        Toy.debugLog(this, "onDestroy");
+        mDbRw.cleanup();
+        mDbRw = null;
+        super.onDestroy();
     }
 
     @Override
@@ -115,13 +120,43 @@ public class EditActivity extends Activity implements OnClickListener, Observer,
     }
 
     @Override
-    public void onDestroy() {
-        Toy.debugLog(this, "onDestroy");
-        mDbRw.cleanup();
-        mDbRw = null;
-        super.onDestroy();
+    public boolean onCreateOptionsMenu(Menu menu) {
+        TimeOutChecker.getInstance().onUser();
+        getMenuInflater().inflate(R.menu.edit_main_menu, menu);
+        return true;
     }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+       switch (item.getItemId()) {
+           case R.id.delete_menu_item:
+               final AlertDialog alertDialog = new AlertDialog.Builder(this)
+               .setTitle(getString(R.string.delete_this_item))
+               .setPositiveButton(android.R.string.ok,
+                       new DialogInterface.OnClickListener() {
+                           public void onClick(DialogInterface dialog, int which) {
+                                   EditActivity.this.deleteItem();
+                                       
+                               }
+                       }).setNegativeButton(android.R.string.cancel, null)
+               .create();
+               alertDialog.show();
+               return true;
+        }
+       return false;
+    }
+
+    private void deleteItem() {
+        mDbRw.deleteById(mId);
+        finish();
+    }
+    
+    private EditText setupEditText(int id) {
+        EditText et = (EditText) findViewById(id);
+        et.addTextChangedListener(this);
+        et.setOnFocusChangeListener(this);
+        return et;
+    }
     private void dbToField() {
         DbRw.Data data = mDbRw.getRecord(mId);
         mTitleEdit.setText(data.getTitle());
@@ -149,6 +184,7 @@ public class EditActivity extends Activity implements OnClickListener, Observer,
 
     @Override
     public void afterTextChanged(Editable s) {
+        
     }
 
     @Override

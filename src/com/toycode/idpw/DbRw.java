@@ -127,6 +127,14 @@ public final class DbRw {
         return new Data(null, null, null, null);
     }
 
+    public void deleteById(Long id) {
+        if ((mDb == null) || (mMainPassword == null)) {
+            throw new IllegalStateException();
+        }
+        String [] whereArgs = { id.toString() };
+        mDb.delete(Const.TABLE.IDPW, Const.COLUMN.ID
+                + " = ?", whereArgs);
+    }
     /**
      * 全てのレコードを json 文字列データとして得る
      */
