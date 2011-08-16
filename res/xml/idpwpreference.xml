@@ -5,12 +5,12 @@
     	android:enabled="true"
 		android:title="@string/autolock"
 		android:summary="@string/autolock_summary"
-		android:key="autolock"
+		android:key="@string/autolock_key"
 		/>
 	<ListPreference 
 		android:title="@string/autolock_timeout"
 		android:dialogTitle="@string/autolock_timeout"
-		android:key="autolocktime" 
+		android:key="@string/autolocktime_key" 
 		android:entries="@array/autolocktime_list"
        android:dependency="autolock"
        android:entryValues="@array/autolocktime_sec_list"

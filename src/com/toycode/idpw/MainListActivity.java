@@ -31,6 +31,9 @@ public class MainListActivity extends ListActivity implements OnClickListener,
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        
+        IdPwPreferenceActivity.initPreferences(this);
+        
         setContentView(R.layout.list);
 
         mLockImageButton = (LockImageButton) findViewById(R.id.lock_image_button);
