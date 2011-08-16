@@ -343,6 +343,7 @@ public class MainListActivity extends ListActivity implements OnClickListener,
     private void startEditActivity(long id, int requestCode) {
         Intent intent = new Intent(this, EditActivity.class);
         intent.putExtra(Const.COLUMN.ID, id);
+        intent.putExtra(Const.REQUEST_TYPE.NAME, requestCode);
         startActivityForResult(intent, requestCode);
     }
 

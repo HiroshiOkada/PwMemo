@@ -50,9 +50,7 @@ public class EditActivity extends Activity implements OnClickListener, Observer,
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
             mId = extras.getLong(Const.COLUMN.ID);
-            Toy.debugLog(this, "mId=" + mId.toString());
             if (mId != null) {
-                setTitle(R.string.edit);
                 setContentView(R.layout.edit);
                 mTitleEdit = setupEditText(R.id.title_textedit);
                 mUserIdEdit = setupEditText(R.id.user_id_edittext);
@@ -67,6 +65,17 @@ public class EditActivity extends Activity implements OnClickListener, Observer,
             } else {
                 setResult(RESULT_CANCELED, new Intent());
                 finish();
+            }
+            
+            switch (extras.getInt(Const.REQUEST_TYPE.NAME)) {
+                case Const.REQUEST_TYPE.EDIT:
+                    setTitle(R.string.edit);
+                    findViewById(R.id.user_id_edittext).requestFocus();
+                    break;
+                case Const.REQUEST_TYPE.NEW:
+                    setTitle(R.string.new_str);
+                    findViewById(R.id.title_textedit).requestFocus();
+                    break;
             }
         }
     }
@@ -136,7 +145,6 @@ public class EditActivity extends Activity implements OnClickListener, Observer,
                        new DialogInterface.OnClickListener() {
                            public void onClick(DialogInterface dialog, int which) {
                                    EditActivity.this.deleteItem();
-                                       
                                }
                        }).setNegativeButton(android.R.string.cancel, null)
                .create();
