@@ -27,39 +27,54 @@ public class IdPwPreferenceActivity extends PreferenceActivity implements OnShar
 		super.onPause();
 		getPreferenceScreen().getSharedPreferences().unregisterOnSharedPreferenceChangeListener(this);
 	}
-
+	
 	/**
 	 * Initialize SharedPreferences that  will set by this PreferenceActivity.
 	 * If the value is not set, the default value is set. If the value was already set, it doesn't change. 
 	 * @param context
 	 */
 	public static void initPreferences(Context context) {
-		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
-		String autolock_key = context.getString(R.string.autolock_key);
-		String autolocktime_key = context.getString(R.string.autolocktime_key);
-		boolean isAutoLock = prefs.getBoolean(autolock_key, true);
-		long autoLockTimeSec = prefs.getLong(autolocktime_key, TimeOutChecker.DEFAULT_TIMEOUT_SEC);
-		Editor edit = prefs.edit();
-		edit.putBoolean(context.getString(R.string.autolock_key), isAutoLock);
-		edit.putString(context.getString(R.string.autolocktime_key), Long.toString(autoLockTimeSec));
-		edit.commit();
+	    setAutoLock(context, getAutoLock(context));
+	    setAutoLockTime(context, getAutoLockTime(context));
 	}
+
+	public static boolean getAutoLock(Context context) {
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
+        String autolock_key = context.getString(R.string.autolock_key);
+        return prefs.getBoolean(autolock_key, true);
+    }
+
+    public static long getAutoLockTime(Context context) {
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
+        String autolocktime_key = context.getString(R.string.autolocktime_key);
+        String autolocktime_str = prefs.getString(autolocktime_key, Long.toString(TimeOutChecker.DEFAULT_TIMEOUT_SEC));
+        return Long.parseLong(autolocktime_str);
+    }
 
 	/**
 	 * 
 	 */
 	@Override
 	public void onSharedPreferenceChanged(SharedPreferences prefs, String keyname) {
-		if (keyname == null) {
-			return;
-		}
-		String autolock_key = getString(R.string.autolock_key);
-		String autolocktime_key = getString(R.string.autolocktime_key);
-		if (keyname.equals(autolock_key)) {
-			TimeOutChecker.getInstance().setUseTimeOut(prefs.getBoolean(autolock_key, true));
-		} else if (keyname.equals(autolocktime_key)) {
-			String timeout_sec_str = prefs.getString(autolocktime_key, Long.toString(TimeOutChecker.DEFAULT_TIMEOUT_SEC));
-			TimeOutChecker.getInstance().setTimeOutSec(Long.parseLong(timeout_sec_str));			
-		}
+	    TimeOutChecker.getInstance().setUseTimeOut(getAutoLock(this));
+	    TimeOutChecker.getInstance().setTimeOutSec(getAutoLockTime(this));
 	}
+	
+	
+    private static void setAutoLock(Context context, boolean value) {
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
+        Editor edit = prefs.edit();
+        String autolock_key = context.getString(R.string.autolock_key);
+        edit.putBoolean(autolock_key, value);
+        edit.commit();
+    }
+	
+
+	private static void setAutoLockTime(Context context, long value) {
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
+        Editor edit = prefs.edit();
+        String autolocktime_key = context.getString(R.string.autolocktime_key);
+        edit.putString(autolocktime_key, Long.toString(value));
+        edit.commit();
+    }
 }

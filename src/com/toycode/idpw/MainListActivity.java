@@ -33,6 +33,8 @@ public class MainListActivity extends ListActivity implements OnClickListener,
         super.onCreate(savedInstanceState);
         
         IdPwPreferenceActivity.initPreferences(this);
+        TimeOutChecker.getInstance().setUseTimeOut(IdPwPreferenceActivity.getAutoLock(this));
+        TimeOutChecker.getInstance().setTimeOutSec(IdPwPreferenceActivity.getAutoLockTime(this));
         
         setContentView(R.layout.list);
 
