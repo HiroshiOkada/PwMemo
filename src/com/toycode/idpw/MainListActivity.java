@@ -267,9 +267,10 @@ public class MainListActivity extends ListActivity implements OnClickListener,
         int position = ((AdapterContextMenuInfo)menuInfo).position;
         Cursor cursor = (Cursor)(getListAdapter().getItem(position));
         if (cursor != null) {
+            menu.setHeaderTitle(cursor.getString(1));
+        } else {
             Toy.debugLog(this, "bad cursor");
         }
-        menu.setHeaderTitle(cursor.getString(1));
      }
 
     /**
