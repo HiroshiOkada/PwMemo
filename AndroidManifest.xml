@@ -1,34 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-      package="com.toycode.idpw"
-      android:versionCode="1"
-      android:versionName="1.0">
-    <application android:icon="@drawable/icon"
-                 android:label="@string/app_name">
-        <activity android:name=".MainListActivity"
-                  android:label="@string/app_name">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
-       <activity android:name="InterceptListActivity"
-				 android:label="@string/app_name">
- 			<intent-filter>
-            	<action android:name="@string/mushroom_action" />
-                <category android:name="@string/mushroom_category" />
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
-        </activity>
-        <activity android:name=".EditActivity"></activity>
-        <activity android:name=".DeclarMasterPasswordActivity"></activity>
-        <activity android:name=".UpdateMasterPasswordActivity"></activity>
-        <activity android:name=".IdPwPreferenceActivity"></activity>
-        <activity android:name=".ExportActivity"></activity>
-        <activity android:name=".ImportActivity"></activity>
-        <provider android:name=".ExportProvider" 
-                  android:authorities="com.toycode.idpw.exportprovider"></provider>
-    </application>
-    <uses-sdk android:minSdkVersion="7" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+	package="com.toycode.idpw" android:versionCode="1" android:versionName="1.0">
+	<application android:icon="@drawable/icon" android:label="@string/app_name">
+		<activity android:name=".MainListActivity" android:label="@string/app_name">
+			<intent-filter>
+				<action android:name="android.intent.action.MAIN" />
+				<category android:name="android.intent.category.LAUNCHER" />
+			</intent-filter>
+		</activity>
+		<activity android:name="InterceptListActivity" 
+		          android:label="@string/app_name_mushroom"
+		          android:theme="@android:style/Theme.Dialog"
+		          >
+			<intent-filter>
+				<action android:name="com.adamrocker.android.simeji.ACTION_INTERCEPT" />
+				<category android:name="com.adamrocker.android.simeji.REPLACE" />
+				<category android:name="android.intent.category.DEFAULT" />
+			</intent-filter>
+		</activity>
+		<activity android:name=".EditActivity"></activity>
+		<activity android:name=".DeclarMasterPasswordActivity"></activity>
+		<activity android:name=".UpdateMasterPasswordActivity"></activity>
+		<activity android:name=".IdPwPreferenceActivity"></activity>
+		<activity android:name=".ExportActivity"></activity>
+		<activity android:name=".ImportActivity"></activity>
+		<provider android:name=".ExportProvider" android:authorities="com.toycode.idpw.exportprovider"></provider>
+	</application>
+	<uses-sdk android:minSdkVersion="7" />
+	<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 </manifest> 

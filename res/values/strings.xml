@@ -4,6 +4,7 @@
 	<string name="add_update">Add/Update</string>
 	<string name="all_data_deleted">All data deleted.</string>
 	<string name="app_name">IdPw</string>
+	<string name="app_name_mushroom">IdPw (mushroom)</string>
 	<string name="autolock">Auto Lock</string>
 	<string name="autolocktime_key">autolocktime</string>
 	<string name="autolock_key">autolock</string>
@@ -40,6 +41,8 @@
 	<string name="import_email_etc">Import from E-mail etc...</string>
 	<string name="import_str">Import</string>
 	<string name="insert_str">Insert</string>
+	<string name="insert_password">Insert Password</string>
+	<string name="insert_userid">Insert User ID</string>
 	<string name="insert_info">All items are inserted. (except items that match all fields.)</string>
 	<string name="input_masterpassword">Input master password</string>
 	<string name="locked_message">Locked!</string>
@@ -47,8 +50,6 @@
 	<string name="memo">Memo</string>
 	<string name="merge">Merge</string>
 	<string name="merge_info">The item with the same title and User ID is overwritten.</string>
-	<string name="mushroom_action">com.adamrocker.android.simeji.ACTION_INTERCEPT</string>
-	<string name="mushroom_category">com.adamrocker.android.simeji.REPLACE</string>
 	<string name="new_master_password">Plase enter new master password.</string>
 	<string name="new_str">New</string>
 	<string name="ok">OK</string>
