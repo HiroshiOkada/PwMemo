@@ -4,17 +4,18 @@ package com.toycode.idpw;
 import java.math.BigInteger;
 
 public class BytesUtil {
+
     /**
-     * ユーティリティークラスなのでインスタンスは持たない
+     * Because this is a utility class, it doesn't make any instance.
      */
     private BytesUtil() {
     }
 
     /**
-     * byte 列を 16進表記に エンコード
+     * Encode a byte array to a hexadecimal string.
      * 
-     * @param dataBytes
-     * @return エンコードされた16進文字列
+     * @param dataBytes bytearray
+     * @return hexadecimal string.
      */
     public static String toHex(byte[] dataBytes) throws NumberFormatException {
         if (dataBytes == null || dataBytes.length == 0) {
@@ -28,10 +29,10 @@ public class BytesUtil {
     }
 
     /**
-     * 16進表記文字列を byte 列にデコード
+     * Decode a hexadecimal string to a bytearray.
      * 
-     * @param dataString エンコードすべき16進表記文字列 (長さは偶数の必要がある)
-     * @return デコードされた byte 列 dataString が "" の時は null;
+     * @param dataString a hexadecimal string (The string length must be even.)
+     * @return Decoded bytearray (if dataString == "" then return null.)
      */
     public static byte[] fromHex(String dataString) {
         if (dataString.equals("")) {
@@ -45,7 +46,7 @@ public class BytesUtil {
     }
 
     /**
-     * バイト配列を結合する
+     * Join two bytearrays 
      * 
      * @param a
      * @param b
@@ -59,11 +60,11 @@ public class BytesUtil {
     }
 
     /**
-     * バイト列を比較する
+     * Compare tow bytearrays.
      * 
      * @param a
      * @param b
-     * @return
+     * @return true if contents of two byte array are match.
      */
     public static boolean compare(byte[] a, byte[] b) {
         if (a == null || b == null) {
@@ -81,14 +82,14 @@ public class BytesUtil {
     }
 
     /**
-     * バイト配列を比較する(部分)
+     * Compare parts of bytearrays.
      * 
      * @param a
      * @param a_pos
      * @param b
      * @param b_pos
      * @param length
-     * @return 一致すれば true そうでなければ false を返す
+     * @return true if match.
      */
     public static boolean compare(byte[] a, int a_pos, byte[] b, int b_pos,
             int length) {
