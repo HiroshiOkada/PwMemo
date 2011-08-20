@@ -1,15 +1,13 @@
 package com.toycode.idpw.test;
 
-import java.lang.reflect.Array;
-import java.math.BigInteger;
+import com.toycode.idpw.PasswordManager;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 import android.test.AndroidTestCase;
-import com.toycode.idpw.PasswordManager;
 
 public class PasswordManagerTest extends AndroidTestCase {
-	static final String PREF_NAME = "PREF";
 	Context mContext;
 	PasswordManager mPasswordManager;
 	
@@ -114,7 +112,7 @@ public class PasswordManagerTest extends AndroidTestCase {
 	@Override
 	protected void setUp() throws Exception {
 		mContext = getContext();
-		SharedPreferences pref = mContext.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);
+		SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(mContext);
 		pref.edit().clear().commit();
 		PasswordManager.deleteInstance();		
 		mPasswordManager = PasswordManager.getInstance(mContext);
@@ -125,7 +123,7 @@ public class PasswordManagerTest extends AndroidTestCase {
 	 */
 	@Override
 	protected void tearDown() throws Exception {
-		SharedPreferences pref = mContext.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);
+       SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(mContext);
 		pref.edit().clear().commit();
 		PasswordManager.deleteInstance();		
 	}

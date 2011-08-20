@@ -8,14 +8,12 @@ import android.test.ActivityInstrumentationTestCase2;
 import android.view.View;
 import android.widget.FrameLayout;
 import com.toycode.idpw.R;
-//import com.toycode.idpw.IdPwDbOpenHelper;
-import com.toycode.idpw.Const;
 import com.toycode.idpw.IdPwDbOpenHelper;
-import com.toycode.idpw.IdPwListActivity;
+import com.toycode.idpw.MainListActivity;
 import com.toycode.idpw.PasswordManager;
 
-public class IdPwListActivityTest extends
-		ActivityInstrumentationTestCase2<IdPwListActivity> {
+public class MainListActivityTest extends
+		ActivityInstrumentationTestCase2<MainListActivity> {
 
 	static final String PREF_NAME = "PREF";
 	static final String TEST_PASSWORD="test$pass";
@@ -28,11 +26,11 @@ public class IdPwListActivityTest extends
 		static final String CRIPTDATA = "cryptdata";
 	}
 	
-	IdPwListActivity mActivity;
+	MainListActivity mActivity;
 	FrameLayout mFrameLayout;
 	
-	public IdPwListActivityTest() {
-		super("com.toycode.idpw", IdPwListActivity.class);
+	public MainListActivityTest() {
+		super("com.toycode.idpw", MainListActivity.class);
 	}
 	
 	/**
