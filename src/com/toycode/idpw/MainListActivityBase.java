@@ -20,7 +20,12 @@ import android.widget.AdapterView.OnItemClickListener;
 import java.util.Observable;
 import java.util.Observer;
 
-public abstract class AbstractMainListActivity extends ListActivity implements OnClickListener,
+/**
+ * MainListActivityBase is a base class for main Activity that display items list.
+ * 
+ * @author hiroshi
+ */
+public abstract class MainListActivityBase extends ListActivity implements OnClickListener,
         OnItemClickListener, Observer {
 
     protected LockImageButton mLockImageButton;

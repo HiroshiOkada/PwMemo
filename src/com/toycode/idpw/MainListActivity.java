@@ -9,7 +9,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ContextMenu.ContextMenuInfo;
 
-public class MainListActivity extends AbstractMainListActivity {
+public class MainListActivity extends MainListActivityBase {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {

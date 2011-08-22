@@ -11,7 +11,7 @@ import android.view.ContextMenu.ContextMenuInfo;
 import android.widget.AdapterView;
 import android.widget.SimpleCursorAdapter;
 
-public class InterceptListActivity extends AbstractMainListActivity {
+public class InterceptListActivity extends MainListActivityBase {
     
     private static final String REPLACE_KEY = "replace_key";
 
