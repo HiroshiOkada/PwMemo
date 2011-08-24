@@ -6,8 +6,6 @@
 	<string name="app_name">IdPw</string>
 	<string name="app_name_mushroom">IdPw (mushroom)</string>
 	<string name="autolock">Auto Lock</string>
-	<string name="autolocktime_key">autolocktime</string>
-	<string name="autolock_key">autolock</string>
 	<string name="autolock_summary">If not been operated for some time then lock automatically.</string>
 	<string name="autolock_timeout">Auto Lock Timeout</string>
 	<string name="cancel">Cancel</string>
