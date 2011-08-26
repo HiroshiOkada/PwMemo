@@ -24,6 +24,17 @@
 		<activity android:name=".IdPwPreferenceActivity"></activity>
 		<activity android:name=".ExportActivity"></activity>
 		<activity android:name=".ImportActivity"></activity>
+		<activity android:name=".ImplicitIntentImportActivity">
+			<intent-filter>
+				<action android:name="android.intent.action.VIEW" />
+				<category android:name="android.intent.category.DEFAULT" />
+				<category android:name="android.intent.category.BROWSABLE" />
+				<data android:scheme="file" />
+				<data android:mimeType="*/*" />
+				<data android:pathPattern=".*\\.idpw" />
+				<data android:host="*" />
+			</intent-filter>		
+		</activity>
 		<provider android:name=".ExportProvider" android:authorities="com.toycode.idpw.exportprovider"></provider>
 	</application>
 	<uses-sdk android:minSdkVersion="7" />
