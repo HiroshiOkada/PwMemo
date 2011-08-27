@@ -59,5 +59,6 @@
 	  android:layout_below="@id/read_method_group"
 	  android:layout_height="wrap_content"
 	  android:layout_marginBottom="10dp"
-	  android:layout_width="fill_parent" android:text="@string/import3"/>
+	  android:layout_width="fill_parent"
+	  android:text="@string/import3"/>
 </RelativeLayout>
