@@ -1,31 +1,39 @@
 INKSCAPE=/usr/bin/inkscape
 
-SRC=./res/drawable-xhdpi/lock_open.svg \
-    ./res/drawable-xhdpi/lock_close.svg \
-    ./res/drawable-xhdpi/button_bg.svg \
-    ./res/drawable-xhdpi/icon.svg \
-    ./res/drawable-ldpi/lock_open.svg \
-    ./res/drawable-ldpi/lock_close.svg \
-    ./res/drawable-ldpi/button_bg.svg \
-    ./res/drawable-ldpi/icon.svg \
-    ./res/drawable-hdpi/lock_open.svg \
-    ./res/drawable-hdpi/lock_close.svg \
-    ./res/drawable-hdpi/button_bg.svg \
-    ./res/drawable-hdpi/icon.svg \
-    ./res/drawable-mdpi/lock_open.svg \
-    ./res/drawable-mdpi/lock_close.svg \
-    ./res/drawable-mdpi/button_bg.svg \
-    ./res/drawable-mdpi/icon.svg \
-    web_hi_res_512.svg
+RESPNG=./res/drawable-xhdpi/lock_open.png \
+       ./res/drawable-xhdpi/lock_close.png \
+       ./res/drawable-xhdpi/icon.png \
+       ./res/drawable-ldpi/lock_open.png \
+       ./res/drawable-ldpi/lock_close.png \
+       ./res/drawable-ldpi/icon.png \
+       ./res/drawable-hdpi/lock_open.png \
+       ./res/drawable-hdpi/lock_close.png \
+       ./res/drawable-hdpi/icon.png \
+       ./res/drawable-mdpi/lock_open.png \
+       ./res/drawable-mdpi/lock_close.png \
+       ./res/drawable-mdpi/icon.png
 
-OBJ = $(SRC:%.svg=%.png)
+WEBPNG=./web_hi_res_512.png
+
+RESNINE=./res/drawable-xhdpi/button_bg.9.png \
+        ./res/drawable-ldpi/button_bg.9.png \
+	./res/drawable-hdpi/button_bg.9.png \
+        ./res/drawable-mdpi/button_bg.9.png 
+
+PNG = $(RESPNG) $(WEBPNG) $(RESNINE:%.9.png=%.png)
 
 %.png : %.svg
 	$(INKSCAPE) --without-gui --file=$< --export-png=$@
 
-all: $(OBJ)
+all: $(RESPNG) $(RESNINE) $(WEBPNG)
+
+install: $(RESPNG) $(RESNINE)
+	cp --parents $^ ../
+
+${RESNINE} : $(RESNINE:%.9.png=%.png)
+	sh make9patch.sh
 
 clean: 
-	rm $(OBJ)
+	rm $(PNG) $(RESNINE)
 
 

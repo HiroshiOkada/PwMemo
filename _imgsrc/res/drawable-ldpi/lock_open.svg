@@ -11,12 +11,15 @@
    xmlns:xlink="http://www.w3.org/1999/xlink"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-   width="64"
-   height="48"
+   width="48"
+   height="36"
    id="svg2"
    version="1.1"
    inkscape:version="0.48.1 r9760"
-   sodipodi:docname="lock_open.svg">
+   sodipodi:docname="lock_open.svg"
+   inkscape:export-filename="lock_open.png"
+   inkscape:export-xdpi="90"
+   inkscape:export-ydpi="90">
   <defs
      id="defs4">
     <linearGradient
@@ -348,6 +351,47 @@
        y1="899.86218"
        x2="475"
        y2="899.86218" />
+    <radialGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient3874"
+       id="radialGradient3072"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="matrix(0.4920635,0,0,0.36507936,0.50793701,661.69026)"
+       cx="64"
+       cy="1004.3621"
+       fx="64"
+       fy="1004.3621"
+       r="63" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient3057"
+       id="linearGradient3074"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="translate(-519,-27)"
+       x1="60"
+       y1="899.86218"
+       x2="475"
+       y2="899.86218" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient3057-6"
+       id="linearGradient3076"
+       gradientUnits="userSpaceOnUse"
+       x1="60"
+       y1="899.86218"
+       x2="475"
+       y2="899.86218" />
+    <radialGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient3874"
+       id="radialGradient3071"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="matrix(0.36497937,0,0,0.26969153,0.63502132,763.50361)"
+       cx="64"
+       cy="1004.3621"
+       fx="64"
+       fy="1004.3621"
+       r="63" />
   </defs>
   <sodipodi:namedview
      id="base"
@@ -356,9 +400,9 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="8.6805556"
-     inkscape:cx="48.6912"
-     inkscape:cy="37.725028"
+     inkscape:zoom="25.996573"
+     inkscape:cx="13.371321"
+     inkscape:cy="26.551028"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="false"
@@ -372,7 +416,8 @@
      fit-margin-right="0"
      fit-margin-bottom="0"
      showguides="true"
-     inkscape:guide-bbox="true" />
+     inkscape:guide-bbox="true"
+     inkscape:snap-global="true" />
   <metadata
      id="metadata7">
     <rdf:RDF>
@@ -381,7 +426,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title />
+        <dc:title></dc:title>
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -389,23 +434,23 @@
      inkscape:label="レイヤー 1"
      inkscape:groupmode="layer"
      id="layer1"
-     transform="translate(-1.1328125e-6,-1004.3622)">
+     transform="translate(-1.1328125e-6,-1016.3622)">
     <rect
-       style="opacity:1.0;fill:url(#radialGradient3886);fill-opacity:1;stroke:none"
+       style="fill:url(#radialGradient3071);fill-opacity:1;stroke:none"
        id="rect3849"
-       width="62"
-       height="46"
+       width="45.9874"
+       height="33.981133"
        x="1.0000012"
-       y="1005.3621"
-       ry="6.0005689" />
+       y="1017.381"
+       ry="4.4327421" />
     <g
        id="g3857"
-       transform="matrix(0.49723404,0,0,0.49055845,-63.912397,540.19061)">
+       transform="matrix(0.36881453,0,0,0.36238548,-47.147619,673.74935)">
       <path
          transform="matrix(0.14486293,0,0,0.14124077,256.23595,884.18843)"
          inkscape:export-ydpi="90"
          inkscape:export-xdpi="90"
-         inkscape:export-filename="lock_open.png"
+         inkscape:export-filename="button.png"
          id="path2906"
          d="m -253.52039,509.02461 c -99.41125,-7.3e-4 -179.99927,80.58875 -180,180 l 0,200 80,0 0,-200 c 0,-55.22848 44.77152,-100 100,-100 54.92701,0 99.51491,44.28129 100,99.09375 0.003,0.30084 0,0.60478 0,0.90625 l 2.60039,57.33756 77.39961,-0.15 0,-58.81256 c -5.7e-4,-0.0625 6.3e-4,-0.12497 0,-0.1875 -0.99324,-98.68475 -81.28694,-178.18677 -180,-178.1875 z"
          style="fill:#8080ff;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:15;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;marker-mid:none;filter:url(#filter5607)"
@@ -422,16 +467,16 @@
          transform="matrix(0.14486293,0,0,0.14124077,215.09488,890.40302)"
          inkscape:export-ydpi="90"
          inkscape:export-xdpi="90"
-         inkscape:export-filename="lock_open.png"
+         inkscape:export-filename="button.png"
          y="722.86218"
          x="-456.5"
          height="300"
          width="410"
          id="rect2934"
-         style="fill:url(#linearGradient3947);fill-rule:evenodd;stroke:#000000;stroke-width:15;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;filter:url(#filter5611)" />
+         style="fill:url(#linearGradient3074);fill-rule:evenodd;stroke:#000000;stroke-width:15;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;filter:url(#filter5611)" />
       <path
          transform="matrix(0.14486293,0,0,0.14124077,215.09488,890.40302)"
-         inkscape:export-filename="lock_open.png"
+         inkscape:export-filename="button.png"
          inkscape:export-ydpi="90"
          inkscape:export-xdpi="90"
          id="path3734"
