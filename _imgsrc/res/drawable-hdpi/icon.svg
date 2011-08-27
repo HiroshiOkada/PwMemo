@@ -296,34 +296,20 @@
        x2="475"
        y2="899.86218" />
     <filter
-       color-interpolation-filters="sRGB"
        inkscape:collect="always"
-       id="filter3922-9">
+       id="filter3819">
       <feGaussianBlur
          inkscape:collect="always"
-         stdDeviation="1.5141068"
-         id="feGaussianBlur3924-4" />
-    </filter>
-    <filter
-       color-interpolation-filters="sRGB"
-       inkscape:collect="always"
-       id="filter4020-9"
-       x="-0.15383558"
-       width="1.3076712"
-       y="-0.46043283"
-       height="1.9208657">
-      <feGaussianBlur
-         inkscape:collect="always"
-         stdDeviation="2.7891814"
-         id="feGaussianBlur4022-0" />
+         stdDeviation="0.26"
+         id="feGaussianBlur3821" />
     </filter>
     <filter
        inkscape:collect="always"
-       id="filter3855">
+       id="filter3823">
       <feGaussianBlur
          inkscape:collect="always"
-         stdDeviation="0.4195889"
-         id="feGaussianBlur3857" />
+         stdDeviation="0.55945187"
+         id="feGaussianBlur3825" />
     </filter>
   </defs>
   <sodipodi:namedview
@@ -334,7 +320,7 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="5.8962264"
-     inkscape:cx="-17.443127"
+     inkscape:cx="-6.2656004"
      inkscape:cy="34.170147"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
@@ -385,42 +371,38 @@
      id="layer1"
      transform="translate(-1.1328125e-6,-980.36217)">
     <rect
-       style="opacity:0.25000000000000000;fill:#000000;fill-opacity:1;stroke:none;filter:url(#filter3855)"
+       style="opacity:0.5;fill:#000000;fill-opacity:1;stroke:none;filter:url(#filter3823)"
        id="rect5653-1"
        width="56.005119"
        height="55.885254"
        x="8.000001"
        y="989.47693"
        ry="9.2517328" />
-    <g
-       id="g4024"
-       transform="translate(-0.05878812,0)">
-      <rect
-         ry="9.2517328"
-         y="988.44196"
-         x="8.034997"
-         height="55.885254"
-         width="56.005119"
-         id="rect5653"
-         style="fill:#00ff00;fill-opacity:1;stroke:none" />
-      <rect
-         ry="8.0803776"
-         y="992.03967"
-         x="11.692721"
-         height="48.809662"
-         width="49.04945"
-         id="rect5653-3"
-         style="fill:#ffffff;fill-opacity:0.50196078;stroke:none;filter:url(#filter3922)" />
-      <rect
-         transform="matrix(1,0,0,1.3951065,0,-398.10339)"
-         ry="2.406842"
-         y="997.43103"
-         x="14.301679"
-         height="14.538571"
-         width="43.514221"
-         id="rect5653-3-5"
-         style="opacity:0.76567658;fill:#ffffff;fill-opacity:1;stroke:none;filter:url(#filter4020)" />
-    </g>
+    <rect
+       style="fill:#00f000;fill-opacity:1;stroke:none"
+       id="rect5653"
+       width="56.005119"
+       height="55.885254"
+       x="7.9762087"
+       y="988.44196"
+       ry="9.2517328" />
+    <rect
+       style="opacity:0.6;fill:#ffffff;fill-opacity:0.50196078000000000;stroke:none;filter:url(#filter3819)"
+       id="rect5653-3"
+       width="52"
+       height="52"
+       x="10.000001"
+       y="990.36218"
+       ry="8.6085339" />
+    <rect
+       style="opacity:0.25;fill:#ffffff;fill-opacity:1;stroke:none;filter:url(#filter4020)"
+       id="rect5653-3-5"
+       width="43.514221"
+       height="14.538571"
+       x="14.301679"
+       y="997.43103"
+       ry="2.406842"
+       transform="matrix(1,0,0,1.3951065,-0.05878812,-398.10339)" />
     <path
        inkscape:connector-curvature="0"
        style="fill:#ffffff;fill-opacity:0.50196078;fill-rule:evenodd;stroke:#000000;stroke-width:10;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;filter:url(#filter5639)"
@@ -453,5 +435,17 @@
        inkscape:export-xdpi="90"
        inkscape:export-ydpi="90"
        transform="matrix(0.07939263,0,0,0.07732264,55.967248,956.63677)" />
+    <text
+       xml:space="preserve"
+       style="font-size:16.91335487px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+       x="30.961157"
+       y="986.42059"
+       id="text3046"
+       sodipodi:linespacing="125%"
+       transform="scale(0.95739783,1.0444979)"><tspan
+         sodipodi:role="line"
+         id="tspan3048"
+         x="30.961157"
+         y="986.42059">H</tspan></text>
   </g>
 </svg>

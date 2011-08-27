@@ -307,55 +307,6 @@
        y1="899.86218"
        x2="475"
        y2="899.86218" />
-    <filter
-       inkscape:collect="always"
-       id="filter3922-9"
-       color-interpolation-filters="sRGB">
-      <feGaussianBlur
-         inkscape:collect="always"
-         stdDeviation="1.5141068"
-         id="feGaussianBlur3924-5" />
-    </filter>
-    <filter
-       inkscape:collect="always"
-       id="filter4020-0"
-       x="-0.15383558"
-       width="1.3076712"
-       y="-0.46043283"
-       height="1.9208657"
-       color-interpolation-filters="sRGB">
-      <feGaussianBlur
-         inkscape:collect="always"
-         stdDeviation="2.7891814"
-         id="feGaussianBlur4022-4" />
-    </filter>
-    <filter
-       inkscape:collect="always"
-       id="filter5639-8"
-       color-interpolation-filters="sRGB">
-      <feGaussianBlur
-         inkscape:collect="always"
-         stdDeviation="0.74672183"
-         id="feGaussianBlur5641-7" />
-    </filter>
-    <filter
-       inkscape:collect="always"
-       id="filter5607-1"
-       color-interpolation-filters="sRGB">
-      <feGaussianBlur
-         inkscape:collect="always"
-         stdDeviation="0.92500024"
-         id="feGaussianBlur5609-7" />
-    </filter>
-    <filter
-       inkscape:collect="always"
-       id="filter5403-2"
-       color-interpolation-filters="sRGB">
-      <feGaussianBlur
-         inkscape:collect="always"
-         stdDeviation="7.7628774"
-         id="feGaussianBlur5405-7" />
-    </filter>
     <linearGradient
        inkscape:collect="always"
        xlink:href="#linearGradient3057-2"
@@ -381,15 +332,6 @@
          offset="1"
          id="stop3061-0" />
     </linearGradient>
-    <filter
-       inkscape:collect="always"
-       id="filter5611-6"
-       color-interpolation-filters="sRGB">
-      <feGaussianBlur
-         inkscape:collect="always"
-         stdDeviation="0.8875"
-         id="feGaussianBlur5613-1" />
-    </filter>
     <linearGradient
        y2="899.86218"
        x2="475"
@@ -417,7 +359,7 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="4.6035598"
-     inkscape:cx="3.0161624"
+     inkscape:cx="3.4506088"
      inkscape:cy="48"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
@@ -540,5 +482,17 @@
        x="11.000001"
        y="969.55566"
        ry="12.053028" />
+    <text
+       xml:space="preserve"
+       style="font-size:29.61639404px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+       x="36.230877"
+       y="987.21143"
+       id="text3062"
+       sodipodi:linespacing="125%"
+       transform="scale(0.96273252,1.0387101)"><tspan
+         sodipodi:role="line"
+         id="tspan3064"
+         x="36.230877"
+         y="987.21143">X</tspan></text>
   </g>
 </svg>
