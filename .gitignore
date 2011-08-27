@@ -1,4 +1,6 @@
 bin/
 gen/
+_imgsrc/*.png
+_imgsrc/*/*/*.png
 *.log
 
