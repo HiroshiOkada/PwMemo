@@ -265,28 +265,6 @@
        fx="179.8156"
        fy="733.67023"
        r="184.59337" />
-    <filter
-       inkscape:collect="always"
-       id="filter3922"
-       color-interpolation-filters="sRGB">
-      <feGaussianBlur
-         inkscape:collect="always"
-         stdDeviation="1.5141068"
-         id="feGaussianBlur3924" />
-    </filter>
-    <filter
-       inkscape:collect="always"
-       id="filter4020"
-       x="-0.15383558"
-       width="1.3076712"
-       y="-0.46043283"
-       height="1.9208657"
-       color-interpolation-filters="sRGB">
-      <feGaussianBlur
-         inkscape:collect="always"
-         stdDeviation="2.7891814"
-         id="feGaussianBlur4022" />
-    </filter>
     <linearGradient
        inkscape:collect="always"
        xlink:href="#linearGradient3057"
@@ -336,7 +314,7 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="20.116374"
-     inkscape:cx="18.016001"
+     inkscape:cx="7.65131"
      inkscape:cy="18.696821"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
@@ -397,28 +375,28 @@
     <rect
        style="fill:#00f000;fill-opacity:1;stroke:none"
        id="rect5653"
-       width="28.032001"
-       height="28.262428"
-       x="4.0704012"
-       y="1020.3366"
-       ry="4.6788092" />
+       width="29"
+       height="29"
+       x="3.5000012"
+       y="1019.8622"
+       ry="2.9645848" />
     <rect
-       style="fill:#ffffff;fill-opacity:0.50196078000000000;stroke:none;opacity:0.5"
+       style="opacity:0.3;fill:#ffffff;fill-opacity:0.50196078000000000;stroke:none"
        id="rect5653-3"
-       width="26"
-       height="26"
-       x="5.000001"
-       y="1021.3621"
-       ry="4.3042669" />
+       width="28"
+       height="28"
+       x="4.000001"
+       y="1020.3622"
+       ry="2.8954997" />
     <rect
-       style="opacity:0.4;fill:#ffffff;fill-opacity:1;stroke:none;filter:url(#filter3939)"
+       style="opacity:0.3;fill:#ffffff;fill-opacity:1;stroke:none;filter:url(#filter3939)"
        id="rect5653-3-5"
        width="43.514221"
        height="14.538571"
        x="14.301679"
        y="997.43103"
-       ry="2.406842"
-       transform="matrix(0.55517142,0,0,0.70553669,-2.0415526,317.82904)" />
+       ry="5.1478014"
+       transform="matrix(0.64420322,0,0,0.94309178,-5.1427862,78.88422)" />
     <path
        inkscape:connector-curvature="0"
        style="fill:#ffffff;fill-opacity:0.50196078;fill-rule:evenodd;stroke:#000000;stroke-width:10;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;filter:url(#filter5639)"

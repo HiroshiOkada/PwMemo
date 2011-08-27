@@ -344,42 +344,23 @@
        inkscape:collect="always" />
     <filter
        inkscape:collect="always"
-       id="filter3921"
-       color-interpolation-filters="sRGB">
+       id="filter3851"
+       x="-0.14889422"
+       width="1.2977884"
+       y="-0.44564324"
+       height="1.8912865">
       <feGaussianBlur
          inkscape:collect="always"
-         stdDeviation="0.54950449"
-         id="feGaussianBlur3923" />
+         stdDeviation="2.69959"
+         id="feGaussianBlur3853" />
     </filter>
     <filter
        inkscape:collect="always"
-       id="filter3922-7"
-       color-interpolation-filters="sRGB">
+       id="filter3855">
       <feGaussianBlur
          inkscape:collect="always"
-         stdDeviation="1.5141068"
-         id="feGaussianBlur3924-9" />
-    </filter>
-    <filter
-       inkscape:collect="always"
-       id="filter4020-7"
-       x="-0.15383558"
-       width="1.3076712"
-       y="-0.46043283"
-       height="1.9208657"
-       color-interpolation-filters="sRGB">
-      <feGaussianBlur
-         inkscape:collect="always"
-         stdDeviation="2.7891814"
-         id="feGaussianBlur4022-5" />
-    </filter>
-    <filter
-       inkscape:collect="always"
-       id="filter3901">
-      <feGaussianBlur
-         inkscape:collect="always"
-         stdDeviation="6.8858168"
-         id="feGaussianBlur3903" />
+         stdDeviation="9.9500053"
+         id="feGaussianBlur3857" />
     </filter>
   </defs>
   <sodipodi:namedview
@@ -390,7 +371,7 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="1"
-     inkscape:cx="402.80361"
+     inkscape:cx="196.30361"
      inkscape:cy="209.4328"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
@@ -448,42 +429,38 @@
      id="layer1"
      transform="translate(-1.1328125e-6,-540.36217)">
     <rect
-       style="opacity:0.25000000000000000;fill:#000000;fill-opacity:1;stroke:none;filter:url(#filter3901)"
+       style="opacity:0.50000000000000000;fill:#000000;fill-opacity:1;stroke:none;filter:url(#filter3855)"
        id="rect5653-37"
        width="398"
        height="398.00043"
        x="57"
        y="609.36176"
        ry="65.888466" />
-    <g
-       id="g4024"
-       transform="matrix(7.1064933,0,0,7.1217434,-0.10065133,-6442.0678)">
-      <rect
-         ry="9.2517328"
-         y="988.44196"
-         x="8.034997"
-         height="55.885254"
-         width="56.005119"
-         id="rect5653"
-         style="fill:#00ff00;fill-opacity:1;stroke:none" />
-      <rect
-         ry="8.0803776"
-         y="992.03967"
-         x="11.692721"
-         height="48.809662"
-         width="49.04945"
-         id="rect5653-3"
-         style="fill:#ffffff;fill-opacity:0.50196078;stroke:none;filter:url(#filter3922)" />
-      <rect
-         transform="matrix(1,0,0,1.3951065,0,-398.10339)"
-         ry="2.406842"
-         y="997.43103"
-         x="14.301679"
-         height="14.538571"
-         width="43.514221"
-         id="rect5653-3-5"
-         style="opacity:0.76567658;fill:#ffffff;fill-opacity:1;stroke:none;filter:url(#filter4020)" />
-    </g>
+    <rect
+       style="fill:#00f000;fill-opacity:1;stroke:none"
+       id="rect5653"
+       width="400"
+       height="400"
+       x="55"
+       y="597.36218"
+       ry="39.219482" />
+    <rect
+       style="opacity:0.5;fill:#ffffff;fill-opacity:0.50196078;stroke:none"
+       id="rect5653-3"
+       width="380"
+       height="380"
+       x="65"
+       y="607.36218"
+       ry="41.908508" />
+    <rect
+       style="opacity:0.40000000000000002;fill:#ffffff;fill-opacity:1;stroke:none;filter:url(#filter3851)"
+       id="rect5653-3-5"
+       width="43.514221"
+       height="14.538571"
+       x="14.301679"
+       y="997.43103"
+       ry="2.406842"
+       transform="matrix(7.1064933,0,0,9.9355905,-0.10065133,-9277.258)" />
     <path
        inkscape:connector-curvature="0"
        style="fill:#ffffff;fill-opacity:0.50196078;fill-rule:evenodd;stroke:#000000;stroke-width:10;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;filter:url(#filter5639)"

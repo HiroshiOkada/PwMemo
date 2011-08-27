@@ -267,14 +267,6 @@
        r="184.59337" />
     <filter
        inkscape:collect="always"
-       id="filter3922">
-      <feGaussianBlur
-         inkscape:collect="always"
-         stdDeviation="1.5141068"
-         id="feGaussianBlur3924" />
-    </filter>
-    <filter
-       inkscape:collect="always"
        id="filter4020"
        x="-0.15383558"
        width="1.3076712"
@@ -297,19 +289,19 @@
        y2="899.86218" />
     <filter
        inkscape:collect="always"
-       id="filter3819">
+       id="filter3825">
       <feGaussianBlur
          inkscape:collect="always"
-         stdDeviation="0.26"
-         id="feGaussianBlur3821" />
+         stdDeviation="0.405"
+         id="feGaussianBlur3827" />
     </filter>
     <filter
        inkscape:collect="always"
-       id="filter3823">
+       id="filter3837">
       <feGaussianBlur
          inkscape:collect="always"
-         stdDeviation="0.55945187"
-         id="feGaussianBlur3825" />
+         stdDeviation="0.97904077"
+         id="feGaussianBlur3839" />
     </filter>
   </defs>
   <sodipodi:namedview
@@ -319,9 +311,9 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="5.8962264"
-     inkscape:cx="-6.2656004"
-     inkscape:cy="34.170147"
+     inkscape:zoom="8.6805556"
+     inkscape:cx="12.2112"
+     inkscape:cy="36"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="false"
@@ -371,37 +363,37 @@
      id="layer1"
      transform="translate(-1.1328125e-6,-980.36217)">
     <rect
-       style="opacity:0.5;fill:#000000;fill-opacity:1;stroke:none;filter:url(#filter3823)"
+       style="opacity:0.65;fill:#000000;fill-opacity:1;stroke:none;filter:url(#filter3837)"
        id="rect5653-1"
        width="56.005119"
        height="55.885254"
        x="8.000001"
        y="989.47693"
-       ry="9.2517328" />
+       ry="4.5285091" />
     <rect
        style="fill:#00f000;fill-opacity:1;stroke:none"
        id="rect5653"
-       width="56.005119"
-       height="55.885254"
-       x="7.9762087"
-       y="988.44196"
-       ry="9.2517328" />
+       width="57"
+       height="57"
+       x="7.500001"
+       y="987.86218"
+       ry="5.7050791" />
     <rect
-       style="opacity:0.6;fill:#ffffff;fill-opacity:0.50196078000000000;stroke:none;filter:url(#filter3819)"
+       style="opacity:0.5;fill:#ffffff;fill-opacity:0.50196078000000000;stroke:none;filter:url(#filter3825)"
        id="rect5653-3"
-       width="52"
-       height="52"
-       x="10.000001"
-       y="990.36218"
-       ry="8.6085339" />
+       width="54"
+       height="54"
+       x="9.000001"
+       y="989.36218"
+       ry="6.2260361" />
     <rect
-       style="opacity:0.25;fill:#ffffff;fill-opacity:1;stroke:none;filter:url(#filter4020)"
+       style="opacity:0.3;fill:#ffffff;fill-opacity:1;stroke:none;filter:url(#filter4020)"
        id="rect5653-3-5"
        width="43.514221"
        height="14.538571"
        x="14.301679"
        y="997.43103"
-       ry="2.406842"
+       ry="3.3794026"
        transform="matrix(1,0,0,1.3951065,-0.05878812,-398.10339)" />
     <path
        inkscape:connector-curvature="0"
