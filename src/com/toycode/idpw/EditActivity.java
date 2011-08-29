@@ -26,6 +26,7 @@ public class EditActivity extends Activity implements OnClickListener, Observer,
     EditText mMemoEdit;
     DbRw mDbRw;
     Long mId;
+    Boolean mIsNewItem;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -69,13 +70,18 @@ public class EditActivity extends Activity implements OnClickListener, Observer,
             
             switch (extras.getInt(Const.REQUEST_TYPE.NAME)) {
                 case Const.REQUEST_TYPE.EDIT:
+                    mIsNewItem = false;
                     setTitle(R.string.edit);
-                    findViewById(R.id.user_id_edittext).requestFocus();
+                    findViewById(R.id.user_id_edittext).requestFocus();                    
                     break;
                 case Const.REQUEST_TYPE.NEW:
+                    mIsNewItem = true;
                     setTitle(R.string.new_str);
                     findViewById(R.id.title_textedit).requestFocus();
                     break;
+                default:
+                    // never come
+                    finish();
             }
         }
     }
@@ -110,6 +116,9 @@ public class EditActivity extends Activity implements OnClickListener, Observer,
                 finish();
                 break;
             case R.id.cancel_button:
+                if (mIsNewItem) {
+                    deleteItem();
+                }
                 setResult(RESULT_CANCELED, new Intent());
                 finish();
                 break;
