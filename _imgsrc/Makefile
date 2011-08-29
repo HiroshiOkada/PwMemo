@@ -34,6 +34,6 @@ ${RESNINE} : $(RESNINE:%.9.png=%.png)
 	sh make9patch.sh
 
 clean: 
-	rm $(PNG) $(RESNINE)
+	rm -f $(PNG) $(RESNINE)
 
 
