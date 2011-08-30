@@ -93,13 +93,13 @@ public class MainListActivity extends MainListActivityBase {
         
         //  If locked do nothing. (maybe never occur.)
         if (isLocked()) {
-            Toy.debugLog(this, "onContextItemSelected and locked");
+            App.debugLog(this, "onContextItemSelected and locked");
             return false;
         }
        
         Cursor cursor = getCursorFromMenuInfo(item.getMenuInfo());
         if (cursor == null) {
-            Toy.debugLog(this, "bad cursor");
+            App.debugLog(this, "bad cursor");
             return false;
         }
         Long id = cursor.getLong(0);
@@ -108,14 +108,14 @@ public class MainListActivity extends MainListActivityBase {
         switch (item.getItemId()) {
             case R.id.copy_userid_menu_item:
                 if (data != null) {
-                    Toy.copyTextToClipboard(this, data.getUserId());
-                    Toy.toastMessage(this, R.string.copy_x, data.getUserId());
+                    App.copyTextToClipboard(this, data.getUserId());
+                    App.toastMessage(this, R.string.copy_x, data.getUserId());
                 }
                 break;
             case R.id.copy_password_menu_item:
                 if (data != null) {
-                    Toy.copyTextToClipboard(this, data.getPassword());
-                    Toy.toastMessage(this, R.string.copy_x_password, title);
+                    App.copyTextToClipboard(this, data.getPassword());
+                    App.toastMessage(this, R.string.copy_x_password, title);
                 }
                 break;
             case R.id.edit_menu_item:

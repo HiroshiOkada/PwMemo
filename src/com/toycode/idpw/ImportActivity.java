@@ -78,8 +78,8 @@ public class ImportActivity extends Activity implements OnClickListener {
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.read_file_button:
-                if (Toy.isEmptyTextView(mPasswordEdittext)) {
-                    Toy.toastMessage(this, R.string.please_set_import_password);
+                if (App.isEmptyTextView(mPasswordEdittext)) {
+                    App.toastMessage(this, R.string.please_set_import_password);
                     return;
                 }
                 if (mUseFileManeger) {
@@ -184,7 +184,7 @@ public class ImportActivity extends Activity implements OnClickListener {
         protected void onPostExecute(Boolean result) {
             mProgressDialog.dismiss();
             if (result == false) {
-                Toy.toastMessage(ImportActivity.this, mErrorMessageId);
+                App.toastMessage(ImportActivity.this, mErrorMessageId);
             }
             super.onPostExecute(result);
         }

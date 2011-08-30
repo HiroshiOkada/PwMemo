@@ -75,12 +75,12 @@ public abstract class AbstractMasterPasswordActivity extends Activity implements
         if ((pw.length() > 0) &&
                 (pw.length() == confirm.length()) &&
                 (pw.length() < Const.MIN_PASSWORD_LEN)) {
-            Toy.toastMessage(this, R.string.password_is_too_short);
+            App.toastMessage(this, R.string.password_is_too_short);
             return false;
         }
         // 長さが一致しているが違う
         if ((pw.length() == confirm.length()) && !pw.equals(confirm)) {
-            Toy.toastMessage(this, R.string.confirmation_password_does_not_match);
+            App.toastMessage(this, R.string.confirmation_password_does_not_match);
             return false;
         }
         // それ以外

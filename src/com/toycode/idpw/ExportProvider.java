@@ -17,11 +17,11 @@ public class ExportProvider extends ContentProvider {
     @Override
     public ParcelFileDescriptor openFile(Uri uri, String mode) throws FileNotFoundException {
         if (!FileUtils.DEFALUT_FILENAME.equals(uri.getLastPathSegment())) {
-            Toy.debugLog(this, uri.toString() + FileUtils.DEFALUT_FILENAME + " != " + uri.getLastPathSegment());
+            App.debugLog(this, uri.toString() + FileUtils.DEFALUT_FILENAME + " != " + uri.getLastPathSegment());
             throw new FileNotFoundException(uri.toString() + " not found.");
         }
         if (!"r".equals(mode)) {
-            Toy.debugLog(this, mode + " is prohibited.");
+            App.debugLog(this, mode + " is prohibited.");
             throw new SecurityException(mode + " is prohibited.");
         }
         File f = getContext().getFileStreamPath(FileUtils.DEFALUT_FILENAME);

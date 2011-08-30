@@ -168,7 +168,7 @@ public final class DbRw {
         try {
             return root.toString(INDENT_SPACES);
         } catch (JSONException e) {
-            Toy.debugLog(this, e.toString());
+            App.debugLog(this, e.toString());
             return "[]";
         }
     }
@@ -187,7 +187,7 @@ public final class DbRw {
         try {
             root = new JSONArray(json);
         } catch (JSONException e1) {
-            Toy.debugLog(this, e1.getMessage());
+            App.debugLog(this, e1.getMessage());
             return;
         }
         for (int i=0; i<root.length(); i++){
@@ -218,7 +218,7 @@ public final class DbRw {
         try {
             root = new JSONArray(json);
         } catch (JSONException e1) {
-            Toy.debugLog(this, e1.getMessage());
+            App.debugLog(this, e1.getMessage());
             return;
         }
         for (int i=0; i<root.length(); i++){

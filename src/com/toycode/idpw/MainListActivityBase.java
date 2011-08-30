@@ -95,7 +95,7 @@ public abstract class MainListActivityBase extends ListActivity implements OnCli
     {
         TimeOutChecker.getInstance().onUser();
         if (isLocked()) {
-            Toy.toastMessage(this, R.string.locked_message);
+            App.toastMessage(this, R.string.locked_message);
         } else {
             itemClickNormalTask(position, id);
         }
@@ -129,7 +129,7 @@ public abstract class MainListActivityBase extends ListActivity implements OnCli
      */
    protected void onAddButton() {
         if (isLocked()) {
-            Toy.toastMessage(this, R.string.locked_message);
+            App.toastMessage(this, R.string.locked_message);
         } else {
             ContentValues values = new ContentValues();
             values.put(Const.COLUMN.TITLE, "");
@@ -162,7 +162,7 @@ public abstract class MainListActivityBase extends ListActivity implements OnCli
         TimeOutChecker.getInstance().onUser();
         //  If locked Show the toast message and do nothing.
         if (isLocked()) {
-            Toy.toastMessage(this, R.string.locked_message);
+            App.toastMessage(this, R.string.locked_message);
             return;
         }
 
@@ -174,7 +174,7 @@ public abstract class MainListActivityBase extends ListActivity implements OnCli
         if (cursor != null) {
             menu.setHeaderTitle(cursor.getString(1));
         } else {
-            Toy.debugLog(this, "bad cursor");
+            App.debugLog(this, "bad cursor");
         }        
     }
 

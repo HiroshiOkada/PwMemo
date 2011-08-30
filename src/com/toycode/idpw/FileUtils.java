@@ -41,7 +41,7 @@ public final class FileUtils {
     }
     
     public static final File getDefaultOutputFile(Context context) {
-        String fileName = Toy.getLocalStringPreference(context, DEFAULT_FILENAME_KEY, "");
+        String fileName = App.getLocalStringPreference(context, DEFAULT_FILENAME_KEY, "");
         if (fileName.equals("")) {
             List<File> candidateFolders = getCandidateFolders();
             for (File folder : candidateFolders) {
@@ -57,7 +57,7 @@ public final class FileUtils {
     }
     
     public static final File getDefaultInputFile(Context context) {
-        String defaultFileName = Toy.getLocalStringPreference(context, DEFAULT_FILENAME_KEY, "");
+        String defaultFileName = App.getLocalStringPreference(context, DEFAULT_FILENAME_KEY, "");
         if (!defaultFileName.equals("")) {
             File file = new File( defaultFileName);
             if (file.canRead()) {
@@ -79,7 +79,7 @@ public final class FileUtils {
     }
 
     public static final void setDefaultOutputFile(Context context, File file) {
-        Toy.setLocalPreference(context, DEFAULT_FILENAME_KEY, file.toString());
+        App.setLocalPreference(context, DEFAULT_FILENAME_KEY, file.toString());
     }
     
 }

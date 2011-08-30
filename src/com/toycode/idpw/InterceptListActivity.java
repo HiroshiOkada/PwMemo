@@ -44,7 +44,7 @@ public class InterceptListActivity extends MainListActivityBase {
             long id) {
         TimeOutChecker.getInstance().onUser();
         if (isLocked()) {
-            Toy.toastMessage(this, R.string.locked_message);
+            App.toastMessage(this, R.string.locked_message);
         } else {
             this.itemClickNormalTask(position, id);
         }
@@ -67,13 +67,13 @@ public class InterceptListActivity extends MainListActivityBase {
 
         // If locked do nothing. (maybe never occur.)
         if (isLocked()) {
-            Toy.debugLog(this, "onContextItemSelected and locked");
+            App.debugLog(this, "onContextItemSelected and locked");
             return false;
         }
 
         Cursor cursor = getCursorFromMenuInfo(item.getMenuInfo());
         if (cursor == null) {
-            Toy.debugLog(this, "bad cursor");
+            App.debugLog(this, "bad cursor");
             return false;
         }
         Long id = cursor.getLong(0);
@@ -116,19 +116,19 @@ public class InterceptListActivity extends MainListActivityBase {
         if (cursor != null) {
             title = cursor.getString(1);
         } else {
-            Toy.debugLog(this, "bad cursor");
+            App.debugLog(this, "bad cursor");
         }
 
         DbRw.Data data = getData(id);
         if (data != null) {
-            Toy.toastMessage(this, R.string.copy_x_password, title);
+            App.toastMessage(this, R.string.copy_x_password, title);
             finishWithResult(data.getPassword());
         }
     }
  
     @Override    
     protected void updateAdapter() {
-        if (Toy.isEmptyCharSequence(mSearchString)) {
+        if (App.isEmptyCharSequence(mSearchString)) {
             super.updateAdapter();
             return;
         }

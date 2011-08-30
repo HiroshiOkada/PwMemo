@@ -31,7 +31,7 @@ public class EditActivity extends Activity implements OnClickListener, Observer,
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Toy.debugLog(this, "onCreate(Bundle savedInstanceState)");
+        App.debugLog(this, "onCreate(Bundle savedInstanceState)");
         SQLiteDatabase db = (new IdPwDbOpenHelper(this)).getReadableDatabase();
         if (db == null) {
             setResult(RESULT_CANCELED, new Intent());
@@ -100,7 +100,7 @@ public class EditActivity extends Activity implements OnClickListener, Observer,
 
     @Override
     public void onDestroy() {
-        Toy.debugLog(this, "onDestroy");
+        App.debugLog(this, "onDestroy");
         mDbRw.cleanup();
         mDbRw = null;
         super.onDestroy();
@@ -123,13 +123,13 @@ public class EditActivity extends Activity implements OnClickListener, Observer,
                 finish();
                 break;
             case R.id.copy_user_id_button:
-                Toy.copyTextToClipboard(this, mUserIdEdit.getText());
+                App.copyTextToClipboard(this, mUserIdEdit.getText());
                 break;
             case R.id.copy_passwword_button:
-                Toy.copyTextToClipboard(this, mPasswordEdit.getText());
+                App.copyTextToClipboard(this, mPasswordEdit.getText());
                 break;
             case R.id.copy_memo_button:
-                Toy.copyTextToClipboard(this, mMemoEdit.getText());
+                App.copyTextToClipboard(this, mMemoEdit.getText());
                 break;
             default:
                 // did not come

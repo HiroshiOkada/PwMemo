@@ -39,7 +39,7 @@ public class DeleteAllDialogPreference extends DialogPreference {
             IdPwDbOpenHelper dbHelper = new IdPwDbOpenHelper(context);
             dbHelper.deleteaAll();
             PasswordManager.getInstance(context).deleteMasterPassword();
-            Toy.toastMessage(context, R.string.all_data_deleted);
+            App.toastMessage(context, R.string.all_data_deleted);
         }
     }
 }

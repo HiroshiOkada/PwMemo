@@ -62,8 +62,8 @@ public class ImplicitIntentImportActivity extends Activity implements OnClickLis
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.import_button:
-                if (Toy.isEmptyTextView(mPasswordEdittext)) {
-                    Toy.toastMessage(this, R.string.please_set_import_password);
+                if (App.isEmptyTextView(mPasswordEdittext)) {
+                    App.toastMessage(this, R.string.please_set_import_password);
                     return;
                 }
                 break;
@@ -154,11 +154,9 @@ public class ImplicitIntentImportActivity extends Activity implements OnClickLis
         protected void onPostExecute(Boolean result) {
             mProgressDialog.dismiss();
             if (result == false) {
-                Toy.toastMessage(ImplicitIntentImportActivity.this, mErrorMessageId);
+                App.toastMessage(ImplicitIntentImportActivity.this, mErrorMessageId);
             }
             super.onPostExecute(result);
         }
-        
      }
-    
 }
