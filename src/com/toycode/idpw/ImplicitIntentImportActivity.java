@@ -2,6 +2,7 @@ package com.toycode.idpw;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
 import android.os.AsyncTask;
@@ -26,20 +27,37 @@ public class ImplicitIntentImportActivity extends Activity implements OnClickLis
     private EditText mPasswordEdittext;
     enum ReadMethod { MERGE, INSERT };
     private ReadMethod mReadMethod = ReadMethod.MERGE;
-
+    private InputStream mInputStream = null;
+    
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.implicit_intent_import);
         findViewById(R.id.import_button).setOnClickListener(this);
+        findViewById(R.id.cancel_button).setOnClickListener(this);
         mPasswordEdittext = (EditText)findViewById(R.id.password_edittext);
         String action = getIntent().getAction();
-        Uri uri = getIntent().getData();
-        Toy.toastMessage(this, uri.toString());
-        Toy.toastMessage(this, action);
-        Toy.debugLog(this, uri.toString());
+        if (Intent.ACTION_VIEW.equals(action)) {
+            Uri uri = getIntent().getData();
+            if (uri != null) {
+                try {
+                    mInputStream = getContentResolver().openInputStream(uri);
+                } catch (FileNotFoundException e) {
+                    mInputStream = null;
+                }
+            }
+        }
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (!PasswordManager.getInstance(this).isMainPasswordExist()) {
+            Intent i = new Intent(this, DeclarMasterPasswordActivity.class);
+            startActivityForResult(i, Const.REQUEST_TYPE.NEW);
+        }
+    }
+    
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
@@ -48,9 +66,16 @@ public class ImplicitIntentImportActivity extends Activity implements OnClickLis
                     Toy.toastMessage(this, R.string.please_set_import_password);
                     return;
                 }
+                break;
+            case R.id.cancel_button:
+                Intent i = new Intent(this, MainListActivity.class);
+                i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(i);
+                finish();
+                break;
         }
     }
- 
+
     private class ReadFileTask extends AsyncTask<InputStream, Void, Boolean> {
         ProgressDialog mProgressDialog;
         int mErrorMessageId = 0;

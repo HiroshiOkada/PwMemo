@@ -1,6 +1,7 @@
 
 package com.toycode.idpw;
 
+import android.app.Application;
 import android.content.Context;
 import android.content.SharedPreferences.Editor;
 import android.preference.PreferenceManager;
@@ -8,8 +9,8 @@ import android.util.Log;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public final class Toy {
-
+public final class App extends Application {
+    
     /**
      * Debug ログを記録
      * 
