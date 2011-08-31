@@ -3,8 +3,8 @@
 	<string name="add">追加</string>
 	<string name="add_update">追加・更新</string>
 	<string name="all_data_deleted">データがすべて削除されました。</string>
-	<string name="app_name">IdPwメモ</string>
-	<string name="app_name_mushroom">IdPwメモ (まっしゅるーむ)</string>
+	<string name="app_name">パスワードメモ</string>
+	<string name="app_name_mushroom">パスワードメモ (まっしゅるーむ)</string>
 	<string name="autolock">自動ロック</string>
 	<string name="autolock_summary">しばらく操作しないと自動的にロック状態になります。</string>
 	<string name="autolock_timeout">自動ロックになる時間</string>

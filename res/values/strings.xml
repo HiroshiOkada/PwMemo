@@ -3,8 +3,8 @@
 	<string name="add">Add</string>
 	<string name="add_update">Add/Update</string>
 	<string name="all_data_deleted">All data deleted.</string>
-	<string name="app_name">IdPw</string>
-	<string name="app_name_mushroom">IdPw (mushroom)</string>
+	<string name="app_name">PwMemo</string>
+	<string name="app_name_mushroom">PwMemo (mushroom)</string>
 	<string name="autolock">Auto Lock</string>
 	<string name="autolock_summary">If not been operated for some time then lock automatically.</string>
 	<string name="autolock_timeout">Auto Lock Timeout</string>
@@ -19,7 +19,7 @@
 	<string name="copy_userid">Copy User ID</string>
 	<string name="copy_x">Copy %s</string>
 	<string name="copy_x_password">Copy %s\&apos;s passowrd</string>
-	<string name="define_master_password">Define a master password to protect your IdPw data. This password is used to encrypt and decrypt your data.</string>
+	<string name="define_master_password">Define a master password to protect your PwMemo data. This password is used to encrypt and decrypt your data.</string>
 	<string name="delete">Delete</string>
 	<string name="delete_all">Delete All</string>
 	<string name="delete_this_item">Delete this item.</string>
