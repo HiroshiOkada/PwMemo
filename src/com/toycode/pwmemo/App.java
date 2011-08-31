@@ -12,13 +12,20 @@ import android.widget.Toast;
 public final class App extends Application {
     
     /**
+     * Debug flag
+     */
+    static final public boolean DEBUG_FLAG = true;  
+    
+    /**
      * Debug ログを記録
      * 
      * @param obj 対象オブジェクト
      * @param msg メッセージ
      */
     static public final void debugLog(Object obj, String msg) {
-        Log.d(obj.getClass().getName(), msg);
+        if (DEBUG_FLAG) {
+            Log.d(obj.getClass().getName(), msg);
+        }
     }
 
     /**
