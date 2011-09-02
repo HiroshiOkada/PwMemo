@@ -15,19 +15,37 @@ public final class App extends Application {
      * Debug flag
      */
     static final public boolean DEBUG_FLAG = true;  
+    static final public String DEBUG_HEADER = "pwmemo";
     
     /**
-     * Debug ログを記録
+     * Debug log
      * 
-     * @param obj 対象オブジェクト
-     * @param msg メッセージ
+     * @param msg message
      */
-    static public final void debugLog(Object obj, String msg) {
+    static public final void debugLog(String msg) {
         if (DEBUG_FLAG) {
-            Log.d(obj.getClass().getName(), msg);
+            Log.d(DEBUG_HEADER, msg);
         }
     }
 
+    /**
+     * Debug log (object name is reported)
+     * 
+     * @param obj 
+     * @param msg message
+     */
+    static public final void debugLog(Object obj, String msg) {
+        if (DEBUG_FLAG) {
+            String [] fullname = obj.getClass().toString().split("\\.");
+            if (fullname.length > 0) {
+                Log.d(DEBUG_HEADER, fullname[fullname.length-1] + ":" + msg);
+            } else {
+                Log.d(DEBUG_HEADER, ":" + msg);
+            }
+        }
+    }
+    
+    
     /**
      * メッセージをトーストにして表示
      * 
@@ -66,6 +84,7 @@ public final class App extends Application {
      */
     static public boolean isEmptyTextView(TextView tv) {
         if (tv == null) {
+            App.debugLog("TextView is Null");
             return true;
         }
         CharSequence text = tv.getText();
