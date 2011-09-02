@@ -26,7 +26,7 @@
 		<activity android:name=".PwMemoPreferenceActivity"></activity>
 		<activity android:name=".ExportActivity"></activity>
 		<activity android:name=".ImportActivity"></activity>
-		<activity android:name=".ImplicitIntentImportActivityty">
+		<activity android:name=".ImplicitIntentImportActivity">
 			<intent-filter>
 				<action android:name="android.intent.action.VIEW" />
 				<category android:name="android.intent.category.DEFAULT" />

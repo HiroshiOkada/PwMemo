@@ -27,7 +27,7 @@ public class ImplicitIntentImportActivity extends Activity implements OnClickLis
     private EditText mPasswordEdittext;
     enum ReadMethod { MERGE, INSERT };
     private ReadMethod mReadMethod = ReadMethod.MERGE;
-    private InputStream mInputStream = null;
+    Uri mUri = null;
     
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -38,13 +38,10 @@ public class ImplicitIntentImportActivity extends Activity implements OnClickLis
         mPasswordEdittext = (EditText)findViewById(R.id.password_edittext);
         String action = getIntent().getAction();
         if (Intent.ACTION_VIEW.equals(action)) {
-            Uri uri = getIntent().getData();
-            if (uri != null) {
-                try {
-                    mInputStream = getContentResolver().openInputStream(uri);
-                } catch (FileNotFoundException e) {
-                    mInputStream = null;
-                }
+            mUri = getIntent().getData();
+            if (mUri == null) {
+                App.debugLog(this, "URI=null");
+                finish();
             }
         }
     }
@@ -65,12 +62,20 @@ public class ImplicitIntentImportActivity extends Activity implements OnClickLis
                 if (App.isEmptyTextView(mPasswordEdittext)) {
                     App.toastMessage(this, R.string.please_set_import_password);
                     return;
+                } else {
+                    try{
+                        final InputStream inputStream = getContentResolver().openInputStream(mUri);
+                        (new MasterPasswordInput(this) {
+                            public void onTureMasterPassword() {
+                                new ReadFileTask().execute(inputStream);
+                            }
+                        }).Ask();
+                    } catch (FileNotFoundException e) {
+                        App.toastMessage(this, R.string.file_not_found);
+                    }
                 }
                 break;
             case R.id.cancel_button:
-                Intent i = new Intent(this, MainListActivity.class);
-                i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                startActivity(i);
                 finish();
                 break;
         }
@@ -154,6 +159,8 @@ public class ImplicitIntentImportActivity extends Activity implements OnClickLis
         protected void onPostExecute(Boolean result) {
             mProgressDialog.dismiss();
             if (result == false) {
+                App.toastMessage(ImplicitIntentImportActivity.this, R.string.import_str);
+            } else {
                 App.toastMessage(ImplicitIntentImportActivity.this, mErrorMessageId);
             }
             super.onPostExecute(result);

@@ -37,7 +37,8 @@
 	<string name="filename">file name</string>
 	<string name="import3">import...</string>
 	<string name="import_email_etc">Import from E-mail etc...</string>
-	<string name="import_str">Import</string>
+	<string name="import_ok">Import OK!</string>
+	<string name="import_str">Import</string>	
 	<string name="insert_str">Insert</string>
 	<string name="insert_password">Insert Password</string>
 	<string name="insert_userid">Insert User ID</string>
