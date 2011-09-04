@@ -35,7 +35,7 @@ public class ImplicitIntentImportActivity extends Activity implements OnClickLis
         setContentView(R.layout.implicit_intent_import);
         findViewById(R.id.import_button).setOnClickListener(this);
         findViewById(R.id.cancel_button).setOnClickListener(this);
-        mPasswordEdittext = (EditText)findViewById(R.id.password_edittext);
+        mPasswordEdittext = (EditText)findViewById(R.id.import_password_edittext);
         String action = getIntent().getAction();
         if (Intent.ACTION_VIEW.equals(action)) {
             mUri = getIntent().getData();
@@ -158,8 +158,8 @@ public class ImplicitIntentImportActivity extends Activity implements OnClickLis
         @Override
         protected void onPostExecute(Boolean result) {
             mProgressDialog.dismiss();
-            if (result == false) {
-                App.toastMessage(ImplicitIntentImportActivity.this, R.string.import_str);
+            if (result == true) {
+                App.toastMessage(ImplicitIntentImportActivity.this, R.string.import_ok);
             } else {
                 App.toastMessage(ImplicitIntentImportActivity.this, mErrorMessageId);
             }

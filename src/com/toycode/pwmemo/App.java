@@ -53,7 +53,12 @@ public final class App extends Application {
      * @param message_id 表示するメッセージID
      */
     static public final void toastMessage(Context context, int message_id) {
-        toastMessage(context, context.getString(message_id));
+        try {
+            String message = context.getString(message_id);
+            toastMessage(context, message);
+        } catch (Exception e) {
+            debugLog( "Message not found. message_id=" + Integer.toString(message_id));
+        }
     }
 
     /**
@@ -74,8 +79,12 @@ public final class App extends Application {
      * @param args
      */
     static public final void toastMessage(Context context, int message_id, Object... args) {
-        String messageString = String.format(context.getString(message_id), args);
-        toastMessage(context, messageString);
+        try {
+            String message = String.format(context.getString(message_id), args);
+            toastMessage(context, message);
+        } catch (Exception e) {
+            debugLog("Can't format message message_id=" + Integer.toString(message_id));
+        }
     }
 
     /**
