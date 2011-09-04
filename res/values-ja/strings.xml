@@ -37,7 +37,7 @@
 	<string name="filename">ファイル名</string>
 	<string name="import3">読み込み...</string>
 	<string name="import_email_etc">E-mail などから読み込み...</string>
-	<string name="import_ok">読み込み OK!</string>
+	<string name="import_ok">読み込み 成功!</string>
 	<string name="import_str">読み込み</string>
 	<string name="insert_str">挿入</string>
 	<string name="insert_password">パスワードを挿入</string>
