@@ -57,8 +57,13 @@ public class PasswordManager {
 	 * @param masterPassword
 	 */
 	public byte[] decryptMainPassword(String masterPassword) {
-		byte[] decrypted = OpenSSLAES128CBCCrypt.INSTANCE.decrypt(
-				masterPassword.getBytes(), mMainPasswordCrypted);
+		byte[] decrypted = null;
+        try {
+            decrypted = OpenSSLAES128CBCCrypt.INSTANCE.decrypt(
+            		masterPassword.getBytes(), mMainPasswordCrypted);
+        } catch (CryptException e) {
+            App.debugLog(this, "CryptException:" + e.GetMsgId());
+        }
 		if (decrypted == null) {
 			return null;
 		}

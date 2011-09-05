@@ -138,6 +138,9 @@ public class ImplicitIntentImportActivity extends Activity implements OnClickLis
             } catch (IOException e) {
                 mErrorMessageId = R.string.file_read_error;
                 return false;
+            } catch (CryptException e) {
+                mErrorMessageId = e.GetMsgId();
+                return false;
             }
 
             DbRw dbrw = new DbRw(db, mainPasswod);

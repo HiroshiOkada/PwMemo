@@ -109,7 +109,12 @@ public final class DbRw {
             if (cryptdata == null) {
                 return new Data(title, null, null, null);
             }
-            byte[] bytesData = OpenSSLAES128CBCCrypt.INSTANCE.decrypt(mMainPassword, cryptdata);
+            byte[] bytesData = new byte[0];
+            try {
+                bytesData = OpenSSLAES128CBCCrypt.INSTANCE.decrypt(mMainPassword, cryptdata);
+            } catch (CryptException e1) {
+                App.debugLog(this, "CryptException:" + e1.GetMsgId());
+            }
             String[] array = {
                     null, null, null
             };
@@ -152,7 +157,12 @@ public final class DbRw {
                 child.put(cursor.getString(0));
                 byte[] cryptdata = cursor.getBlob(1);
                 if (cryptdata != null) {
-                    byte[] bytesData = OpenSSLAES128CBCCrypt.INSTANCE.decrypt(mMainPassword, cryptdata);
+                    byte[] bytesData = new byte[0];
+                    try {
+                        bytesData = OpenSSLAES128CBCCrypt.INSTANCE.decrypt(mMainPassword, cryptdata);
+                    } catch (CryptException e1) {
+                        App.debugLog(this, "CryptException:" + e1.GetMsgId());
+                    }
                     try {
                         JSONArray pwMemo = new JSONArray(new String(bytesData));
                         child.put(pwMemo.getString(0));
@@ -258,7 +268,12 @@ public final class DbRw {
             do {
                 byte[] cryptdata = cursor.getBlob(1);
                 if (cryptdata != null) {
-                    byte[] bytesData = OpenSSLAES128CBCCrypt.INSTANCE.decrypt(mMainPassword, cryptdata);
+                    byte[] bytesData = new byte[0];
+                    try {
+                        bytesData = OpenSSLAES128CBCCrypt.INSTANCE.decrypt(mMainPassword, cryptdata);
+                    } catch (CryptException e1) {
+                        App.debugLog(this, "CryptException:" + e1.GetMsgId());
+                    }
                     try {
                         JSONArray pwMemo = new JSONArray(new String(bytesData));
                         if (pwMemo.getString(0).equals(newUserId)  &&

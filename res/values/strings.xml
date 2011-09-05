@@ -51,6 +51,7 @@
 	<string name="merge_info">The item with the same title and User ID is overwritten.</string>
 	<string name="new_master_password">Plase enter new master password.</string>
 	<string name="new_str">New</string>
+	<string name="not_a_crypt_data">Not a crypt data.</string>
 	<string name="ok">OK</string>
 	<string name="old_password">Old Password</string>
 	<string name="open_file3">Open file...</string>

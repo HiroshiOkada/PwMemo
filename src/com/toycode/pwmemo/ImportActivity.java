@@ -162,6 +162,9 @@ public class ImportActivity extends Activity implements OnClickListener {
             } catch (IOException e) {
                 mErrorMessageId = R.string.file_read_error;
                 return false;
+            } catch (CryptException e){
+                mErrorMessageId = e.GetMsgId();
+                return false;
             }
             mInputFile = files[0];
 

@@ -80,10 +80,10 @@ public class OpenSSLAES128CBCCrypt {
      * @param cipher
      * @return デコードされたデータ, パスワードが間違っていた場合は null を返す
      */
-    public byte[] decrypt(byte[] password, byte[] cipher) {
+    public byte[] decrypt(byte[] password, byte[] cipher) throws CryptException {
         try {
             if (!BytesUtil.compare(SALTED, 0, cipher, 0, SALTED.length)) {
-                throw new RuntimeException("not a crypt data");
+                throw new CryptException(R.string.not_a_crypt_data);
             }
             byte[] salt = new byte[SALT_LENGTH];
             System.arraycopy(cipher, SALTED.length, salt, 0, SALTED.length);
