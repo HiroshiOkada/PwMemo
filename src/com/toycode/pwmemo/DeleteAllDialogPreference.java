@@ -3,15 +3,20 @@ package com.toycode.pwmemo;
 
 import android.content.Context;
 import android.preference.DialogPreference;
+import android.preference.PreferenceActivity;
 import android.util.AttributeSet;
 import android.view.View;
 import android.widget.CheckBox;
 
 public class DeleteAllDialogPreference extends DialogPreference {
     CheckBox mCheckBox;
+    PreferenceActivity mPreferenceActivity = null;
 
     public DeleteAllDialogPreference(Context context, AttributeSet attrs) {
         super(context, attrs);
+        if (context instanceof PreferenceActivity) {
+            mPreferenceActivity = (PreferenceActivity)context;
+        }
     }
 
     public DeleteAllDialogPreference(Context context, AttributeSet attrs,
@@ -40,6 +45,9 @@ public class DeleteAllDialogPreference extends DialogPreference {
             dbHelper.deleteaAll();
             PasswordManager.getInstance(context).deleteMasterPassword();
             App.toastMessage(context, R.string.all_data_deleted);
+            if (mPreferenceActivity != null) {
+                mPreferenceActivity.finish();   
+            }
         }
     }
 }
