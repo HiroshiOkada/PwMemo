@@ -11,6 +11,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.Button;
 import android.widget.EditText;
 
 import java.io.File;
@@ -26,6 +27,7 @@ public class ExportActivity extends Activity implements OnClickListener {
     public static final String OI_TITLE_EXTRA = "org.openintents.extra.TITLE";
     public static final String OI_BUTTON_TEXT_EXTRA = "org.openintents.extra.BUTTON_TEXT";
     public static final int REQUEST_FILENAME = 0;
+    public static final int EXPORT_FILE = 1;
 
     private File mOutputFile;
     private boolean mUseFileManeger;
@@ -52,8 +54,13 @@ public class ExportActivity extends Activity implements OnClickListener {
         }
         mPasswordEdittext = (EditText)findViewById(R.id.export_password_edittext);
         findViewById(R.id.write_file_button).setOnClickListener(this);
-        findViewById(R.id.export_button).setOnClickListener(this);
+        Button exportButton = (Button)findViewById(R.id.export_button);
+        exportButton.setOnClickListener(this);
+        if (checkSendTo() == false) {
+            exportButton.setEnabled(false);
+        }
         mOutputFile = FileUtils.getDefaultOutputFile(this);
+        
     }
 
     private boolean checkOIActionPickFile() {
@@ -61,6 +68,16 @@ public class ExportActivity extends Activity implements OnClickListener {
         PackageManager pm = getPackageManager();
         List<ResolveInfo> list = pm
                 .queryIntentActivities(intent, PackageManager.MATCH_DEFAULT_ONLY);
+        return list.size() > 0;
+    }
+    
+    private boolean checkSendTo() {
+        Intent intent = new Intent();
+        intent.setAction(Intent.ACTION_SEND);
+        intent.setType("application/octet-stream");
+        PackageManager pm = getPackageManager();
+        List<ResolveInfo> list = pm
+            .queryIntentActivities(intent, PackageManager.MATCH_DEFAULT_ONLY);
         return list.size() > 0;
     }
 
@@ -78,7 +95,7 @@ public class ExportActivity extends Activity implements OnClickListener {
                     File file = new File(mFileNameEdittext.getText().toString());
                     if (makeSureParentExsist(file)) {
                         if (file != null) {
-                            wirteFile(file);
+                            wirteFile(file, true);
                         }
                     }
                 }
@@ -89,30 +106,37 @@ public class ExportActivity extends Activity implements OnClickListener {
                     App.toastMessage(this, R.string.please_set_export_password);
                     return;
                 }
-                wirteFile(getFileStreamPath(FileUtils.DEFALUT_FILENAME));
+                wirteFile(getFileStreamPath(FileUtils.DEFALUT_FILENAME), false);
                 
                 Intent intent = new Intent();
                 intent.setAction(Intent.ACTION_SEND);
                 intent.setType("application/octet-stream");
                 intent.putExtra(Intent.EXTRA_STREAM, Uri.withAppendedPath(ExportProvider.CONTENT_URI, FileUtils.DEFALUT_FILENAME));
-                this.startActivity(intent);
+                startActivityForResult(intent, EXPORT_FILE);
                 break;
         }
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == REQUEST_FILENAME && resultCode == RESULT_OK && data != null) {
-            Uri uri = data.getData();
-            if (uri != null) {
-                File file = new File(uri.getPath());
-                if (makeSureParentExsist(file)) {
-                    if (file != null) {
-                        wirteFile(file);
+        switch (requestCode) {
+            case REQUEST_FILENAME:
+                if (resultCode == RESULT_OK && data != null) {
+                    Uri uri = data.getData();
+                    if (uri != null) {
+                        File file = new File(uri.getPath());
+                        if (makeSureParentExsist(file)) {
+                            if (file != null) {
+                                wirteFile(file, true);
+                            }
+                        }
                     }
                 }
-            }
+                break;
+            case EXPORT_FILE:
+                break;
         }
+        
     }
 
     private boolean makeSureParentExsist(File file) {
@@ -127,7 +151,7 @@ public class ExportActivity extends Activity implements OnClickListener {
         return true;
     }
 
-    private void wirteFile(File file) {
+    private void wirteFile(File file, boolean showToast) {
         App.debugLog(this, "wirteFile:" + file.toString());
         SQLiteDatabase db = (new PwMemoDbOpenHelper(this)).getReadableDatabase();
         if (db == null) {
@@ -152,10 +176,14 @@ public class ExportActivity extends Activity implements OnClickListener {
             ch.write(dataBuf);
             ch.close();
             fos.close();
-            App.toastMessage(this, R.string.write_x_ok, file.toString());
+            if (showToast) {
+                App.toastMessage(this, R.string.write_x_ok, file.toString());
+            }
         } catch (IOException e) {
             App.debugLog(this, e.toString());
-            App.toastMessage(this, R.string.faild_writing_x, file.toString());
+            if (showToast) {
+                App.toastMessage(this, R.string.faild_writing_x, file.toString());
+            }
         }
         dbrw.cleanup();
         mOutputFile = file;
