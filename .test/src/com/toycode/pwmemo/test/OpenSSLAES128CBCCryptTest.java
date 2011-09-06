@@ -2,6 +2,7 @@ package com.toycode.pwmemo.test;
 
 import java.security.SecureRandom;
 
+import com.toycode.pwmemo.CryptException;
 import com.toycode.pwmemo.OpenSSLAES128CBCCrypt;
 
 import junit.framework.TestCase;
@@ -19,9 +20,14 @@ public class OpenSSLAES128CBCCryptTest extends TestCase {
 		byte [] password = new byte[1];
 		password[0] = 1;
 		byte [] cipher = mInstance.encrypt(password, data);
-		byte [] data2 = mInstance.decrypt(password, cipher);
-		assertEquals(data.length,data2.length);
-		assertEquals(data[0], data2[0]);
+		byte[] data2;
+        try {
+            data2 = mInstance.decrypt(password, cipher);
+            assertEquals(data.length,data2.length);
+            assertEquals(data[0], data2[0]);
+        } catch (CryptException e) {
+            fail();
+        }
 	}
 
 	/**
@@ -31,8 +37,13 @@ public class OpenSSLAES128CBCCryptTest extends TestCase {
 		byte [] data = new byte [0];
 		byte [] password = new byte[0];
 		byte [] cipher = mInstance.encrypt(password, data);
-		byte [] data2 = mInstance.decrypt(password, cipher);
-		assertEquals(data.length,data2.length);
+		byte[] data2;
+        try {
+            data2 = mInstance.decrypt(password, cipher);
+            assertEquals(data.length,data2.length);
+        } catch (CryptException e) {
+            fail();
+        }
 	}
 	
 
@@ -48,11 +59,16 @@ public class OpenSSLAES128CBCCryptTest extends TestCase {
 		rand.nextBytes(password);
 
 		byte [] cipher = mInstance.encrypt(password, data);
-		byte [] data2 = mInstance.decrypt(password, cipher);
-		assertEquals(data.length,data2.length);
-		for( int i=0; i<SIZE; i++){
-			assertEquals(data[i],data2[i]);
-		}		
+		byte[] data2;
+        try {
+            data2 = mInstance.decrypt(password, cipher);
+            assertEquals(data.length,data2.length);
+            for( int i=0; i<SIZE; i++){
+                assertEquals(data[i],data2[i]);
+            }
+        } catch (CryptException e) {
+            fail();
+        }
 	}
 	
 	/**
@@ -68,8 +84,13 @@ public class OpenSSLAES128CBCCryptTest extends TestCase {
 
 		byte [] cipher = mInstance.encrypt(password, data);
 		rand.nextBytes(password);
-		byte [] data2 = mInstance.decrypt(password, cipher);
-		assertNull(data2);
+		byte[] data2;
+        try {
+            data2 = mInstance.decrypt(password, cipher);
+            assertNull(data2);
+        } catch (CryptException e) {
+            fail();
+        }
 	}
 
 	/**
@@ -99,12 +120,17 @@ public class OpenSSLAES128CBCCryptTest extends TestCase {
 				-84, 61, 37, 11, 17, 59, 113, -103, -66, 101, -103, 86, -3,
 				-81, 17, -118, -74, -39, -9, 75, 56, -15, 12, -105 };
 		byte [] password = { 97, 98, 99, 100, 101, 102, 103, 104};
-		byte [] data = mInstance.decrypt(password, cipher);
-		assertNotNull(data);
-		assertEquals(256, data.length);
-		for( int i=0; i<256; i++){
-			assertEquals( (byte)i, data[i]);
-		}
+		byte[] data;
+        try {
+            data = mInstance.decrypt(password, cipher);
+            assertNotNull(data);
+            assertEquals(256, data.length);
+            for( int i=0; i<256; i++){
+                assertEquals( (byte)i, data[i]);
+            }
+        } catch (CryptException e) {
+            fail();
+        }
 	}
 	
 	/* (non-Javadoc)
