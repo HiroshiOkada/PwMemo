@@ -12,7 +12,7 @@ public class OpenSSLAES128CBCCryptTest extends TestCase {
 	OpenSSLAES128CBCCrypt mInstance;
 	
 	/**
-	 * 1 byte だけ暗号化
+	 * One byte crypt
 	 */
 	public void testOneByte() {
 		byte [] data = new byte [1];
@@ -31,7 +31,7 @@ public class OpenSSLAES128CBCCryptTest extends TestCase {
 	}
 
 	/**
-	 * 0 byte のデータでエラーが起こらないことを確認
+	 * No error on 0 byte data.
 	 */
 	public void testZeroByte() {
 		byte [] data = new byte [0];
@@ -48,7 +48,7 @@ public class OpenSSLAES128CBCCryptTest extends TestCase {
 	
 
 	/**
-	 * 普通に暗号、複号して OK なことを確かめる
+	 * Encrypt, Decrypt check.
 	 */
 	public void testEncryptDecrypt() {
 		final int SIZE = 3200;
@@ -72,7 +72,7 @@ public class OpenSSLAES128CBCCryptTest extends TestCase {
 	}
 	
 	/**
-	 * 正しくないパスワードでは複号時に null が返る
+	 * Wrong password return zero
 	 */
 	public void testDecryptFail() {
 		final int SIZE = 3200;
@@ -94,7 +94,7 @@ public class OpenSSLAES128CBCCryptTest extends TestCase {
 	}
 
 	/**
-	 * openssl でエンコードしたデータをデコードしてみる
+	 * Decode a data.
 	 */
 	public void testDecodeSample(){
 		byte[] cipher = { 83, 97, 108, 116, 101, 100, 95, 95, 59, -107,
@@ -132,6 +132,22 @@ public class OpenSSLAES128CBCCryptTest extends TestCase {
             fail();
         }
 	}
+	
+	/**
+	 * Bad data throw exception
+	 */
+    public void testDecryptExcepion(){
+        byte[] cipher = { 1, 2, 3, 4, 5, 6, 7};
+        byte [] password = { 97, 98, 99, 100, 101, 102, 103, 104};
+        
+        try {
+            mInstance.decrypt(password, cipher);
+            fail();
+        } catch (CryptException e) {
+            assertTrue( e instanceof CryptException);
+        }
+    
+    }
 	
 	/* (non-Javadoc)
 	 * @see junit.framework.TestCase#setUp()
