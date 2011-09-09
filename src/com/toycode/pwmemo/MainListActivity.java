@@ -10,7 +10,7 @@ import android.view.View;
 import android.view.ContextMenu.ContextMenuInfo;
 
 public class MainListActivity extends MainListActivityBase {
-
+    
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -108,14 +108,14 @@ public class MainListActivity extends MainListActivityBase {
         switch (item.getItemId()) {
             case R.id.copy_userid_menu_item:
                 if (data != null) {
-                    App.copyTextToClipboard(this, data.getUserId());
-                    App.toastMessage(this, R.string.copy_x, data.getUserId());
+                    mApp.copyTextToClipboard(data.getUserId());
+                    mApp.toastMessage(R.string.copy_x, data.getUserId());
                 }
                 break;
             case R.id.copy_password_menu_item:
                 if (data != null) {
-                    App.copyTextToClipboard(this, data.getPassword());
-                    App.toastMessage(this, R.string.copy_x_password, title);
+                    mApp.copyTextToClipboard(data.getPassword());
+                    mApp.toastMessage(R.string.copy_x_password, title);
                 }
                 break;
             case R.id.edit_menu_item:

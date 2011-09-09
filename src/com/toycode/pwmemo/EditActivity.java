@@ -27,11 +27,13 @@ public class EditActivity extends Activity implements OnClickListener, Observer,
     DbRw mDbRw;
     Long mId;
     Boolean mIsNewRow;
+    App mApp;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         App.debugLog(this, "onCreate(Bundle savedInstanceState)");
+        mApp = App.GetApp(this);
         SQLiteDatabase db = (new PwMemoDbOpenHelper(this)).getReadableDatabase();
         if (db == null) {
             setResult(RESULT_CANCELED, new Intent());
@@ -123,13 +125,13 @@ public class EditActivity extends Activity implements OnClickListener, Observer,
                 finish();
                 break;
             case R.id.copy_user_id_button:
-                App.copyTextToClipboard(this, mUserIdEdit.getText());
+                mApp.copyTextToClipboard(mUserIdEdit.getText());
                 break;
             case R.id.copy_passwword_button:
-                App.copyTextToClipboard(this, mPasswordEdit.getText());
+                mApp.copyTextToClipboard(mPasswordEdit.getText());
                 break;
             case R.id.copy_memo_button:
-                App.copyTextToClipboard(this, mMemoEdit.getText());
+                mApp.copyTextToClipboard(mMemoEdit.getText());
                 break;
             default:
                 // did not come

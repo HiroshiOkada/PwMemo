@@ -44,7 +44,7 @@ public class InterceptListActivity extends MainListActivityBase {
             long id) {
         TimeOutChecker.getInstance().onUser();
         if (isLocked()) {
-            App.toastMessage(this, R.string.locked_message);
+            mApp.toastMessage(R.string.locked_message);
         } else {
             this.itemClickNormalTask(position, id);
         }
@@ -121,7 +121,7 @@ public class InterceptListActivity extends MainListActivityBase {
 
         DbRw.Data data = getData(id);
         if (data != null) {
-            App.toastMessage(this, R.string.copy_x_password, title);
+            mApp.toastMessage(R.string.copy_x_password, title);
             finishWithResult(data.getPassword());
         }
     }

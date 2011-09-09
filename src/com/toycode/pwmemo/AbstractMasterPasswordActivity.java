@@ -20,6 +20,7 @@ public abstract class AbstractMasterPasswordActivity extends Activity implements
     EditText mMasterPasswordEditText;
     EditText mConfirmationEditText;
     Button mOkButton;
+    protected App mApp;
 
     /**
      * 使用するレイアウトのリソースIDを返す
@@ -36,6 +37,7 @@ public abstract class AbstractMasterPasswordActivity extends Activity implements
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        mApp = App.GetApp(this);
         setContentView(getLayoutResID());
         mMasterPasswordEditText = (EditText) findViewById(R.id.master_password_edit_text);
         mConfirmationEditText = (EditText) findViewById(R.id.confirmation_edit_text);
@@ -75,12 +77,12 @@ public abstract class AbstractMasterPasswordActivity extends Activity implements
         if ((pw.length() > 0) &&
                 (pw.length() == confirm.length()) &&
                 (pw.length() < Const.MIN_PASSWORD_LEN)) {
-            App.toastMessage(this, R.string.password_is_too_short);
+            mApp.toastMessage(R.string.password_is_too_short);
             return false;
         }
         // 長さが一致しているが違う
         if ((pw.length() == confirm.length()) && !pw.equals(confirm)) {
-            App.toastMessage(this, R.string.confirmation_password_does_not_match);
+            mApp.toastMessage(R.string.confirmation_password_does_not_match);
             return false;
         }
         // それ以外

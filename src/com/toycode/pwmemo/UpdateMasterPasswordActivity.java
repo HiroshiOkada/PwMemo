@@ -17,7 +17,7 @@ public class UpdateMasterPasswordActivity extends
             if (pm.changeMasterPassword(newMasterPassword) == true) {
                 finish();
             } else {
-                App.toastMessage(this, R.string.password_change_failed);
+                mApp.toastMessage(R.string.password_change_failed);
             }
         }
     }

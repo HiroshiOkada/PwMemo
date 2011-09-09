@@ -16,15 +16,15 @@ public class ExportProvider extends ContentProvider {
     
     @Override
     public ParcelFileDescriptor openFile(Uri uri, String mode) throws FileNotFoundException {
-        if (!FileUtils.DEFALUT_FILENAME.equals(uri.getLastPathSegment())) {
-            App.debugLog(this, uri.toString() + FileUtils.DEFALUT_FILENAME + " != " + uri.getLastPathSegment());
+        if (!App.DEFALUT_FILENAME.equals(uri.getLastPathSegment())) {
+            App.debugLog(this, uri.toString() + App.DEFALUT_FILENAME + " != " + uri.getLastPathSegment());
             throw new FileNotFoundException(uri.toString() + " not found.");
         }
         if (!"r".equals(mode)) {
             App.debugLog(this, mode + " is prohibited.");
             throw new SecurityException(mode + " is prohibited.");
         }
-        File f = getContext().getFileStreamPath(FileUtils.DEFALUT_FILENAME);
+        File f = getContext().getFileStreamPath(App.DEFALUT_FILENAME);
         ParcelFileDescriptor pf = ParcelFileDescriptor.open(f, ParcelFileDescriptor.MODE_READ_ONLY);
         return pf;
     }   

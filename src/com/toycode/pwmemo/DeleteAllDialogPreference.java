@@ -44,7 +44,7 @@ public class DeleteAllDialogPreference extends DialogPreference {
             PwMemoDbOpenHelper dbHelper = new PwMemoDbOpenHelper(context);
             dbHelper.deleteaAll();
             PasswordManager.getInstance(context).deleteMasterPassword();
-            App.toastMessage(context, R.string.all_data_deleted);
+            App.GetApp(context).toastMessage(R.string.all_data_deleted);
             if (mPreferenceActivity != null) {
                 mPreferenceActivity.finish();   
             }

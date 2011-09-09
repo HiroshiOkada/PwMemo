@@ -28,10 +28,12 @@ public class ImplicitIntentImportActivity extends Activity implements OnClickLis
     enum ReadMethod { MERGE, INSERT };
     private ReadMethod mReadMethod = ReadMethod.MERGE;
     Uri mUri = null;
+    private App mApp;
     
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        mApp = App.GetApp(this);
         setContentView(R.layout.implicit_intent_import);
         findViewById(R.id.import_button).setOnClickListener(this);
         findViewById(R.id.cancel_button).setOnClickListener(this);
@@ -60,7 +62,7 @@ public class ImplicitIntentImportActivity extends Activity implements OnClickLis
         switch (v.getId()) {
             case R.id.import_button:
                 if (App.isEmptyTextView(mPasswordEdittext)) {
-                    App.toastMessage(this, R.string.please_set_import_password);
+                    mApp.toastMessage(R.string.please_set_import_password);
                     return;
                 } else {
                     try{
@@ -71,7 +73,7 @@ public class ImplicitIntentImportActivity extends Activity implements OnClickLis
                             }
                         }).Ask();
                     } catch (FileNotFoundException e) {
-                        App.toastMessage(this, R.string.file_not_found);
+                        mApp.toastMessage(R.string.file_not_found);
                     }
                 }
                 break;
@@ -162,9 +164,9 @@ public class ImplicitIntentImportActivity extends Activity implements OnClickLis
         protected void onPostExecute(Boolean result) {
             mProgressDialog.dismiss();
             if (result == true) {
-                App.toastMessage(ImplicitIntentImportActivity.this, R.string.import_ok);
+                mApp.toastMessage(R.string.import_ok);
             } else {
-                App.toastMessage(ImplicitIntentImportActivity.this, mErrorMessageId);
+                mApp.toastMessage(mErrorMessageId);
             }
             super.onPostExecute(result);
         }

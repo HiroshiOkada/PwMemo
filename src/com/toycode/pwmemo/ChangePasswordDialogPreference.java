@@ -56,7 +56,7 @@ public class ChangePasswordDialogPreference extends EditTextPreference {
         if (positiveResult && (mContext != null)) {
             // 解読失敗==パスワードが間違っている
             if (!decryptMainPassword(getEditText().getText().toString())) {
-                App.toastMessage(mContext, R.string.password_does_not_match);
+                App.GetApp(mContext).toastMessage(R.string.password_does_not_match);
                 return;
             }
             Intent i = new Intent(mContext, UpdateMasterPasswordActivity.class);

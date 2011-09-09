@@ -33,10 +33,13 @@ public class ExportActivity extends Activity implements OnClickListener {
     private boolean mUseFileManeger;
     private EditText mPasswordEdittext;
     private EditText mFileNameEdittext;
+    
+    private App mApp;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        mApp = App.GetApp(this);
         // アンロック状態でなければ終了
         if (PasswordManager.getInstance(this).isMainPasswordDecrypted() == false) {
             setResult(RESULT_CANCELED, new Intent());
@@ -50,7 +53,7 @@ public class ExportActivity extends Activity implements OnClickListener {
             setContentView(R.layout.export_input_filename);
             mUseFileManeger = false;
             mFileNameEdittext = (EditText)findViewById(R.id.filename_edittext);
-            mFileNameEdittext.setText(FileUtils.getDefaultOutputFile(this).toString());
+            mFileNameEdittext.setText(mApp.getDefaultOutputFile().toString());
         }
         mPasswordEdittext = (EditText)findViewById(R.id.export_password_edittext);
         findViewById(R.id.write_file_button).setOnClickListener(this);
@@ -59,7 +62,7 @@ public class ExportActivity extends Activity implements OnClickListener {
         if (checkSendTo() == false) {
             exportButton.setEnabled(false);
         }
-        mOutputFile = FileUtils.getDefaultOutputFile(this);
+        mOutputFile = mApp.getDefaultOutputFile();
         
     }
 
@@ -86,7 +89,7 @@ public class ExportActivity extends Activity implements OnClickListener {
         switch (v.getId()) {
             case R.id.write_file_button:
                 if (App.isEmptyTextView(mPasswordEdittext)) {
-                    App.toastMessage(this, R.string.please_set_export_password);
+                    mApp.toastMessage(R.string.please_set_export_password);
                     return;
                 }
                 if (mUseFileManeger) {
@@ -103,15 +106,15 @@ public class ExportActivity extends Activity implements OnClickListener {
             case R.id.export_button:
                 //
                 if (App.isEmptyTextView(mPasswordEdittext)) {
-                    App.toastMessage(this, R.string.please_set_export_password);
+                    mApp.toastMessage(R.string.please_set_export_password);
                     return;
                 }
-                wirteFile(getFileStreamPath(FileUtils.DEFALUT_FILENAME), false);
+                wirteFile(getFileStreamPath(App.DEFALUT_FILENAME), false);
                 
                 Intent intent = new Intent();
                 intent.setAction(Intent.ACTION_SEND);
                 intent.setType("application/octet-stream");
-                intent.putExtra(Intent.EXTRA_STREAM, Uri.withAppendedPath(ExportProvider.CONTENT_URI, FileUtils.DEFALUT_FILENAME));
+                intent.putExtra(Intent.EXTRA_STREAM, Uri.withAppendedPath(ExportProvider.CONTENT_URI, App.DEFALUT_FILENAME));
                 startActivityForResult(intent, EXPORT_FILE);
                 break;
         }
@@ -145,7 +148,7 @@ public class ExportActivity extends Activity implements OnClickListener {
             return true;
         }
         if (parent.mkdirs() == false) {
-            App.toastMessage(this, R.string.cannot_make_x, parent.toString());
+            mApp.toastMessage(R.string.cannot_make_x, parent.toString());
             return false;
         }
         return true;
@@ -177,12 +180,12 @@ public class ExportActivity extends Activity implements OnClickListener {
             ch.close();
             fos.close();
             if (showToast) {
-                App.toastMessage(this, R.string.write_x_ok, file.toString());
+                mApp.toastMessage(R.string.write_x_ok, file.toString());
             }
         } catch (IOException e) {
             App.debugLog(this, e.toString());
             if (showToast) {
-                App.toastMessage(this, R.string.faild_writing_x, file.toString());
+                mApp.toastMessage(R.string.faild_writing_x, file.toString());
             }
         }
         dbrw.cleanup();

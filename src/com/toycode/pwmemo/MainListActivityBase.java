@@ -30,10 +30,12 @@ public abstract class MainListActivityBase extends ListActivity implements OnCli
 
     protected LockImageButton mLockImageButton;
     protected SQLiteDatabase mDb;
+    protected App mApp;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        mApp = App.GetApp(this);
         initPreference();
         setContentView(R.layout.list);        
         initButtons();
@@ -95,7 +97,7 @@ public abstract class MainListActivityBase extends ListActivity implements OnCli
     {
         TimeOutChecker.getInstance().onUser();
         if (isLocked()) {
-            App.toastMessage(this, R.string.locked_message);
+            mApp.toastMessage(R.string.locked_message);
         } else {
             itemClickNormalTask(position, id);
         }
@@ -129,7 +131,7 @@ public abstract class MainListActivityBase extends ListActivity implements OnCli
      */
    protected void onAddButton() {
         if (isLocked()) {
-            App.toastMessage(this, R.string.locked_message);
+            mApp.toastMessage(R.string.locked_message);
         } else {
             ContentValues values = new ContentValues();
             values.put(Const.COLUMN.TITLE, "");
@@ -162,7 +164,7 @@ public abstract class MainListActivityBase extends ListActivity implements OnCli
         TimeOutChecker.getInstance().onUser();
         //  If locked Show the toast message and do nothing.
         if (isLocked()) {
-            App.toastMessage(this, R.string.locked_message);
+            mApp.toastMessage(R.string.locked_message);
             return;
         }
 

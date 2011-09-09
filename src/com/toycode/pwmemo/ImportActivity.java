@@ -40,9 +40,12 @@ public class ImportActivity extends Activity implements OnClickListener {
     enum ReadMethod { MERGE, INSERT };
     private ReadMethod mReadMethod = ReadMethod.MERGE;
     
+    private App mApp;
+    
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        mApp = App.GetApp(this);
         // アンロック状態でなければ終了
         if (PasswordManager.getInstance(this).isMainPasswordDecrypted() == false) {
             setResult(RESULT_CANCELED, new Intent());
@@ -56,11 +59,11 @@ public class ImportActivity extends Activity implements OnClickListener {
             setContentView(R.layout.import_input_filename);
             mUseFileManeger = false;
             mFileNameEdittext = (EditText) findViewById(R.id.filename_edittext);
-            mFileNameEdittext.setText(FileUtils.getDefaultInputFile(this).toString());
+            mFileNameEdittext.setText(mApp.getDefaultInputFile().toString());
         }
         mPasswordEdittext = (EditText) findViewById(R.id.import_password_edittext);
         findViewById(R.id.read_file_button).setOnClickListener(this);
-        mInputFile = FileUtils.getDefaultInputFile(this);
+        mInputFile = mApp.getDefaultInputFile();
         findViewById(R.id.merge_radio).setOnClickListener(this);
         findViewById(R.id.insert_radio).setOnClickListener(this);
         mReadMethodInfoTextview = (TextView)findViewById(R.id.read_method_info_textview);
@@ -79,7 +82,7 @@ public class ImportActivity extends Activity implements OnClickListener {
         switch (v.getId()) {
             case R.id.read_file_button:
                 if (App.isEmptyTextView(mPasswordEdittext)) {
-                    App.toastMessage(this, R.string.please_set_import_password);
+                    mApp.toastMessage(R.string.please_set_import_password);
                     return;
                 }
                 if (mUseFileManeger) {
@@ -187,7 +190,7 @@ public class ImportActivity extends Activity implements OnClickListener {
         protected void onPostExecute(Boolean result) {
             mProgressDialog.dismiss();
             if (result == false) {
-                App.toastMessage(ImportActivity.this, mErrorMessageId);
+                mApp.toastMessage(mErrorMessageId);
             }
             super.onPostExecute(result);
         }
