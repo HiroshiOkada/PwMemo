@@ -4,5 +4,4 @@ _imgsrc/*.png
 _imgsrc/*/*/*.png
 *.log
 server-standalone.jar
-nativedriver_test/client-standalone.jar
 
