@@ -46,22 +46,23 @@ public class MainListActivityTest extends
 	protected void setUp() throws Exception {
 		super.setUp();
 		Context context = getInstrumentation().getTargetContext();
+        // delete data
+        deleteSharedPreferencesData( context);
+        (new PwMemoDbOpenHelper(context)).deleteaAll();
+
+        mActivity = getActivity();
+		// delete data
+		deleteSharedPreferencesData( mActivity);
+        deleteDBData( mActivity);
 		
-		// シェアードプリファレンスに格納されているデータを削除
-		deleteSharedPreferencesData( context);
-		
-		// 新規のパスワードを作成
+		// create new password
 		PasswordManager.deleteInstance();
 		PasswordManager pm = PasswordManager.getInstance(context);
 		pm.createMainPassword(TEST_PASSWORD);
 		PasswordManager.deleteInstance();
-
-		// SqlDB に格納されているデータを削除
-		deleteDBData( context);
 		
 		setActivityInitialTouchMode(false); // テストがキーイベントを送る時はタッチモードをoffにする
 		
-		mActivity = getActivity();
 		mFrameLayout = (FrameLayout) mActivity.findViewById(R.id.frame_layout);
 	}
 

@@ -9,9 +9,9 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
 /**
- * データベースを読み書きする
+ * Read database
  *
- * 廃棄する前に必ず cleanup() を呼ぶこと
+ * Must call cleanup() before delete.
  * @author hiroshi
  */
 public final class DbRw {
@@ -47,9 +47,9 @@ public final class DbRw {
         private String mMemo;
     };
 
-    public DbRw(SQLiteDatabase db, byte[] masterPassword) {
+    public DbRw(SQLiteDatabase db, byte[] mainPassword) {
         mDb = db;
-        mMainPassword = masterPassword;
+        mMainPassword = mainPassword;
     }
 
     public void cleanup() {
@@ -60,6 +60,16 @@ public final class DbRw {
         if (mMainPassword != null) {
             mMainPassword = null;
         }
+    }
+    
+    protected void finalize() throws Throwable {
+        if (App.DEBUG_FLAG) {
+            if (mDb != null) {
+                App.debugLog(this, "cleanupdid have not called!!");
+            }
+        }
+        cleanup();
+        super.finalize();
     }
 
     /**
@@ -248,7 +258,7 @@ public final class DbRw {
     /**
      * Insert one record
      */
-    private void insertRecord(String newTitle, String newUserId, String newPassword, String newMemo) {
+    public void insertRecord(String newTitle, String newUserId, String newPassword, String newMemo) {
         final String[] COLUMNS = { Const.COLUMN.ID, Const.COLUMN.CRIPTDATA};
         // TEMPORARY_FLAGS == 0 : not changed
         final String SELECTION = Const.COLUMN.TEMPORARY_FLAGS + " = 0  AND " + Const.COLUMN.TITLE + " = ?"; 
