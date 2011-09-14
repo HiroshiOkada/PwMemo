@@ -44,6 +44,43 @@ public class DbRwTest extends AndroidTestCase {
         assertEquals("password1", data.getPassword());
         assertEquals("memo1", data.getMemo());
     }
+
+    public void testUpdateRecord() {
+        mDbRw.insertRecord("title1", "userId1", "password1", "memo1");
+        Long id = getIdByTitle("title1");
+        mDbRw.updateRecord( id, new DbRw.Data( "[]{}<>", "userId2", "password2", "memo2"));
+        DbRw.Data data = mDbRw.getRecord(id);
+        assertEquals("[]{}<>", data.getTitle());
+        assertEquals("userId2", data.getUserId());
+        assertEquals("password2", data.getPassword());
+        assertEquals("memo2", data.getMemo());
+    }
+
+    public void testDeleteById() {
+        mDbRw.insertRecord("title1", "userId", "password", "memo");
+        Long id1 = getIdByTitle("title1");
+        mDbRw.insertRecord("title2", "userId", "password", "memo");
+        Long id2 = getIdByTitle("title2");
+        mDbRw.insertRecord("title3", "userId", "password", "memo");
+        Long id3 = getIdByTitle("title3");
+        mDbRw.updateRecord( id1, new DbRw.Data( "title", "userId1", "password1", "memo1"));
+        mDbRw.updateRecord( id2, new DbRw.Data( "title", "userId2", "password2", "memo2"));
+        mDbRw.updateRecord( id3, new DbRw.Data( "title", "userId3", "password3", "memo3"));
+        mDbRw.deleteById(id1);
+        mDbRw.deleteById(id3);
+        Long id = getIdByTitle("title");
+        assertEquals( id2, id);
+        DbRw.Data data = mDbRw.getRecord(id);
+        assertEquals("userId2", data.getUserId());
+        assertEquals("password2", data.getPassword());
+        assertEquals("memo2", data.getMemo());
+    }
+
+    public void testGetAllRecords() {
+        mDbRw.insertRecord("<>1", ";1", "[1]\n[1]", "+");
+        mDbRw.insertRecord("<>2", ";2", "[2]\n[2]", "-");
+        mDbRw.insertRecord("<>3", ";3", "[3]\n[3]", "'");
+    }
     
     private Long getIdByTitle(String title)
     {

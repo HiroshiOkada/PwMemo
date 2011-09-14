@@ -72,14 +72,6 @@ public final class DbRw {
         super.finalize();
     }
 
-    /**
-     * レコードの更新
-     * 
-     * @param id
-     * @param data
-     * @param db
-     * @param masterPassword
-     */
     public void updateRecord(Long id, Data data) {
         if ((mDb == null) || (mMainPassword == null)) {
             throw new IllegalStateException();
@@ -101,9 +93,6 @@ public final class DbRw {
                 whereArgs);
     }
 
-    /**
-     * レコードの取得
-     */
     public Data getRecord(Long id) {
         final String[] COLUMNS = { Const.COLUMN.TITLE, Const.COLUMN.CRIPTDATA};
         if ((mDb == null) || (mMainPassword == null)) {
@@ -150,8 +139,9 @@ public final class DbRw {
         mDb.delete(Const.TABLE.PWMEMO, Const.COLUMN.ID
                 + " = ?", whereArgs);
     }
+
     /**
-     * 全てのレコードを json 文字列データとして得る
+     * Get All Records as a json data.
      */
     public String getAllRecords() {
         final String[] COLUMNS = { Const.COLUMN.TITLE, Const.COLUMN.CRIPTDATA};
