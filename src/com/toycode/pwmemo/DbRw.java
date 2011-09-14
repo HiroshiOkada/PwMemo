@@ -9,9 +9,9 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
 /**
- * データベースを読み書きする
+ * Read database
  *
- * 廃棄する前に必ず cleanup() を呼ぶこと
+ * Must call cleanup() before delete.
  * @author hiroshi
  */
 public final class DbRw {
@@ -47,9 +47,9 @@ public final class DbRw {
         private String mMemo;
     };
 
-    public DbRw(SQLiteDatabase db, byte[] masterPassword) {
+    public DbRw(SQLiteDatabase db, byte[] mainPassword) {
         mDb = db;
-        mMainPassword = masterPassword;
+        mMainPassword = mainPassword;
     }
 
     public void cleanup() {
@@ -61,15 +61,17 @@ public final class DbRw {
             mMainPassword = null;
         }
     }
+    
+    protected void finalize() throws Throwable {
+        if (App.DEBUG_FLAG) {
+            if (mDb != null) {
+                App.debugLog(this, "cleanupdid have not called!!");
+            }
+        }
+        cleanup();
+        super.finalize();
+    }
 
-    /**
-     * レコードの更新
-     * 
-     * @param id
-     * @param data
-     * @param db
-     * @param masterPassword
-     */
     public void updateRecord(Long id, Data data) {
         if ((mDb == null) || (mMainPassword == null)) {
             throw new IllegalStateException();
@@ -91,9 +93,6 @@ public final class DbRw {
                 whereArgs);
     }
 
-    /**
-     * レコードの取得
-     */
     public Data getRecord(Long id) {
         final String[] COLUMNS = { Const.COLUMN.TITLE, Const.COLUMN.CRIPTDATA};
         if ((mDb == null) || (mMainPassword == null)) {
@@ -140,8 +139,9 @@ public final class DbRw {
         mDb.delete(Const.TABLE.PWMEMO, Const.COLUMN.ID
                 + " = ?", whereArgs);
     }
+
     /**
-     * 全てのレコードを json 文字列データとして得る
+     * Get All Records as a json data.
      */
     public String getAllRecords() {
         final String[] COLUMNS = { Const.COLUMN.TITLE, Const.COLUMN.CRIPTDATA};
@@ -248,7 +248,7 @@ public final class DbRw {
     /**
      * Insert one record
      */
-    private void insertRecord(String newTitle, String newUserId, String newPassword, String newMemo) {
+    public void insertRecord(String newTitle, String newUserId, String newPassword, String newMemo) {
         final String[] COLUMNS = { Const.COLUMN.ID, Const.COLUMN.CRIPTDATA};
         // TEMPORARY_FLAGS == 0 : not changed
         final String SELECTION = Const.COLUMN.TEMPORARY_FLAGS + " = 0  AND " + Const.COLUMN.TITLE + " = ?"; 

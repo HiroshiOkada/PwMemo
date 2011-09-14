@@ -19,7 +19,7 @@
 	<string name="copy_userid">ユーザー名をコピー</string>
 	<string name="copy_x">%sをコピー</string>
 	<string name="copy_x_password">%sのパスワードをコピー</string>
-	<string name="define_master_password">データを保護するためにマスターパスワードを設定してください。入力データはこのパスワードで保護されます。(タイトルを除く)</string>
+	<string name="define_master_password">データを保護するためにマスターパスワードを設定してください。タイトルを除く入力データはこのパスワードで保護されます。(4文字以上)</string>
 	<string name="delete">削除</string>
 	<string name="delete_all">すべて削除</string>
 	<string name="delete_this_item">このデータを削除</string>
