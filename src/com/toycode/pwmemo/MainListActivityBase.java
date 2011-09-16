@@ -28,6 +28,7 @@ import java.util.Observer;
 public abstract class MainListActivityBase extends ListActivity implements OnClickListener,
         OnItemClickListener, Observer {
 
+    int mSavedPosition = -1;
     protected LockImageButton mLockImageButton;
     protected SQLiteDatabase mDb;
     protected App mApp;
@@ -42,6 +43,7 @@ public abstract class MainListActivityBase extends ListActivity implements OnCli
         initListView();
         mDb = (new PwMemoDbOpenHelper(this)).getWritableDatabase();
         updateAdapter();
+        mSavedPosition = -1;
     }
        
     @Override
@@ -57,11 +59,19 @@ public abstract class MainListActivityBase extends ListActivity implements OnCli
             mLockImageButton.setLock(isLocked());
             updateAdapter();
         }
+        if (mSavedPosition != -1) {
+            if (mSavedPosition >= getListAdapter().getCount()) {
+                mSavedPosition = getListAdapter().getCount()-1;
+            }
+            getListView().setSelection(mSavedPosition);
+            getListView().clearFocus();
+        }
         TimeOutChecker.getInstance().addObserver(this);
     }
 
     @Override
     protected void onPause() {
+        mSavedPosition = getListView().getFirstVisiblePosition();
         TimeOutChecker.getInstance().deleteObserver(this);
         super.onPause();
     }
