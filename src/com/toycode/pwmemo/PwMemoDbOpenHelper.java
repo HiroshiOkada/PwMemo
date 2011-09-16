@@ -32,5 +32,6 @@ public class PwMemoDbOpenHelper extends SQLiteOpenHelper {
     public void deleteaAll() {
         SQLiteDatabase db = getWritableDatabase();
         db.execSQL("delete from " + Const.TABLE.PWMEMO + ";");
+        db.close();
     }
 }
