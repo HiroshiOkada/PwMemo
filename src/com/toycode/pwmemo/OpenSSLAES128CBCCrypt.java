@@ -14,7 +14,7 @@ import javax.crypto.spec.IvParameterSpec;
 import javax.crypto.spec.SecretKeySpec;
 
 /**
- * OpenSSL の -aes-128-cbc とコンパチブルな暗号、複合
+ * The cipher that compatible with OpenSSL "aes-128-cbc"
  * 
  * @author hiroshi
  */
@@ -35,9 +35,6 @@ public class OpenSSLAES128CBCCrypt {
 
     Cipher mChipher = null;
 
-    /**
-     * コンストラクタ
-     */
     private OpenSSLAES128CBCCrypt() {
         try {
             mChipher = Cipher.getInstance(TRANSFORMATION);
@@ -47,7 +44,7 @@ public class OpenSSLAES128CBCCrypt {
     }
 
     /**
-     * パスワードを使ってデータを暗号化する
+     * Crypt with password.
      * 
      * @param password
      * @param data
@@ -74,11 +71,11 @@ public class OpenSSLAES128CBCCrypt {
     }
 
     /**
-     * パスワードを使って暗号データを複号する
+     * DeCrypt with password.
      * 
      * @param password
      * @param cipher
-     * @return デコードされたデータ, パスワードが間違っていた場合は null を返す
+     * @return decoded result is it can't decode return null.
      */
     public byte[] decrypt(byte[] password, byte[] cipher) throws CryptException {
         try {
@@ -105,15 +102,15 @@ public class OpenSSLAES128CBCCrypt {
         } catch (IllegalBlockSizeException e) {
             throw new RuntimeException(e.getMessage());
         } catch (BadPaddingException e) {
-            // padding データが正しい形式に復元できないのはパスワードが間違っているため
+            // can't decode
             return null;
         }
     }
 
     /**
-     * セキュリティ用乱数を使って salt を作成する
+     * Make salt
      * 
-     * @return 新しく作られた salt
+     * @return new salt
      */
     private byte[] newSalt() {
         byte[] salt = new byte[SALT_LENGTH];
@@ -123,12 +120,13 @@ public class OpenSSLAES128CBCCrypt {
     }
 
     /**
-     * OpenSSl の EVP_BytesToKey(3) で count が 1 の場合の key と iv を求める
+     * Get key and iv.
+     * see: OpenSSl EVP_BytesToKey(3) count=1 
      * 
      * @param salt
      * @param data
-     * @param keyIVlength (key と iv をつなげた永さ)
-     * @return (key と iv をつなげた配列 終わりに余計なデータがついている場合もある)
+     * @param keyIVlength (key + iv length)
+     * @return (key + iv Array sometime have excessive bytes)
      */
     private byte[] makeKeyIV(byte[] salt, byte[] data, int keyIVlength) {
         MessageDigest md5;
@@ -147,5 +145,5 @@ public class OpenSSLAES128CBCCrypt {
             throw new RuntimeException(e.getMessage());
         }
     }
-
 }
+

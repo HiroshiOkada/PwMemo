@@ -28,6 +28,7 @@ import java.util.Observer;
 public abstract class MainListActivityBase extends ListActivity implements OnClickListener,
         OnItemClickListener, Observer {
 
+    int mSavedPosition = -1;
     protected LockImageButton mLockImageButton;
     protected SQLiteDatabase mDb;
     protected App mApp;
@@ -42,6 +43,7 @@ public abstract class MainListActivityBase extends ListActivity implements OnCli
         initListView();
         mDb = (new PwMemoDbOpenHelper(this)).getWritableDatabase();
         updateAdapter();
+        mSavedPosition = -1;
     }
        
     @Override
@@ -57,18 +59,23 @@ public abstract class MainListActivityBase extends ListActivity implements OnCli
             mLockImageButton.setLock(isLocked());
             updateAdapter();
         }
+        if (mSavedPosition != -1) {
+            if (mSavedPosition >= getListAdapter().getCount()) {
+                mSavedPosition = getListAdapter().getCount()-1;
+            }
+            getListView().setSelection(mSavedPosition);
+            getListView().clearFocus();
+        }
         TimeOutChecker.getInstance().addObserver(this);
     }
 
     @Override
     protected void onPause() {
+        mSavedPosition = getListView().getFirstVisiblePosition();
         TimeOutChecker.getInstance().deleteObserver(this);
         super.onPause();
     }
 
-    /**
-     * 各ボタンが押されたときの処理 ボタンに合わせたメソッドを呼び出す。
-     */
     @Override
     public void onClick(View v) {
         TimeOutChecker.getInstance().onUser();
@@ -111,7 +118,7 @@ public abstract class MainListActivityBase extends ListActivity implements OnCli
         }
     }  
     /**
-     * LockImageButton が押された時の処理
+     * When LockImageButton pressed
      */
     protected void onLockImageButton() {
         if (isLocked()) {
@@ -127,7 +134,7 @@ public abstract class MainListActivityBase extends ListActivity implements OnCli
     }
 
     /**
-     * AddButton が押された時の処理
+     * WHen AddButton pressed
      */
    protected void onAddButton() {
         if (isLocked()) {
@@ -141,7 +148,7 @@ public abstract class MainListActivityBase extends ListActivity implements OnCli
     }
 
     /**
-     * ExitButto が押された時の処理
+     * When ExitButton pressed
      */
     protected void onExitButton() {
         PasswordManager.getInstance(this).unDecrypt();
@@ -265,12 +272,10 @@ public abstract class MainListActivityBase extends ListActivity implements OnCli
     }
    
     /**
-     * 現在のマスターパスワードの状況に応じて LockImageButton　を変化させる
+     * Change LockImageButton according to mainpassword decrypted or not.
      */
     protected void updateLockImageButton() {
         mLockImageButton
                 .setLock(PasswordManager.getInstance(this).isMainPasswordDecrypted() == false);
     }
-
-
 }

@@ -46,7 +46,7 @@ public class ImportActivity extends Activity implements OnClickListener {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mApp = App.GetApp(this);
-        // アンロック状態でなければ終了
+        // If locked then finish
         if (PasswordManager.getInstance(this).isMainPasswordDecrypted() == false) {
             setResult(RESULT_CANCELED, new Intent());
             finish();
