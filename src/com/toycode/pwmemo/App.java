@@ -34,12 +34,15 @@ public final class App extends Application {
         "tmp"
     };
     
+    /**
+     * Get the shared App object with this application. 
+     */
     public static App GetApp(Context context) {
         return (App)context.getApplicationContext();
     }
    
     /**
-     * Debug log
+     * Log for debug.
      * 
      * @param msg message
      */
@@ -50,7 +53,7 @@ public final class App extends Application {
     }
 
     /**
-     * Debug log (object name is reported)
+     * Log for debug. (object name is reported)
      * 
      * @param obj 
      * @param msg message
@@ -68,9 +71,9 @@ public final class App extends Application {
     
     
     /**
-     * メッセージをトーストにして表示
+     * Raise the toast message.
      * 
-     * @param message_id 表示するメッセージID
+     * @param message_id message id to display.
      */
     public final void toastMessage(int message_id) {
         try {
@@ -82,9 +85,9 @@ public final class App extends Application {
     }
 
     /**
-     * メッセージをトーストにして表示
+     * Raise the toast message.
      * 
-     * @param message 表示するメッセージ
+     * @param message message string to display.
      */
     public final void toastMessage(String message) {
         Toast toast = Toast.makeText(this, message, Toast.LENGTH_SHORT);
@@ -92,7 +95,8 @@ public final class App extends Application {
     }
 
     /**
-     * トースト表示
+     * Raise the toast message with arguments.
+     * 
      * @param message_id
      * @param args
      */
@@ -106,8 +110,8 @@ public final class App extends Application {
     }
 
     /**
-     * TextView が空かどうか調べる
-     * view それ自体が空でも、text が空でも "" がセットされていても true を返す
+     * Investigate if TextView is empty.
+     * If targets are null, Regard as empty.
      */
     static public boolean isEmptyTextView(TextView tv) {
         if (tv == null) {
@@ -119,10 +123,8 @@ public final class App extends Application {
     }
     
     /**
-     * 文字列が空かどうか調べる
-     * オブジェクト自体がnull であっても true を返す
-     * @param cs
-     * @return
+     * Investigate if CharSequence is empty.
+     * If target is null, Regard as empty.
      */
     static public boolean isEmptyCharSequence(CharSequence cs) {
         return (cs == null) || (cs.length() == 0);

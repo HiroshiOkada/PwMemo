@@ -7,9 +7,10 @@ import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 
 /**
- * マスター/メインパスワードマネージャー マスターパスワードとは、ユーザーが入力したパスワード
- * メインパスワードは、起動時に作成され、データを暗号化するのに使用されるパスワード
- * メインパスワードはマスターパスワードで暗号化されてプリファレンスに格納されている
+ * Master/Main password manager
+ * Master Password: User input password.
+ * Main Passowrd: Password that use for date encrypt.
+ *   Created from secure random number at the first time.
  */
 public class PasswordManager {
 
@@ -23,10 +24,10 @@ public class PasswordManager {
 	private byte[] mMainPasswordDecrypted = null;
 
 	/**
-	 * インスタンスを得る
+	 * Get a unique instance.
 	 * 
 	 * @param context
-	 * @return PasswordManagerのインスタンス(singleton)
+	 * @return PasswordManager' instance
 	 */
 	public static PasswordManager getInstance(Context context) {
 		if ((sInstance == null) && (context != null)) {
@@ -36,8 +37,8 @@ public class PasswordManager {
 	}
 
 	/**
-	 * メインパスワードが存在するか調べる
-	 * 
+	 * Check if there is a main password.
+     *
 	 * @return
 	 */
 	public boolean isMainPasswordExist() {
@@ -45,16 +46,18 @@ public class PasswordManager {
 	}
 
 	/**
-	 * メインパスワードが解読済みか調べる
+     * Check the main password has decrypted.
+	 * 
 	 */
 	public boolean isMainPasswordDecrypted() {
 		return mMainPasswordDecrypted != null;
 	}
 
 	/**
-	 * メインパスワードを解読する
+	 * Dreccrypt Main Password
+     * When it cannot decrypt  the main password, returns null.
 	 * 
-	 * @param masterPassword
+	 * @param Main Password
 	 */
 	public byte[] decryptMainPassword(String masterPassword) {
 		byte[] decrypted = null;
@@ -72,7 +75,8 @@ public class PasswordManager {
 	}
 
 	/**
-	 * メインパスワードが解読済みの時、それを得る
+	 * If Main Password is decrypted return it.
+     * Otherwise return null.
 	 * 
 	 * @param masterPassword
 	 */
@@ -81,14 +85,15 @@ public class PasswordManager {
 	}
 
 	/**
-	 * メインパスワードの解読を無効にする
+	 * Set Main Password undecrypt.
+     *
 	 */
 	public void unDecrypt() {
 		mMainPasswordDecrypted = null;
 	}
 
 	/**
-	 * メインパスワードを作成する
+	 * Make Main Password
 	 * 
 	 * @param masterPassword
 	 */
@@ -106,24 +111,25 @@ public class PasswordManager {
 	}
 
 	/**
-	 * パスワードマネージャーを廃棄する (テスト等に使用一般には使わない)
+	 * Dispose instance (only for test purpose.)
 	 */
 	public static void deleteInstance() {
 		sInstance = null;
 	}
 
 	/**
-	 * マスターパスワードを変更する 古いマスターパスワードで解読済みである必要がある
+     * Change Master Password.
+     * The original master password must be decrypted.
 	 * 
-	 * @return 変更に成功すれば true
+	 * @return True if password change success.
 	 */
 	public boolean changeMasterPassword(String newMasterPassword) {
-		// 古いマスターパスワードで解読済みでなければ失敗
+		// not decrypted.
 		if (mMainPasswordDecrypted == null) {
 			return false;
 		}
 
-		// 新しいマスターパスワードで暗号化
+		// crypt with new password.
 		mMainPasswordCrypted = OpenSSLAES128CBCCrypt.INSTANCE.encrypt(
 				newMasterPassword.getBytes(), mMainPasswordDecrypted);
 		SharedPreferences.Editor editor = mPreferences.edit();
@@ -132,7 +138,7 @@ public class PasswordManager {
 	}
 
 	/**
-	 * マスターパスワードを削除する メモリからもSharedPreferencesからも
+     * Remove the master password from shared preferences and memory.
 	 */
 	public void deleteMasterPassword() {
 		mMainPasswordDecrypted = null;
@@ -143,13 +149,13 @@ public class PasswordManager {
 	}
 
 	/**
-	 * 引数無しのコンストラクタを呼べないように private として宣言しておく
+	 * Disable the default constructor.
 	 */
 	private PasswordManager() {
 	};
 
 	/**
-	 * 実際に使われるコンストラクタ、プリファレンスからメインパスワード(暗号化済み)を取得する
+     * Constructor, The main password gets from preferences.
 	 * 
 	 * @param context
 	 */

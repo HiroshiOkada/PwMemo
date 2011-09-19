@@ -37,10 +37,10 @@ public class ChangePasswordDialogPreference extends EditTextPreference {
     }
 
     /**
-     * 与えられたマスターパスワードでメインパスワードを解読する
+     * Decrypt the main password using the master password.
      * 
-     * @param masterPassword nullを与えれば正しく失敗する
-     * @return パスワード解読に成功すれば true
+     * @param masterPassword 
+     * @return True if successful to crack password
      */
     private boolean decryptMainPassword(String masterPassword) {
         if (TextUtils.isEmpty(masterPassword)) {
@@ -54,7 +54,7 @@ public class ChangePasswordDialogPreference extends EditTextPreference {
     @Override
     protected void onDialogClosed(boolean positiveResult) {
         if (positiveResult && (mContext != null)) {
-            // 解読失敗==パスワードが間違っている
+            // can't decrypt == wrong password
             if (!decryptMainPassword(getEditText().getText().toString())) {
                 App.GetApp(mContext).toastMessage(R.string.password_does_not_match);
                 return;

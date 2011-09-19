@@ -29,7 +29,8 @@ public class MainListActivity extends MainListActivityBase {
     }
 
     /**
-     * オプションメニュー表示
+     * Called when Menu button pressed.
+     * Update last user access time. and Create Option menu.
      */
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -39,7 +40,9 @@ public class MainListActivity extends MainListActivityBase {
     }
 
     /**
-     * オプションメニュー項目選択時
+     * Called when Option Menu item selected pressed.
+     * Update last user access time. 
+     * And do something according to the menu item.
      */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
