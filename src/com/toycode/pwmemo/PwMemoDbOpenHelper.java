@@ -27,7 +27,7 @@ public class PwMemoDbOpenHelper extends SQLiteOpenHelper {
     }
 
     /**
-     * DBのデータを全部削除する
+     * Delete all DB data.
      */
     public void deleteaAll() {
         SQLiteDatabase db = getWritableDatabase();

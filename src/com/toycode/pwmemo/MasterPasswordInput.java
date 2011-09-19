@@ -11,9 +11,16 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 /**
- * ダイアログを表示し、マスターパスワードを入力してもらう 機能を実現するクラス Activity の中で次の用に呼び出す
- * MasterPasswordInput mpi = new MasterPasswordInput (this) { public void
- * onTureMasterPassword() { 正しいパスワードが入力された時の処理 } }; mpi.Ask()
+ * Show Dailog and ask Master password.
+ * 
+ * Uses: (inside Activity)
+ * MasterPasswordInput mpi = new MasterPasswordInput (this) {
+ *   public void onTureMasterPassword() 
+ *   { 
+ *     // Password is OK 
+ *   } 
+ * };
+ * mpi.Ask()
  * 
  * @author hiroshi
  */
@@ -26,7 +33,7 @@ public abstract class MasterPasswordInput {
     }
 
     /**
-     * ダイアログを表示し、マスターパスワードを入力してもらう
+     * Show Dailog and ask Master password.
      */
     public void Ask() {
         final EditText editText = new EditText(mActivity);
@@ -56,7 +63,7 @@ public abstract class MasterPasswordInput {
     }
 
     /**
-     * password が入力されたときの処理
+     * When user input password.
      */
     private void onPassword(String password) {
 
@@ -76,7 +83,7 @@ public abstract class MasterPasswordInput {
     }
 
     /**
-     * 正しいパスワードが入力された時に呼び出される
+     * Override it.
      * 
      * @return
      */
