@@ -73,12 +73,12 @@ public class EditActivity extends Activity implements OnClickListener, Observer,
             switch (extras.getInt(Const.REQUEST_TYPE.NAME)) {
                 case Const.REQUEST_TYPE.EDIT:
                     mIsNewRow = false;
-                    setTitle(R.string.edit);
+                    setTitle(R.string.app_name_edit);
                     findViewById(R.id.user_id_edittext).requestFocus();                    
                     break;
                 case Const.REQUEST_TYPE.NEW:
                     mIsNewRow = true;
-                    setTitle(R.string.new_str);
+                    setTitle(R.string.app_name_new);
                     findViewById(R.id.title_textedit).requestFocus();
                     break;
                 default:
