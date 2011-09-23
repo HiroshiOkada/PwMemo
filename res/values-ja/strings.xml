@@ -41,6 +41,8 @@
 	<string name="file_not_found">ファイルがみつかりませんでした。</string>
 	<string name="file_read_error">ファイルの読み込みに失敗しました。</string>
 	<string name="filename">ファイル名</string>
+	<string name="help">ヘルプ</string>
+	<string name="help_url">http://android.toycode.com/smartj/pwmemo/</string>
 	<string name="import3">読み込み...</string>
 	<string name="import_email_etc">E-mail などから読み込み...</string>
 	<string name="import_ok">読み込み 成功!</string>
