@@ -4,7 +4,7 @@
 	<string name="add_update">追加・更新</string>
 	<string name="all_data_deleted">データがすべて削除されました。</string>
 	<string name="app_name">PWメモ</string>
-	<string name="app_name_edit">PWメモ (編集)</string>
+	<string name="app_name_edit">PWメモ (編集/閲覧)</string>
 	<string name="app_name_export">PW Memo (書き出し)</string>
 	<string name="app_name_import">PW Memo (読み込み)</string>
 	<string name="app_name_master_password">PWメモ (マスターパスワード)</string>

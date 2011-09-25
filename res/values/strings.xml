@@ -4,7 +4,7 @@
 	<string name="add_update">Add/Update</string>
 	<string name="all_data_deleted">All data deleted.</string>
 	<string name="app_name">PW Memo</string>
-	<string name="app_name_edit">PW Memo (Edit)</string>
+	<string name="app_name_edit">PW Memo (Edit/View)</string>
 	<string name="app_name_export">PW Memo (Export)</string>
 	<string name="app_name_import">PW Memo (Import)</string>
 	<string name="app_name_master_password">PW Memo (Master Password)</string>
