@@ -63,7 +63,6 @@ public class ImportActivity extends Activity implements OnClickListener {
         }
         mPasswordEdittext = (EditText) findViewById(R.id.import_password_edittext);
         findViewById(R.id.read_file_button).setOnClickListener(this);
-        mInputFile = mApp.getDefaultInputFile();
         findViewById(R.id.merge_radio).setOnClickListener(this);
         findViewById(R.id.insert_radio).setOnClickListener(this);
         mReadMethodInfoTextview = (TextView)findViewById(R.id.read_method_info_textview);
@@ -86,7 +85,7 @@ public class ImportActivity extends Activity implements OnClickListener {
                     return;
                 }
                 if (mUseFileManeger) {
-                    startSaveFileManager();
+                    startReadFileManager();
                 } else {
                     File file = new File(mFileNameEdittext.getText().toString());
                     if (file != null) {
@@ -193,11 +192,14 @@ public class ImportActivity extends Activity implements OnClickListener {
                 mApp.toastMessage(mErrorMessageId);
             }
             super.onPostExecute(result);
+            if (result == true) {
+                finish();
+            }
         }
         
      }
  
-    private void startSaveFileManager() {
+    private void startReadFileManager() {
         Intent intent = new Intent(OI_ACTION_PICK_FILE);
         intent.setData(Uri.fromFile(mInputFile));
         intent.putExtra(OI_TITLE_EXTRA, getString(R.string.select_folder));
