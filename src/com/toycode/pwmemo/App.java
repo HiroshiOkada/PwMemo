@@ -193,7 +193,7 @@ public final class App extends Application {
     }
     
     /**
-     * Return foldes that become candidates as output destinations.
+     * Return folders that become candidates as output destinations.
      * Return DataDirectory If external storage is not found.
      */
     public List<File> getCandidateFolders() {
@@ -229,7 +229,13 @@ public final class App extends Application {
         }
     }
     
+    /**
+     * Get Default Input Filename.
+     * @return
+     */
     public File getDefaultInputFile() {
+        // If a default file name exists in the preference 
+        // and it is readable, returns it.
         String defaultFileName = getLocalStringPreference(DEFAULT_FILENAME_KEY, "");
         if (!defaultFileName.equals("")) {
             File file = new File( defaultFileName);
@@ -237,6 +243,7 @@ public final class App extends Application {
                 return file;
             }
         }
+        //If there is DEFAULT FILENAME and readable in a candidate folder,return it.
         List<File> candidateFolders = getCandidateFolders();
         for (File folder : candidateFolders) {
             File file = new File( folder, DEFALUT_FILENAME);
@@ -244,11 +251,8 @@ public final class App extends Application {
                 return file;
             }
         }
-        if (!defaultFileName.equals("")) {
-            return  new File(candidateFolders.get(0), DEFALUT_FILENAME);
-        } else {
-            return new File(defaultFileName);
-        }
+        // return predefined default filename even if it can't read.
+        return  new File(candidateFolders.get(0), DEFALUT_FILENAME);
     }
 
     public void setDefaultOutputFile(File file) {
