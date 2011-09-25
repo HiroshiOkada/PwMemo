@@ -15,6 +15,7 @@ public class DeclarMasterPasswordActivity extends
         if (inputVaildateion()) {
             PasswordManager pm = PasswordManager.getInstance(this);
             pm.createMainPassword(mMasterPasswordEditText.getText().toString());
+            TimeOutChecker.getInstance().onUser();
             Intent intent = new Intent();
             setResult(RESULT_OK, intent);
             finish();

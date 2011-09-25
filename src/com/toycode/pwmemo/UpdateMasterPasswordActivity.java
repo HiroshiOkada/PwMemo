@@ -15,6 +15,7 @@ public class UpdateMasterPasswordActivity extends
             PasswordManager pm = PasswordManager.getInstance(this);
             String newMasterPassword = mMasterPasswordEditText.getText().toString();
             if (pm.changeMasterPassword(newMasterPassword) == true) {
+                TimeOutChecker.getInstance().onUser();
                 finish();
             } else {
                 mApp.toastMessage(R.string.password_change_failed);
