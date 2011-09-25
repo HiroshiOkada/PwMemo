@@ -3,8 +3,14 @@
 	<string name="add">追加</string>
 	<string name="add_update">追加・更新</string>
 	<string name="all_data_deleted">データがすべて削除されました。</string>
-	<string name="app_name">パスワードメモ</string>
-	<string name="app_name_mushroom">パスワードメモ (まっしゅるーむ)</string>
+	<string name="app_name">PWメモ</string>
+	<string name="app_name_edit">PWメモ (編集/閲覧)</string>
+	<string name="app_name_export">PW Memo (書き出し)</string>
+	<string name="app_name_import">PW Memo (読み込み)</string>
+	<string name="app_name_master_password">PWメモ (マスターパスワード)</string>
+	<string name="app_name_mushroom">PWメモ (まっしゅるーむ)</string>
+	<string name="app_name_new">PWメモ (新規)</string>
+	<string name="app_name_preference">PW メモ (設定)</string>
 	<string name="autolock">自動ロック</string>
 	<string name="autolock_summary">しばらく操作しないと自動的にロック状態になります。</string>
 	<string name="autolock_timeout">自動ロックになる時間</string>
@@ -35,6 +41,8 @@
 	<string name="file_not_found">ファイルがみつかりませんでした。</string>
 	<string name="file_read_error">ファイルの読み込みに失敗しました。</string>
 	<string name="filename">ファイル名</string>
+	<string name="help">ヘルプ</string>
+	<string name="help_url">http://android.toycode.com/smartj/pwmemo/</string>
 	<string name="import3">読み込み...</string>
 	<string name="import_email_etc">E-mail などから読み込み...</string>
 	<string name="import_ok">読み込み 成功!</string>

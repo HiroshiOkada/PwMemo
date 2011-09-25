@@ -3,6 +3,7 @@ package com.toycode.pwmemo;
 
 import android.content.Intent;
 import android.database.Cursor;
+import android.net.Uri;
 import android.view.ContextMenu;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -75,6 +76,13 @@ public class MainListActivity extends MainListActivityBase {
                     }).Ask();
                 }
                return true;
+            case R.id.help_menu_item:
+                {
+                    Intent i = new Intent(Intent.ACTION_VIEW);
+                    i.setData(Uri.parse(getString(R.string.help_url)));
+                    startActivity(i);
+                }
+                return true;
         }
         return false;
     }

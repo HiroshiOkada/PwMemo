@@ -3,8 +3,14 @@
 	<string name="add">Add</string>
 	<string name="add_update">Add/Update</string>
 	<string name="all_data_deleted">All data deleted.</string>
-	<string name="app_name">PwMemo</string>
-	<string name="app_name_mushroom">PwMemo (mushroom)</string>
+	<string name="app_name">PW Memo</string>
+	<string name="app_name_edit">PW Memo (Edit/View)</string>
+	<string name="app_name_export">PW Memo (Export)</string>
+	<string name="app_name_import">PW Memo (Import)</string>
+	<string name="app_name_master_password">PW Memo (Master Password)</string>
+	<string name="app_name_mushroom">PW Memo (mushroom)</string>
+	<string name="app_name_new">PW Memo (New)</string>
+	<string name="app_name_preference">PW Memo (Preference)</string>
 	<string name="autolock">Auto Lock</string>
 	<string name="autolock_summary">If not been operated for some time then lock automatically.</string>
 	<string name="autolock_timeout">Auto Lock Timeout</string>
@@ -35,6 +41,8 @@
 	<string name="file_not_found">File not found.</string>
 	<string name="file_read_error">File read error.</string>
 	<string name="filename">file name</string>
+	<string name="help">Help</string>
+	<string name="help_url">http://android.toycode.com/smart/pwmemo/</string>
 	<string name="import3">import...</string>
 	<string name="import_email_etc">Import from E-mail etc...</string>
 	<string name="import_ok">Import OK!</string>
