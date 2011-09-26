@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="about">About PW Memo</string>
 	<string name="add">Add</string>
 	<string name="add_update">Add/Update</string>
 	<string name="all_data_deleted">All data deleted.</string>
