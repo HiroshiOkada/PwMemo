@@ -5,8 +5,8 @@
 	android:layout_width="fill_parent">
 <RelativeLayout
 	android:layout_height="fill_parent"
-	android:layout_width="fill_parent">
-  android:padding="10dp"
+	android:layout_width="fill_parent"
+        android:padding="10dp"
   >
   <TextView 
 	  android:id="@+id/import_password_textview" 
