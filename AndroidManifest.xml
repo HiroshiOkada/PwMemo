@@ -49,6 +49,9 @@
 				<data android:host="*" />
 			</intent-filter>		
 		</activity>
+		<activity android:name=".AboutActivity" 
+		          android:label="@string/app_name">
+		</activity>
 		<provider android:name=".ExportProvider" android:authorities="com.toycode.pwmemo.exportprovider"></provider>
 	</application>
 	<uses-sdk android:minSdkVersion="7" />

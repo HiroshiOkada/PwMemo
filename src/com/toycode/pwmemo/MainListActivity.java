@@ -82,6 +82,10 @@ public class MainListActivity extends MainListActivityBase {
                     i.setData(Uri.parse(getString(R.string.help_url)));
                     startActivity(i);
                 }
+            case R.id.about_menu_item:
+                {
+                    startActivity(new Intent(this, AboutActivity.class));                    
+                }
                 return true;
         }
         return false;
