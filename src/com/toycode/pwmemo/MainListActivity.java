@@ -128,12 +128,21 @@ public class MainListActivity extends MainListActivityBase {
     public boolean onContextItemSelected(MenuItem item) {
         TimeOutChecker.getInstance().onUser();
         
-        //  If locked do nothing. (maybe never occur.)
+        //  If locked ask password.
         if (isLocked()) {
-            App.debugLog(this, "onContextItemSelected and locked");
-            return false;
+            final MenuItem item0 = item;
+            (new MasterPasswordInput(this) {
+                public void onTureMasterPassword() {
+                    updateLockImageButton();
+                    onContextItemSelectedTask(item0);
+                }
+            }).Ask();
+            return true;
         }
+        return onContextItemSelectedTask(item);
+    }
        
+    private boolean onContextItemSelectedTask(MenuItem item) {
         Cursor cursor = getCursorFromMenuInfo(item.getMenuInfo());
         if (cursor == null) {
             App.debugLog(this, "bad cursor");

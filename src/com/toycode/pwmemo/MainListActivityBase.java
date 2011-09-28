@@ -117,7 +117,7 @@ public abstract class MainListActivityBase extends ListActivity implements OnCli
     /**
      * called when item clicked 
      * update last user access time.
-     * if locked then show messge and return;
+     * if locked then show message and return;
      * otherwise call itemClickNormalTask();
      */
     @Override
@@ -126,7 +126,14 @@ public abstract class MainListActivityBase extends ListActivity implements OnCli
     {
         TimeOutChecker.getInstance().onUser();
         if (isLocked()) {
-            mApp.toastMessage(R.string.locked_message);
+            final int position0 = position;
+            final long id0 = id;
+            (new MasterPasswordInput(this) {
+                public void onTureMasterPassword() {
+                    updateLockImageButton();
+                    itemClickNormalTask(position0, id0);
+                }
+            }).Ask();
         } else {
             itemClickNormalTask(position, id);
         }
@@ -189,14 +196,8 @@ public abstract class MainListActivityBase extends ListActivity implements OnCli
      * @param menuInfo
      * @param menuResId
      */
-    void createContextMenuTask(ContextMenu menu, View v, ContextMenuInfo menuInfo, int menuResId) {
+    void createContextMenuTask(final ContextMenu menu, final View v, final ContextMenuInfo menuInfo, final int menuResId) {
         TimeOutChecker.getInstance().onUser();
-        //  If locked Show the toast message and do nothing.
-        if (isLocked()) {
-            mApp.toastMessage(R.string.locked_message);
-            return;
-        }
-
         // Create context nemu
         super.onCreateContextMenu(menu, v, menuInfo);
         getMenuInflater().inflate(menuResId, menu);
