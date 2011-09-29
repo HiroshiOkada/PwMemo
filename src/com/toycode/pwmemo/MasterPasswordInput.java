@@ -92,7 +92,7 @@ public abstract class MasterPasswordInput {
         PasswordManager passwordManager = PasswordManager.getInstance(mActivity);
         if (passwordManager.isMainPasswordExist()) {
             if (passwordManager.decryptMainPassword(password) == null) {
-                Toast.makeText(mActivity, "Password not match", Toast.LENGTH_LONG).show();
+                App.GetApp(mActivity).toastMessage(R.string.password_does_not_match);
                 return;
             } else {
                 onTureMasterPassword();
@@ -100,7 +100,7 @@ public abstract class MasterPasswordInput {
 
         } else {
             passwordManager.createMainPassword(password);
-            Toast.makeText(mActivity, "Set master password", Toast.LENGTH_LONG).show();
+            App.GetApp(mActivity).toastMessage(R.string.plase_set_master_password);
         }
     }
 

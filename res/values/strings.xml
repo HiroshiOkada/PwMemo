@@ -72,6 +72,7 @@
 	<string name="please_set_export_password_info">Please set a password for export. I recommend this is different from the master password.</string>
 	<string name="please_set_import_password">Please set a password for import.</string>
 	<string name="please_set_import_password_info">Please set a password for import. (Please set the same password as export.)</string>
+	<string name="plase_set_master_password">Please set a master password.</string>
 	<string name="read">Read</string>
 	<string name="read_x_ok">Read %s OK.</string>
 	<string name="save_as">Save as ...</string>
