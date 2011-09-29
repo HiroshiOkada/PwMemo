@@ -34,7 +34,7 @@ public class AboutActivity extends Activity {
         super.onCreate(savedInstanceState);
         WebView wv = new WebView(this);
         setContentView(wv);
-        wv.loadUrl("file:///android_asset/about.html");
+        wv.loadUrl(this.getString(R.string.about_file));
     }
 
 }

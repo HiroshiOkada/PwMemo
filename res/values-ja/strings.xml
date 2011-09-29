@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="about">PW Memo について</string>
+    <string name="about_file">file:///android_asset/aboutj.html</string>
 	<string name="add">追加</string>
 	<string name="add_update">追加・更新</string>
 	<string name="all_data_deleted">データがすべて削除されました。</string>
