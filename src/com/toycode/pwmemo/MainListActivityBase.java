@@ -163,11 +163,18 @@ public abstract class MainListActivityBase extends ListActivity implements OnCli
     }
 
     /**
-     * WHen AddButton pressed
+     * When AddButton pressed
      */
    protected void onAddButton() {
         if (isLocked()) {
-            mApp.toastMessage(R.string.locked_message);
+            (new MasterPasswordInput(this) {
+                public void onTureMasterPassword() {
+                    ContentValues values = new ContentValues();
+                    values.put(Const.COLUMN.TITLE, "");
+                    long id = mDb.insert(Const.TABLE.PWMEMO, null, values);
+                    startEditActivity(id, Const.REQUEST_TYPE.NEW);
+                }
+            }).Ask();
         } else {
             ContentValues values = new ContentValues();
             values.put(Const.COLUMN.TITLE, "");
