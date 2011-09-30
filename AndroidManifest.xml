@@ -54,6 +54,6 @@
 		</activity>
 		<provider android:name=".ExportProvider" android:authorities="com.toycode.pwmemo.exportprovider"></provider>
 	</application>
-	<uses-sdk android:minSdkVersion="7" />
+	<uses-sdk android:minSdkVersion="4" android:targetSdkVersion="4" android:maxSdkVersion="4"/>
 	<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 </manifest> 

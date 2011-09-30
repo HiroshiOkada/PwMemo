@@ -18,7 +18,6 @@
 	  />
   <EditText 
 	  android:id="@+id/export_password_edittext" 
-	  android:inputType="textNoSuggestions"
 	  android:layout_alignParentLeft="true"
 	  android:layout_below="@id/export_password_textview"
 	  android:layout_height="wrap_content"
