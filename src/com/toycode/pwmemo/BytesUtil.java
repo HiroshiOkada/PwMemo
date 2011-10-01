@@ -26,8 +26,9 @@ package com.toycode.pwmemo;
 import java.math.BigInteger;
 
 /**
- * BytesUtil contains static methods for manipulate bytearray
- * @author hiroshi
+ * Contains static methods for manipulate bytearray
+ * 
+ * @author Hiroshi Okada
  */
 public class BytesUtil {
 

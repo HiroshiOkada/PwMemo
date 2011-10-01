@@ -30,6 +30,11 @@ import android.text.InputType;
 import android.text.TextUtils;
 import android.util.AttributeSet;
 
+/**
+ * Change password dialog 
+ * 
+ * @author Hiroshi Okada
+ */
 public class ChangePasswordDialogPreference extends EditTextPreference {
     private Context mContext = null;
 

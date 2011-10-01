@@ -27,8 +27,16 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.webkit.WebView;
 
+/**
+ * Show About page
+ * 
+ * @author Hiroshi Okada
+ */
 public class AboutActivity extends Activity {
 
+    /**
+     * Set about page HTML to the Webview.
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

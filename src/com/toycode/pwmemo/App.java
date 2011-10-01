@@ -36,21 +36,40 @@ import java.io.File;
 import java.util.LinkedList;
 import java.util.List;
 
+/**
+ * Global application object.
+ * define common utility functions.
+ * 
+ * @author Hiroshi Okada
+ * 
+ */
 public final class App extends Application {
     
     /**
      * Debug flag
      */
     static final public boolean DEBUG_FLAG = true;  
+    
+    /**
+     * Debug log header string
+     */
     static final public String DEBUG_HEADER = "pwmemo";
 
     /**
-     * Default file name
+     * Default file name key. (in preference)
      */
     private static final String DEFAULT_FILENAME_KEY = "DEFAULT_FILENAME";
+    
+    /**
+     * Default file name
+     */
     public static final String DEFALUT_FILENAME = "data.pwmemo";    
+    
+    /**
+     * Check these directories under SD card when read/write.
+     */
     private static final String [] CANDIDATE_SUBFOLDER_NAMES = {
-        "My Document",
+        "pwmemo",
         "data",
         "work",
         "tmp"
@@ -235,6 +254,14 @@ public final class App extends Application {
         return candidates;
     }
     
+    /**
+     * Get default output file.
+     * if default output file already set in shared preference return it.
+     * if a candidate folder exist then return "first candidate folder" + DEFALUT_FILENAME.
+     * otherwise return "first candidate folder" + DEFALUT_FILENAME
+     * 
+     * @return output file 
+     */
     public  File getDefaultOutputFile() {
         String fileName = getLocalStringPreference(DEFAULT_FILENAME_KEY, "");
         if (fileName.equals("")) {
@@ -277,8 +304,12 @@ public final class App extends Application {
         return  new File(candidateFolders.get(0), DEFALUT_FILENAME);
     }
 
+    /**
+     * Set default output file to preference.
+     * 
+     * @param file to set.
+     */
     public void setDefaultOutputFile(File file) {
         setLocalPreference(DEFAULT_FILENAME_KEY, file.toString());
     }
-
 }
