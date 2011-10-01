@@ -23,6 +23,9 @@
 
 package com.toycode.pwmemo;
 
+/**
+ * Exception class for Crypt Decrypt
+ */
 public class CryptException extends Exception {
 
     private static final long serialVersionUID = 1L;

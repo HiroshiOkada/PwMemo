@@ -44,7 +44,7 @@ import android.widget.Toast;
  * };
  * mpi.Ask()
  * 
- * @author hiroshi
+ * @author Hiroshi Okada
  */
 public abstract class MasterPasswordInput {
 

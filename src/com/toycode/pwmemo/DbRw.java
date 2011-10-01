@@ -34,9 +34,12 @@ import android.database.sqlite.SQLiteDatabase;
  * Read database
  *
  * Must call cleanup() before delete.
- * @author hiroshi
+ * @author Hiroshi Okada
  */
 public final class DbRw {
+    /**
+     * JSON indent spaces 
+     */
     static final int INDENT_SPACES=4;
 
     public static final class Data {
