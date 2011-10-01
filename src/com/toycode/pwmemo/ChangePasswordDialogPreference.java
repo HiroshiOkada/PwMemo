@@ -56,12 +56,8 @@ public class ChangePasswordDialogPreference extends EditTextPreference {
     }
 
     public ChangePasswordDialogPreference(Context context) {
-        super(context);
-        getEditText().setInputType(
-                InputType.TYPE_CLASS_TEXT
-                        | InputType.TYPE_TEXT_VARIATION_PASSWORD);
-        mContext = context;
-    }
+                this(context, null);
+    }   
 
     /**
      * Decrypt the main password using the master password.
