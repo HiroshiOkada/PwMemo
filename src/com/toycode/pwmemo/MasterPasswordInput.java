@@ -30,7 +30,6 @@ import android.text.InputType;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.EditText;
-import android.widget.Toast;
 
 /**
  * Show Dailog and ask Master password.

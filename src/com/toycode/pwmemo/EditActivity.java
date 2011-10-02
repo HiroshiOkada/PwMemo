@@ -41,6 +41,12 @@ import android.widget.EditText;
 import java.util.Observable;
 import java.util.Observer;
 
+/**
+ * The Activity for edit old and new item.
+ * 
+ * @author Hiroshi Okada
+ *
+ */
 public class EditActivity extends Activity implements OnClickListener, Observer, TextWatcher, OnFocusChangeListener {
     EditText mTitleEdit;
     EditText mUserIdEdit;

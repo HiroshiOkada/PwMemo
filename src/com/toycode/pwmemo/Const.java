@@ -25,6 +25,8 @@ package com.toycode.pwmemo;
 
 /**
  * Global use constants.
+ * 
+ * @author Hiroshi Okada
  */
 public final class Const {
 

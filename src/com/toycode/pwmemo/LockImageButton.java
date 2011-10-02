@@ -27,6 +27,11 @@ import android.content.Context;
 import android.util.AttributeSet;
 import android.widget.Button;
 
+/**
+ * The lock/unlock image button.
+ * 
+ * @author Hiroshi Okada
+ */
 public class LockImageButton extends Button {
 
     public LockImageButton(Context context) {

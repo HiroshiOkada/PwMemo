@@ -36,6 +36,11 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.CompoundButton.OnCheckedChangeListener;
 
+/**
+ * The DialogPreference that delete password and data.
+ * 
+ * @author Hiroshi Okada
+ */
 public class DeleteAllDialogPreference extends DialogPreference {
     CheckBox mCheckBox;
     Button mPositiveButton = null;

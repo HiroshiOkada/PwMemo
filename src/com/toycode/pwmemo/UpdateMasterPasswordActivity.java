@@ -23,6 +23,12 @@
 
 package com.toycode.pwmemo;
 
+/**
+ * Called when change master password.
+ * 
+ * @author Hiroshi Okada
+ *
+ */
 public class UpdateMasterPasswordActivity extends
         AbstractMasterPasswordActivity {
 

@@ -34,6 +34,7 @@ import android.database.sqlite.SQLiteDatabase;
  * Read database
  *
  * Must call cleanup() before delete.
+ * 
  * @author Hiroshi Okada
  */
 public final class DbRw {

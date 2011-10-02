@@ -31,6 +31,12 @@ import android.os.Bundle;
 import android.preference.PreferenceActivity;
 import android.preference.PreferenceManager;
 
+/**
+ * Main preference activity.
+ * 
+ * @author Hiroshi Okada
+ *
+ */
 public class PwMemoPreferenceActivity extends PreferenceActivity implements OnSharedPreferenceChangeListener {
 
 	@Override

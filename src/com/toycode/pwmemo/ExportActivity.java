@@ -43,6 +43,12 @@ import java.nio.ByteBuffer;
 import java.nio.channels.FileChannel;
 import java.util.List;
 
+/**
+ * The Activity for export data.
+ * 
+ * @author Hiroshi Okada
+ *
+ */
 public class ExportActivity extends Activity implements OnClickListener {
 
     public static final String OI_ACTION_PICK_FILE = "org.openintents.action.PICK_FILE";

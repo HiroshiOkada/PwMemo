@@ -32,6 +32,11 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ContextMenu.ContextMenuInfo;
 
+/**
+ * Application main view, display items list.
+ * 
+ * @author Hiroshi Okada
+ */
 public class MainListActivity extends MainListActivityBase {
     
     @Override

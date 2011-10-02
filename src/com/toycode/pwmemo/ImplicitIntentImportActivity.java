@@ -44,6 +44,8 @@ import java.nio.channels.ReadableByteChannel;
 
 /**
  * Class that handles when open a "*.pwmemo" file by implicit intents.
+ * 
+ * @author Hiroshi Okada
  */
 public class ImplicitIntentImportActivity extends Activity implements OnClickListener {
 
