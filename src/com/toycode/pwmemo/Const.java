@@ -28,7 +28,7 @@ package com.toycode.pwmemo;
  * 
  * @author Hiroshi Okada
  */
-public final class Const {
+final class Const {
 
     /**
      * Database filename and version

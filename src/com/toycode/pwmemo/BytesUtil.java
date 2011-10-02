@@ -30,7 +30,7 @@ import java.math.BigInteger;
  * 
  * @author Hiroshi Okada
  */
-public class BytesUtil {
+class BytesUtil {
 
     /**
      * Because this is a utility class, it doesn't make any instance.

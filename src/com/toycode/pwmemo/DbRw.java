@@ -37,7 +37,7 @@ import android.database.sqlite.SQLiteDatabase;
  * 
  * @author Hiroshi Okada
  */
-public final class DbRw {
+final class DbRw {
     /**
      * JSON indent spaces 
      */

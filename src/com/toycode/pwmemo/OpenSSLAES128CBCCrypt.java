@@ -40,7 +40,7 @@ import javax.crypto.spec.SecretKeySpec;
  * 
  * @author Hiroshi Okada
  */
-public class OpenSSLAES128CBCCrypt {
+class OpenSSLAES128CBCCrypt {
 
     public static OpenSSLAES128CBCCrypt INSTANCE = new OpenSSLAES128CBCCrypt();
 

@@ -27,7 +27,7 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
-public class PwMemoDbOpenHelper extends SQLiteOpenHelper {
+class PwMemoDbOpenHelper extends SQLiteOpenHelper {
 
     public PwMemoDbOpenHelper(Context context) {
         super(context, Const.DB.NAME, null, Const.DB.VERSION);

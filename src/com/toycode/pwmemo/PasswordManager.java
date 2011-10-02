@@ -37,7 +37,7 @@ import android.preference.PreferenceManager;
  *   
  * @author Hiroshi Okada
  */
-public class PasswordManager {
+class PasswordManager {
 
 	static final String PREF_KEY = "MAIN_CRYPTED";
 	static final int LENGTH = 16;
