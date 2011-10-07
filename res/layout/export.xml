@@ -29,6 +29,8 @@
 	  android:id="@+id/write_file_button" 
 	  android:layout_alignParentLeft="true"
 	  android:layout_below="@id/export_password_edittext"
+        android:textSize="24sp"
+        android:background="@drawable/button_bg"
 	  android:layout_height="wrap_content"
 	  android:layout_marginBottom="10dp"
 	  android:layout_width="fill_parent"
@@ -46,6 +48,8 @@
 	 android:id="@+id/export_button" 
 	 android:layout_below="@id/export_textview"
 	 android:layout_height="wrap_content"
+        android:textSize="24sp"
+        android:background="@drawable/button_bg"
 	 android:text="@string/export" 
 	 android:layout_width="fill_parent" android:layout_alignParentLeft="true"/>
 </RelativeLayout>

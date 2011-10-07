@@ -45,6 +45,8 @@
 	  android:layout_alignParentRight="true"
 	  android:layout_below="@id/filename_edittext"
 	  android:layout_height="wrap_content"
+        android:textSize="24sp"
+        android:background="@drawable/button_bg"
 	  android:layout_marginBottom="10dp"
 	  android:layout_width="wrap_content"
 	  android:text="@string/write_str" 
@@ -61,6 +63,8 @@
 	 android:id="@+id/export_button" 
 	 android:layout_below="@id/export_textview"
 	 android:layout_height="wrap_content"
+         android:textSize="24sp"
+        android:background="@drawable/button_bg"
 	 android:text="@string/export" 
 	 android:layout_width="fill_parent" android:layout_alignParentLeft="true"/>
 </RelativeLayout>

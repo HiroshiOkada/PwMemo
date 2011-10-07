@@ -78,6 +78,8 @@
 	  android:layout_below="@id/read_method_group"
 	  android:layout_height="wrap_content"
 	  android:layout_marginBottom="10dp"
+        android:textSize="24sp"
+        android:background="@drawable/button_bg"
 	  android:layout_width="wrap_content" android:text="@string/read"/>
 </RelativeLayout>
 </ScrollView>
