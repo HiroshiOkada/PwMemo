@@ -1,52 +1,54 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout 
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent">
-	<com.toycode.pwmemo.LockImageButton
-		android:clickable="true"
-		android:id="@+id/lock_image_button"
-		android:layout_marginBottom="10dp"
-		android:background="@drawable/lock_close"
-        android:layout_width="wrap_content" 
-        android:layout_height="wrap_content" 
-		android:layout_alignParentTop="true" />	
-   <Button
-        android:text="@string/exit" 
-        android:id="@+id/exit_button" 
-        android:layout_width="wrap_content" 
-        android:layout_height="wrap_content" 
-        android:textSize="24sp"
-        android:background="@drawable/button_bg"
- 		android:layout_alignParentRight="true"
- 		android:layout_alignBottom="@id/lock_image_button"
-  	    />
+<RelativeLayout
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  android:layout_height="fill_parent"
+  android:layout_width="fill_parent"
+  android:orientation="vertical">
+    <com.toycode.pwmemo.LockImageButton
+      android:background="@drawable/lock_close"
+      android:clickable="true"
+      android:id="@+id/lock_image_button"
+      android:layout_alignParentTop="true"
+      android:layout_height="wrap_content"
+      android:layout_marginBottom="10dp"
+      android:layout_width="wrap_content"
+    />
     <Button
-        android:text="@string/add" 
-        android:id="@+id/add_button" 
-        android:layout_width="wrap_content" 
-        android:layout_height="wrap_content" 
-        android:textSize="24sp"
-        android:background="@drawable/button_bg"
- 	    android:layout_toRightOf="@id/lock_image_button"
- 	    android:layout_toLeftOf="@id/exit_button"
- 		android:layout_alignBottom="@id/lock_image_button"
-         />
-     <FrameLayout
-        android:id="@+id/frame_layout"
-        android:layout_width="fill_parent"
-        android:layout_below="@id/lock_image_button"
-        android:layout_height="wrap_content">
+      android:background="@drawable/button_bg"
+      android:id="@+id/exit_button"
+      android:layout_alignBottom="@id/lock_image_button"
+      android:layout_alignParentRight="true"
+      android:layout_height="wrap_content"
+      android:layout_width="wrap_content"
+      android:text="@string/exit"
+      android:textSize="24sp"
+    />
+    <Button
+      android:background="@drawable/button_bg"
+      android:id="@+id/add_button"
+      android:layout_alignBottom="@id/lock_image_button"
+      android:layout_height="wrap_content"
+      android:layout_toLeftOf="@id/exit_button"
+      android:layout_toRightOf="@id/lock_image_button"
+      android:layout_width="wrap_content"
+      android:text="@string/add"
+      android:textSize="24sp"
+    />
+    <FrameLayout
+      android:id="@+id/frame_layout"
+      android:layout_below="@id/lock_image_button"
+      android:layout_height="wrap_content"
+      android:layout_width="fill_parent">
         <ListView
-            android:id="@android:id/list"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content" /> 
-            
-        <TextView  
-            android:id="@+id/EmptyTextView"
-            android:layout_width="fill_parent" 
-            android:layout_height="wrap_content" 
-            android:text="@string/empty" />
-    </FrameLayout>    
+          android:id="@android:id/list"
+          android:layout_height="wrap_content"
+          android:layout_width="fill_parent"
+        />
+        <TextView
+          android:id="@+id/EmptyTextView"
+          android:layout_height="wrap_content"
+          android:layout_width="fill_parent"
+          android:text="@string/empty"
+        />
+    </FrameLayout>
 </RelativeLayout>

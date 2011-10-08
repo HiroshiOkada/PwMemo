@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu
-  xmlns:android="http://schemas.android.com/apk/res/android">
-    <item 
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
       android:id="@+id/insert_userid_menu_item"
-      android:title="@string/insert_userid" 
-      android:visible="true"/>
-    <item 
+      android:title="@string/insert_userid"
+      android:visible="true"
+    />
+    <item
       android:id="@+id/insert_password_menu_item"
-      android:title="@string/insert_password" 
-      android:visible="true"/>
+      android:title="@string/insert_password"
+      android:visible="true"
+    />
 </menu>

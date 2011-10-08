@@ -1,29 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
-<PreferenceScreen
-  xmlns:android="http://schemas.android.com/apk/res/android">
-    <CheckBoxPreference 
-    	android:enabled="true"
-		android:title="@string/autolock"
-		android:summary="@string/autolock_summary"
-		android:key="@string/autolock_key"
-		/>
-	<ListPreference 
-		android:title="@string/autolock_timeout"
-		android:dialogTitle="@string/autolock_timeout"
-		android:key="@string/autolocktime_key" 
-		android:entries="@array/autolocktime_list"
-       android:dependency="autolock"
-       android:entryValues="@array/autolocktime_sec_list"
-       />
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <CheckBoxPreference
+      android:enabled="true"
+      android:key="@string/autolock_key"
+      android:summary="@string/autolock_summary"
+      android:title="@string/autolock"
+    />
+    <ListPreference
+      android:dependency="autolock"
+      android:dialogTitle="@string/autolock_timeout"
+      android:entries="@array/autolocktime_list"
+      android:entryValues="@array/autolocktime_sec_list"
+      android:key="@string/autolocktime_key"
+      android:title="@string/autolock_timeout"
+    />
     <com.toycode.pwmemo.ChangePasswordDialogPreference
-		android:summary="@string/change_password_summary" 
-		android:title="@string/change_password"
-		android:key="change"
-		android:dialogTitle="@string/old_password"/>
-	<com.toycode.pwmemo.DeleteAllDialogPreference 
-		android:title="@string/delete_all"
-		android:summary="@string/delete_all_summary"
-		android:key="delete"
-		android:dialogIcon="@android:drawable/ic_dialog_alert"
-	    />
+      android:dialogTitle="@string/old_password"
+      android:key="change"
+      android:summary="@string/change_password_summary"
+      android:title="@string/change_password"
+    />
+    <com.toycode.pwmemo.DeleteAllDialogPreference
+      android:dialogIcon="@android:drawable/ic_dialog_alert"
+      android:key="delete"
+      android:summary="@string/delete_all_summary"
+      android:title="@string/delete_all"
+    />
 </PreferenceScreen>
