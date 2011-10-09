@@ -56,12 +56,13 @@ public class EditActivity extends Activity implements OnClickListener, Observer,
     Long mId;
     Boolean mIsNewRow;
     App mApp;
+    boolean mDirty;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        App.debugLog(this, "onCreate(Bundle savedInstanceState)");
         mApp = App.GetApp(this);
+        mDirty = false;
         SQLiteDatabase db = (new PwMemoDbOpenHelper(this)).getReadableDatabase();
         if (db == null) {
             setResult(RESULT_CANCELED, new Intent());
@@ -134,6 +135,33 @@ public class EditActivity extends Activity implements OnClickListener, Observer,
         mDbRw.cleanup();
         mDbRw = null;
         super.onDestroy();
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (mDirty) {
+            new AlertDialog.Builder(this)
+                    .setTitle(getString(R.string.commit_change_q))
+                    .setPositiveButton(android.R.string.yes,
+                            new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int which) {
+                                    EditActivity.this.fieldToDb();
+                                    EditActivity.this.setResult(RESULT_OK, new Intent());
+                                    EditActivity.this.finish();
+                                }
+                            })
+                    .setNegativeButton(android.R.string.no,
+                            new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int which) {
+                                    EditActivity.this.setResult(RESULT_CANCELED, new Intent());
+                                    EditActivity.this.finish();
+                                }
+                            })
+                    .create().show();
+        } else {
+            setResult(RESULT_CANCELED, new Intent());
+            finish();
+        }
     }
 
     @Override
@@ -210,6 +238,7 @@ public class EditActivity extends Activity implements OnClickListener, Observer,
         mUserIdEdit.setText(data.getUserId());
         mPasswordEdit.setText(data.getPassword());
         mMemoEdit.setText(data.getMemo());
+        mDirty = false;
     }
 
     private void fieldToDb() {
@@ -231,7 +260,7 @@ public class EditActivity extends Activity implements OnClickListener, Observer,
 
     @Override
     public void afterTextChanged(Editable s) {
-        
+        mDirty = true;
     }
 
     @Override

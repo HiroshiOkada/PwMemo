@@ -20,6 +20,7 @@
     <string name="cannot_make_x">"%s" を作製できません。</string>
     <string name="change_password">パスワード変更</string>
     <string name="change_password_summary">マスターパスワード変更</string>
+    <string name="commit_change_q">変更を保存しますか?</string>
     <string name="confirmation">パスワードをもう一度入力</string>
     <string name="confirmation_password_does_not_match">パスワードが一致しません。</string>
     <string name="copy">コピー</string>

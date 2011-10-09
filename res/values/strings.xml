@@ -20,6 +20,7 @@
     <string name="cannot_make_x">Cannot make "%s".</string>
     <string name="change_password">Change Password</string>
     <string name="change_password_summary">Change master password</string>
+    <string name="commit_change_q">Commit change?</string>
     <string name="confirmation">Confirmation</string>
     <string name="confirmation_password_does_not_match">The confirmation password does not match.</string>
     <string name="copy">Copy</string>
