@@ -54,11 +54,13 @@ public class ImplicitIntentImportActivity extends Activity implements OnClickLis
     private ReadMethod mReadMethod = ReadMethod.MERGE;
     Uri mUri = null;
     private App mApp;
+    ProgressDialog mProgressDialog;
     
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mApp = App.GetApp(this);
+        mProgressDialog = null;
         setContentView(R.layout.implicit_intent_import);
         findViewById(R.id.import_button).setOnClickListener(this);
         findViewById(R.id.cancel_button).setOnClickListener(this);
@@ -67,7 +69,6 @@ public class ImplicitIntentImportActivity extends Activity implements OnClickLis
         if (Intent.ACTION_VIEW.equals(action)) {
             mUri = getIntent().getData();
             if (mUri == null) {
-                App.debugLog(this, "URI=null");
                 finish();
             }
         }
@@ -83,6 +84,15 @@ public class ImplicitIntentImportActivity extends Activity implements OnClickLis
     }
     
     @Override
+    protected void onStop() {
+        super.onStop();
+        if (mProgressDialog != null) {
+            mProgressDialog.dismiss();
+            mProgressDialog = null;
+        }
+    }
+
+    @Override
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.import_button:
@@ -92,11 +102,15 @@ public class ImplicitIntentImportActivity extends Activity implements OnClickLis
                 } else {
                     try{
                         final InputStream inputStream = getContentResolver().openInputStream(mUri);
-                        (new MasterPasswordInput(this) {
-                            public void onTureMasterPassword() {
-                                new ReadFileTask().execute(inputStream);
-                            }
-                        }).Ask();
+                        if (PasswordManager.getInstance(this).isMainPasswordDecrypted()) {
+                            new ReadFileTask().execute(inputStream);
+                        } else {
+                            (new MasterPasswordInput(this) {
+                                public void onTureMasterPassword() {
+                                    new ReadFileTask().execute(inputStream);
+                                }
+                            }).Ask();
+                        }
                     } catch (FileNotFoundException e) {
                         mApp.toastMessage(R.string.file_not_found);
                     }
@@ -109,7 +123,6 @@ public class ImplicitIntentImportActivity extends Activity implements OnClickLis
     }
 
     private class ReadFileTask extends AsyncTask<InputStream, Void, Boolean> {
-        ProgressDialog mProgressDialog;
         int mErrorMessageId = 0;
         private final int READ_SIZE = 1024;
         
@@ -187,7 +200,10 @@ public class ImplicitIntentImportActivity extends Activity implements OnClickLis
 
         @Override
         protected void onPostExecute(Boolean result) {
-            mProgressDialog.dismiss();
+            if (mProgressDialog != null){
+                mProgressDialog.dismiss();
+                mProgressDialog = null;
+            }
             if (result == true) {
                 mApp.toastMessage(R.string.import_ok);
             } else {

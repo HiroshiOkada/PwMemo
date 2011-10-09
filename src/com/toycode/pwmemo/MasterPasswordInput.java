@@ -32,7 +32,7 @@ import android.view.WindowManager;
 import android.widget.EditText;
 
 /**
- * Show Dailog and ask Master password.
+ * Show Dialog and ask Master password.
  * 
  * Uses: (inside Activity)
  * MasterPasswordInput mpi = new MasterPasswordInput (this) {
@@ -54,7 +54,7 @@ public abstract class MasterPasswordInput {
     }
 
     /**
-     * Show Dailog and ask Master password.
+     * Show Dialog and ask Master password.
      */
     public void Ask() {
         final EditText editText = new EditText(mActivity);
@@ -87,14 +87,13 @@ public abstract class MasterPasswordInput {
      * When user input password.
      */
     private void onPassword(String password) {
-
         PasswordManager passwordManager = PasswordManager.getInstance(mActivity);
         if (passwordManager.isMainPasswordExist()) {
             if (passwordManager.decryptMainPassword(password) == null) {
                 App.GetApp(mActivity).toastMessage(R.string.password_does_not_match);
                 return;
             } else {
-                onTureMasterPassword();
+                onTureMasterPassword();                    
             }
 
         } else {
