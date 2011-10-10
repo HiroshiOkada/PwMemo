@@ -69,7 +69,6 @@
         />
         <EditText
           android:id="@+id/password_edittext"
-          android:inputType="textNoSuggestions"
           android:layout_below="@id/password_textview"
           android:layout_height="wrap_content"
           android:layout_marginBottom="3dp"
