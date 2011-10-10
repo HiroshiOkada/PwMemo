@@ -30,9 +30,17 @@ import android.text.InputType;
 import android.text.TextUtils;
 import android.util.AttributeSet;
 
+/**
+ * Change password dialog 
+ * 
+ * @author Hiroshi Okada
+ */
 public class ChangePasswordDialogPreference extends EditTextPreference {
     private Context mContext = null;
 
+    /**
+     * Change EditText's stype to password, and Save context.
+     */
     public ChangePasswordDialogPreference(Context context, AttributeSet attrs,
             int defStyle) {
         super(context, attrs, defStyle);
@@ -42,6 +50,9 @@ public class ChangePasswordDialogPreference extends EditTextPreference {
         mContext = context;
     }
 
+    /**
+     * Change EditText's stype to password, and Save context.
+     */
     public ChangePasswordDialogPreference(Context context, AttributeSet attrs) {
         super(context, attrs);
         getEditText().setInputType(
@@ -51,12 +62,8 @@ public class ChangePasswordDialogPreference extends EditTextPreference {
     }
 
     public ChangePasswordDialogPreference(Context context) {
-        super(context);
-        getEditText().setInputType(
-                InputType.TYPE_CLASS_TEXT
-                        | InputType.TYPE_TEXT_VARIATION_PASSWORD);
-        mContext = context;
-    }
+                this(context, null);
+    }   
 
     /**
      * Decrypt the main password using the master password.
@@ -73,6 +80,10 @@ public class ChangePasswordDialogPreference extends EditTextPreference {
         return mainPasswd != null;
     }
 
+    /**
+     * When dialog closed, if password is password is decrypted 
+     * then start UpdateMasterPasswordActivity.
+     */
     @Override
     protected void onDialogClosed(boolean positiveResult) {
         if (positiveResult && (mContext != null)) {

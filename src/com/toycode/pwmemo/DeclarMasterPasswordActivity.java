@@ -25,6 +25,11 @@ package com.toycode.pwmemo;
 
 import android.content.Intent;
 
+/**
+ * The activity called when master password did not exist. 
+ *
+ * @author Hiroshi Okada
+ */
 public class DeclarMasterPasswordActivity extends
         AbstractMasterPasswordActivity {
 

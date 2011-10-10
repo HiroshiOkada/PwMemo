@@ -27,7 +27,12 @@ import android.os.AsyncTask;
 
 import java.util.Observable;
 
-public class TimeOutChecker extends Observable {
+/**
+ * Check timeout.
+ * 
+ * @author Hiroshi Okada
+ */
+class TimeOutChecker extends Observable {
 
     public final static long DEFAULT_TIMEOUT_SEC = 1800;
     private static TimeOutChecker sInstance = null;

@@ -38,9 +38,9 @@ import javax.crypto.spec.SecretKeySpec;
 /**
  * The cipher that compatible with OpenSSL "aes-128-cbc"
  * 
- * @author hiroshi
+ * @author Hiroshi Okada
  */
-public class OpenSSLAES128CBCCrypt {
+class OpenSSLAES128CBCCrypt {
 
     public static OpenSSLAES128CBCCrypt INSTANCE = new OpenSSLAES128CBCCrypt();
 

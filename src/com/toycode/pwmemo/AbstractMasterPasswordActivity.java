@@ -35,7 +35,7 @@ import android.widget.EditText;
 /**
  * The Activity that sets up a master password. 
  * 
- * @author hiroshi
+ * @author Hiroshi Okada
  */
 public abstract class AbstractMasterPasswordActivity extends Activity implements TextWatcher,
         OnClickListener {
@@ -53,7 +53,6 @@ public abstract class AbstractMasterPasswordActivity extends Activity implements
      * Called when OK Button Clicked.
      */
     protected abstract void onOkBtnClick();
-
 
     /**
      * Setup mApp and child views.
@@ -82,7 +81,7 @@ public abstract class AbstractMasterPasswordActivity extends Activity implements
     }
 
     /**
-     * Does not use. (implements TextWatcher)
+     * Do nothing. (implements TextWatcher) 
      */
     @Override
     public void beforeTextChanged(CharSequence s, int start, int count,
@@ -90,7 +89,7 @@ public abstract class AbstractMasterPasswordActivity extends Activity implements
     }
 
     /**
-     * Does not use. (implements TextWatcher)
+     * Do nothing. (implements TextWatcher) 
      */
     @Override
     public void onTextChanged(CharSequence s, int start, int before, int count) {
@@ -107,7 +106,7 @@ public abstract class AbstractMasterPasswordActivity extends Activity implements
     }
 
     /**
-     * Vaildate input.
+     * Validate input.
      * When short, or same length and contents are different is notifyed.
      * 
      * @return

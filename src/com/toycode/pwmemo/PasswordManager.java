@@ -31,11 +31,13 @@ import android.preference.PreferenceManager;
 
 /**
  * Master/Main password manager
- * Master Password: User input password.
- * Main Passowrd: Password that use for date encrypt.
+ * Master Password == User input password.
+ * Main Password == Password that use for date encrypt.
  *   Created from secure random number at the first time.
+ *   
+ * @author Hiroshi Okada
  */
-public class PasswordManager {
+class PasswordManager {
 
 	static final String PREF_KEY = "MAIN_CRYPTED";
 	static final int LENGTH = 16;

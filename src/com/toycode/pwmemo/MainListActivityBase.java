@@ -45,7 +45,7 @@ import java.util.Observer;
 /**
  * MainListActivityBase is a base class for main Activity that display items list.
  * 
- * @author hiroshi
+ * @author Hiroshi Okada
  */
 public abstract class MainListActivityBase extends ListActivity implements OnClickListener,
         OnItemClickListener, Observer {

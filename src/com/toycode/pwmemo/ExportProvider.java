@@ -32,6 +32,12 @@ import android.os.ParcelFileDescriptor;
 import java.io.File;
 import java.io.FileNotFoundException;
 
+/**
+ * The content data provider for export.
+ * 
+ * @author Hiroshi Okada
+ *
+ */
 public class ExportProvider extends ContentProvider {
 
     public static final Uri CONTENT_URI =

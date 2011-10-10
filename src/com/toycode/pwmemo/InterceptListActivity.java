@@ -33,6 +33,11 @@ import android.view.ContextMenu.ContextMenuInfo;
 import android.widget.AdapterView;
 import android.widget.SimpleCursorAdapter;
 
+/**
+ * The activity when called by The activity that is called by  the mushroom specification.
+ * 
+ * @author Hiroshi Okada
+ */
 public class InterceptListActivity extends MainListActivityBase {
     
     private static final String REPLACE_KEY = "replace_key";
