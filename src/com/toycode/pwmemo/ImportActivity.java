@@ -59,7 +59,6 @@ public class ImportActivity extends Activity implements OnClickListener {
     public static final String OI_BUTTON_TEXT_EXTRA = "org.openintents.extra.BUTTON_TEXT";
     public static final int REQUEST_FILENAME = 0;
 
-    private File mInputFile = null;
     private boolean mUseFileManeger;
     private EditText mPasswordEdittext;
     private EditText mFileNameEdittext;
@@ -196,8 +195,8 @@ public class ImportActivity extends Activity implements OnClickListener {
                 mErrorMessageId = e.GetMsgId();
                 return false;
             }
-            mInputFile = files[0];
 
+            mApp.setDefaultOutputFile(files[0]);
             DbRw dbrw = new DbRw(db, mainPasswod);
             switch (mReadMethod) {
                 case MERGE:
@@ -229,7 +228,7 @@ public class ImportActivity extends Activity implements OnClickListener {
  
     private void startReadFileManager() {
         Intent intent = new Intent(OI_ACTION_PICK_FILE);
-        intent.setData(Uri.fromFile(mInputFile));
+        intent.setData(Uri.fromFile(mApp.getDefaultInputFile()));
         intent.putExtra(OI_TITLE_EXTRA, getString(R.string.select_folder));
         intent.putExtra(OI_BUTTON_TEXT_EXTRA, getString(R.string.read));
         try {
