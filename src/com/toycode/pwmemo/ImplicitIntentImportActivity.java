@@ -71,6 +71,14 @@ public class ImplicitIntentImportActivity extends Activity implements OnClickLis
             if (mUri == null) {
                 finish();
             }
+        } else if(Intent.ACTION_SEND.equals(action)) {
+            mUri = getIntent().getParcelableExtra(Intent.EXTRA_STREAM);
+            if (mUri == null) {
+                finish();
+            }
+        } else {
+            // never come
+            finish();
         }
     }
 
