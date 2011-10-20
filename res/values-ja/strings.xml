@@ -4,6 +4,7 @@
     <string name="about_file">file:///android_asset/aboutj.html</string>
     <string name="add">追加</string>
     <string name="add_update">追加・更新</string>
+    <string name="additional_notes">メモ</string>
     <string name="all_data_deleted">データがすべて削除されました。</string>
     <string name="app_name">PWメモ</string>
     <string name="app_name_edit">PWメモ (編集/閲覧)</string>
@@ -57,7 +58,6 @@
     <string name="input_masterpassword">マスターパスワードを入力</string>
     <string name="locked_message">ロックされています。</string>
     <string name="master_password">マスターパスワード</string>
-    <string name="memo">メモ</string>
     <string name="merge">マージ(結合)</string>
     <string name="merge_info">タイトルとユーザーIDの両方が一致するデータは上書きされます。</string>
     <string name="new_master_password">新しいマスターパスワードを入力してください。</string>
