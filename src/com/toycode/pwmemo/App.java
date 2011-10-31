@@ -48,7 +48,7 @@ public final class App extends Application {
     /**
      * Debug flag
      */
-    static final public boolean DEBUG_FLAG = true;  
+    static final public boolean DEBUG_FLAG = false;  
     
     /**
      * Debug log header string
