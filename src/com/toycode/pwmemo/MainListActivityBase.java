@@ -52,17 +52,21 @@ public abstract class MainListActivityBase extends ListActivity implements OnCli
 
     int mSavedPosition = -1;
     protected LockImageButton mLockImageButton;
-    protected SQLiteDatabase mDb;
+    protected SQLiteDatabase mDb = null;
     protected App mApp;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        App.debugLog("MainListActivityBase::onCreate");
         mApp = App.GetApp(this);
         initPreference();
         setContentView(R.layout.list);        
         initButtons();
         initListView();
+        if (mDb != null && mDb.isOpen()){
+            mDb.close();
+        }
         mDb = (new PwMemoDbOpenHelper(this)).getWritableDatabase();
         updateAdapter();
         mSavedPosition = -1;
@@ -71,6 +75,10 @@ public abstract class MainListActivityBase extends ListActivity implements OnCli
     @Override
     protected void onResume() {
         super.onResume();
+        if (mDb == null || !mDb.isOpen()){
+            mDb = (new PwMemoDbOpenHelper(this)).getWritableDatabase();
+        }
+        App.debugLog("MainListActivityBase::onResume");
         if (TimeOutChecker.getInstance().isTimeOut()) {
             PasswordManager.getInstance(this).unDecrypt();
         }
@@ -93,6 +101,7 @@ public abstract class MainListActivityBase extends ListActivity implements OnCli
 
     @Override
     protected void onPause() {
+        App.debugLog("MainListActivityBase::onPause");
         mSavedPosition = getListView().getFirstVisiblePosition();
         TimeOutChecker.getInstance().deleteObserver(this);
         super.onPause();
@@ -114,6 +123,33 @@ public abstract class MainListActivityBase extends ListActivity implements OnCli
         }
     }
     
+    /* (non-Javadoc)
+     * @see android.app.Activity#onStart()
+     */
+    @Override
+    protected void onStart() {
+        super.onStart();
+        App.debugLog("MainListActivityBase::onStart");
+    }
+
+    /* (non-Javadoc)
+     * @see android.app.Activity#onStop()
+     */
+    @Override
+    protected void onStop() {
+        super.onStop();
+        App.debugLog("MainListActivityBase::onStop");
+    }
+
+    /* (non-Javadoc)
+     * @see android.app.Activity#onDestroy()
+     */
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        App.debugLog("MainListActivityBase::onDestroy");
+    }
+
     /**
      * called when item clicked 
      * update last user access time.
@@ -260,7 +296,9 @@ public abstract class MainListActivityBase extends ListActivity implements OnCli
             return null;
         }
         DbRw dbrw = new DbRw(mDb, mainPasswod);
-        return dbrw.getRecord(id);
+        DbRw.Data data = dbrw.getRecord(id);
+        dbrw.cleanup();
+        return data;
     }
 
     protected void initPreference() {
