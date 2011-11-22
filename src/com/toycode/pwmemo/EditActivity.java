@@ -132,8 +132,10 @@ public class EditActivity extends Activity implements OnClickListener, Observer,
     @Override
     public void onDestroy() {
         App.debugLog(this, "onDestroy");
-        mDbRw.cleanup();
-        mDbRw = null;
+        if (mDbRw != null) {
+            mDbRw.cleanup();
+            mDbRw = null;
+        }
         super.onDestroy();
     }
 
