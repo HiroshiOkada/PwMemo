@@ -33,6 +33,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import java.io.ByteArrayOutputStream;
 import java.io.FileNotFoundException;
@@ -52,6 +53,7 @@ public class ImplicitIntentImportActivity extends Activity implements OnClickLis
     private EditText mPasswordEdittext;
     enum ReadMethod { MERGE, INSERT };
     private ReadMethod mReadMethod = ReadMethod.MERGE;
+    private TextView mReadMethodInfoTextview;
     Uri mUri = null;
     private App mApp;
     ProgressDialog mProgressDialog;
@@ -65,6 +67,7 @@ public class ImplicitIntentImportActivity extends Activity implements OnClickLis
         findViewById(R.id.import_button).setOnClickListener(this);
         findViewById(R.id.cancel_button).setOnClickListener(this);
         mPasswordEdittext = (EditText)findViewById(R.id.import_password_edittext);
+        mReadMethodInfoTextview = (TextView)findViewById(R.id.read_method_info_textview);
         String action = getIntent().getAction();
         if (Intent.ACTION_VIEW.equals(action)) {
             mUri = getIntent().getData();
@@ -123,6 +126,14 @@ public class ImplicitIntentImportActivity extends Activity implements OnClickLis
                         mApp.toastMessage(R.string.file_not_found);
                     }
                 }
+                break;
+            case R.id.merge_radio:
+                mReadMethodInfoTextview.setText(R.string.merge_info);
+                mReadMethod = ReadMethod.MERGE;
+                break;
+            case R.id.insert_radio:
+                mReadMethodInfoTextview.setText(R.string.insert_info);
+                mReadMethod = ReadMethod.INSERT;
                 break;
             case R.id.cancel_button:
                 finish();
